@@ -9,6 +9,7 @@ use App\Services\Business\UserBusinessService;
 use App\Services\Business\JobPostingBusinessService;
 use App\Models\UserModel;
 use App\Models\CredentialsModel;
+use Illuminate\Contracts\View\View;
 
 class AccountController extends Controller
 {
@@ -21,7 +22,7 @@ class AccountController extends Controller
      *
      * @param
      *            newUser user to register
-     * @return login view page
+     * @return View login page
      */
     public function register(Request $request)
     {
@@ -51,7 +52,8 @@ class AccountController extends Controller
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page
-            return view("error");
+          //  return view("error");
+          return $e2->getMessage();
         }
     }
     
