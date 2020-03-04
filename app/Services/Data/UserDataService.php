@@ -38,7 +38,7 @@ class UserDataService implements UserDataInterface
             $bio = $user->getBio();
             $suspend = $user->getSuspend();
 
-            $stmt = $this->db->prepare("INSERT INTO credentials (email, password) VALUES (:email,:password)");
+            $stmt = $this->db->prepare("INSERT INTO CREDENTIALS (email, password) VALUES (:email,:password)");
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password);
             $stmt->execute();
@@ -143,7 +143,7 @@ class UserDataService implements UserDataInterface
         $attemptedLoginEmail = $user->getEmail();
         $attemptedPassword = $user->getPassword();
         // Select sql statement to look through database using user entered email and password
-        $stmt = $this->db->prepare("SELECT id, PASSWORD, EMAIL FROM credentials WHERE EMAIL = :email AND PASSWORD = :password LIMIT 1");
+        $stmt = $this->db->prepare("SELECT id, PASSWORD, EMAIL FROM CREDENTIALS WHERE EMAIL = :email AND PASSWORD = :password LIMIT 1");
         // variable to store sql statment and connection to database
         $stmt->bindParam(':email', $attemptedLoginEmail);
         $stmt->bindParam(':password', $attemptedPassword);
