@@ -38,19 +38,19 @@ class UserDataService implements UserDataInterface
             $bio = $user->getBio();
             $suspend = $user->getSuspend();
 
-            $stmt = $this->db->prepare("INSERT INTO credentials (email, password) VALUES (:email,:password)");
+            $stmt = $this->db->prepare("INSERT INTO CREDENTIALS (email, password) VALUES (:email,:password)");
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':password', $password);
             $stmt->execute();
 
             // if number of affected rows within the database is greater than 0, meaning user got successfully entered
             if ($stmt->rowCount() == 1) {
-
+                echo "here";
                 // create sql statement to insert user into database
                 $stmt = $this->db->prepare("INSERT INTO USERS (FIRSTNAME, LASTNAME, EMAIL, PASSWORD, ROLE, WEBSITE, COMPANY, PHONENUMBER, BIRTHDATE, GENDER, BIO, SUSPEND, USERS_ID) VALUES (:fn, :ln,:email,:password,:role,:website,:company,:phonenumber,:birthdate,:gender,:bio,:suspend,LAST_INSERT_ID())");
 
                 // if sql statement fails. display error message
-                if (! $stmt) {
+                if (!$stmt) {
                     echo "Something went wrong in the users binding process. sql error?";
                     exit();
                 }
@@ -143,7 +143,7 @@ class UserDataService implements UserDataInterface
         $attemptedLoginEmail = $user->getEmail();
         $attemptedPassword = $user->getPassword();
         // Select sql statement to look through database using user entered email and password
-        $stmt = $this->db->prepare("SELECT id, PASSWORD, EMAIL FROM credentials WHERE EMAIL = :email AND PASSWORD = :password LIMIT 1");
+        $stmt = $this->db->prepare("SELECT id, PASSWORD, EMAIL FROM CREDENTIALS WHERE EMAIL = :email AND PASSWORD = :password LIMIT 1");
         // variable to store sql statment and connection to database
         $stmt->bindParam(':email', $attemptedLoginEmail);
         $stmt->bindParam(':password', $attemptedPassword);

@@ -3,12 +3,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\ValidationException;
 use Exception;
 use App\Services\Business\UserBusinessService;
 use App\Services\Business\JobPostingBusinessService;
 use App\Models\UserModel;
 use App\Models\CredentialsModel;
+use Illuminate\Contracts\View\View;
 
 class AccountController extends Controller
 {
@@ -21,7 +23,7 @@ class AccountController extends Controller
      *
      * @param
      *            newUser user to register
-     * @return login view page
+     * @return View login page
      */
     public function register(Request $request)
     {
@@ -51,7 +53,8 @@ class AccountController extends Controller
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page
-            return view("error");
+          //  return view("error");
+          return $e2->getMessage();
         }
     }
     
@@ -60,7 +63,7 @@ class AccountController extends Controller
      * Calls the business service to findById
      * If successful, return the home page
      *
-     * @return home view page
+     * @return View home page
      */
     public function showHome()
     {
@@ -101,7 +104,7 @@ class AccountController extends Controller
      *
      * @param
      *            attemptedLogin user to log in with
-     * @return home view page with user data
+     * @return View home page with user data
      */
     public function login(Request $request)
     {

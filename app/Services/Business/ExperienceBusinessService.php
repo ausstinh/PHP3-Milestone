@@ -10,12 +10,13 @@ class ExperienceBusinessService implements ExperienceBusinessInterface
 {
     public function insert($experience)
     {
-        $servername = DatabaseModel::$servername;
-        $username = DatabaseModel::$username;
-        $password = DatabaseModel::$password;
-        $dbname = DatabaseModel::$dbname;
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
         
-        $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $db = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $dbService = new ExperienceDataService($db);
@@ -27,12 +28,13 @@ class ExperienceBusinessService implements ExperienceBusinessInterface
 
     public function retrieve($id)
     {
-        $servername = DatabaseModel::$servername;
-        $username = DatabaseModel::$username;
-        $password = DatabaseModel::$password;
-        $dbname = DatabaseModel::$dbname;
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
         
-        $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $db = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $dbService = new ExperienceDataService($db);
@@ -44,12 +46,13 @@ class ExperienceBusinessService implements ExperienceBusinessInterface
 
     public function retrieveAll($users_id)
     {
-        $servername = DatabaseModel::$servername;
-        $username = DatabaseModel::$username;
-        $password = DatabaseModel::$password;
-        $dbname = DatabaseModel::$dbname;
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
         
-        $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $db = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $dbService = new ExperienceDataService($db);
@@ -61,12 +64,13 @@ class ExperienceBusinessService implements ExperienceBusinessInterface
 
     public function refurbish($experience)
     {
-        $servername = DatabaseModel::$servername;
-        $username = DatabaseModel::$username;
-        $password = DatabaseModel::$password;
-        $dbname = DatabaseModel::$dbname;
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
         
-        $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $db = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $dbService = new ExperienceDataService($db);
@@ -78,12 +82,13 @@ class ExperienceBusinessService implements ExperienceBusinessInterface
 
     public function terminate($id)
     {
-        $servername = DatabaseModel::$servername;
-        $username = DatabaseModel::$username;
-        $password = DatabaseModel::$password;
-        $dbname = DatabaseModel::$dbname;
+        $servername = config("database.connections.mysql.host");
+        $port = config("database.connections.mysql.port");
+        $username = config("database.connections.mysql.username");
+        $password = config("database.connections.mysql.password");
+        $dbname = config("database.connections.mysql.database");
         
-        $db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        $db = new PDO("mysql:host=$servername;port=$port;dbname=$dbname", $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $dbService = new ExperienceDataService($db);

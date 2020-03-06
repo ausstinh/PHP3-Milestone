@@ -138,7 +138,8 @@
                                                 <p>No Bio Yet!</p>
                                             </div>
                                             @endif
-                                    </div>                                      
+                                    </div>
+                                      <a class="btn btn-primary bold" href="{{ route('readGroup') }}">Affinity Groups</a>                                      
                             </div>
                         </div>
                     </div>

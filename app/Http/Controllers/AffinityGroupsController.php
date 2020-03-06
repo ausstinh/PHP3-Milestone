@@ -7,36 +7,38 @@ use Illuminate\Support\Facades\Redirect;
 use Exception;
 use App\Services\Business\JobPostingBusinessService;
 use App\Models\JobPostingModel;
+use App\Services\Business\AffinityGroupBusinessService;
+use App\Models\GroupModel;
 
 
-class JobPostingController extends Controller
+class AffinityGroupsController extends Controller
 {
 
     /**
-     * Takes in a job ID
+     * Takes in a group ID
      * Calls the business service to read
      * If successful, return job table page If not, return the home form
      *
      * @param
-     *            Job Id
-     * @return View job update page with job data
+     *            Group Id
+     * @return View group update view page with group data
      */
     public function retrieve($id)
     {
         try {
             // create new instance of userBusinessService
-        $jobBS = new JobPostingBusinessService();
+            $groupBS = new AffinityGroupBusinessService();
            
             // attempt to findById user
-            $job = $jobBS->retrieve($id);
+            $group = $groupBS->retrieve($id);
             // if statement using read method from business service class passing job ID
-            if ($job) {
+            if ($group) {
               
                 // if job is successfully found, return view displaying job update table
                 $data = [
-                    'job' => $job,      
+                    'group' => $group,      
                 ];
-                return view("jobs.jobUpdate")->with($data);
+                return view("groups.groupUpdate")->with($data);
             } else {
                 return view("home");
             }
@@ -47,47 +49,45 @@ class JobPostingController extends Controller
     }
 
     /**
-     * Takes in a request for job information
-     * Calls the business service to update job
-     * If successful, return to job table, return the home form
+     * Takes in a request for group information
+     * Calls the business service to update group
+     * If successful, return to group table, return the home form
      *
      * @param
-     *           Job information to edit
-     * @return View job table page with job data
+     *           Group information to edit
+     * @return View groups table view page with group data
      */
     public function refurbish(Request $request)
     {
-   try 
-     {
+      try 
+      {
         // update job entered information
         $id = $request->input('id');
         $n = $request->input('name');
         $desc = $request->input('description');
-        $salary = $request->input('salary');
-        $location = $request->input('location');
-       $ci = $request->input('company_id');
+  
         
         // create new instance of JobPostingBusinessService
-        $jobBS = new JobPostingBusinessService();
+       $groupBS = new AffinityGroupBusinessService();
         
         
         // create new user using new variables
-        $jobEdit = new JobPostingModel($id, $n, $desc, $salary, $location, $ci);
+        $groupEdit = new GroupModel($id, $n, $desc);
         
         // call update method using service passing new Job
-         $job = $jobBS->refurbish($jobEdit);
+        $job = $groupBS->refurbish($groupEdit);
         
         //if statement checking if update returns true
         if($job)
         {
-            // attempt to readAll jobs
-            $jobs = $jobBS->retrieveAll();
-            // store jobs information into variable
-            // display jobs table page
+            // attempt to readAll groups
+            $groups = $groupBS->retrieveAll();
+            // store groups information into variable
+            // display groups table page
             $data = [
-                'model' => $jobs
+                'model' => $groups
             ];
-            return view("jobs.jobTable")->with($data);
+            return view("groups.groupTable")->with($data);
             
         }
         else {
@@ -101,13 +101,13 @@ class JobPostingController extends Controller
     
    
     /**
-     * Takes in a job id
+     * Takes in a group id
      * Calls the business service to create
-     * If successful, return job table view page
+     * If successful, return groups table view page
      *
      * @param
-     *            Job information to create
-     * @return View jobs table page with job data
+     *            Group information to create
+     * @return View groups table page with job data
      */
   
 
@@ -118,29 +118,28 @@ class JobPostingController extends Controller
            // new user entered information
            $n = $request->input('name');
            $desc = $request->input('description');
-           $salary = $request->input('salary');
-           $location = $request->input('location');
+          
            
            
            // create new instance of JobPostingBusinessService
-           $jobBS = new JobPostingBusinessService();
+           $groupBS = new AffinityGroupBusinessService();
            
            
            // create new job using new variables
-           $jobEdit = new JobPostingModel(null, $n, $desc, $salary, $location, null);
-           $job = $jobBS->insert($jobEdit);
+           $groupEdit = new GroupModel(null, $n, $desc);
+           $group = $groupBS->insert($groupEdit);
        
            //if statement checking if create returns true
-           if($job)
+           if($group)
            {
-               // attempt to readAll jobs
-               $jobs = $jobBS->retrieveAll();
-               // store jobs information into variable
-               // display jobs table page
+               // attempt to readAll groups
+               $groups = $groupBS->retrieveAll();
+               // store groups information into variable
+               // display groups table page
                $data = [
-                   'model' => $jobs
+                   'model' => $groups
                ];
-               return view("jobs.jobTable")->with($data);
+               return view("groups.groupTable")->with($data);
          }
        else {
            return view("home");
@@ -152,13 +151,13 @@ class JobPostingController extends Controller
   }
  
   /**
-   * Takes in a job id
+   * Takes in a group id
    * Calls the business service to delete
-   * If successful, return job table view page
+   * If successful, return groups table view page
    *
    * @param
-   *            Job id to delete
-   * @return View jobs table page with job data
+   *            Group id to delete
+   * @return View groups table view page with grpu[ data
    */
  
   public function terminate($id)
@@ -166,21 +165,21 @@ class JobPostingController extends Controller
       try
       {
       //new instance of business service
-      $jobBS = new JobPostingBusinessService();
+          $groupBS = new AffinityGroupBusinessService();
       //call delete method passing in job id and storing result into new variable
-      $job = $jobBS->terminate($id);
+          $group = $groupBS->terminate($id);
    
       //if statement checking if delete returns true
-      if($job)
+          if($group)
       {
-          // attempt to readAll jobs
-          $jobs = $jobBS->retrieveAll();
-          // store jobs information into variable
-          // display jobs table page
+          // attempt to readAll groups
+          $groups = $groupBS->retrieveAll();
+          // store groups information into variable
+          // display groups table page
           $data = [
-              'model' => $jobs
+              'model' => $groups
           ];
-          return view("jobs.jobTable")->with($data);
+          return view("groups.groupTable")->with($data);
       }
       else {
           return view("home");
@@ -197,23 +196,23 @@ class JobPostingController extends Controller
    * Calls the business service to read all
    * If successful, return user job table page
    * 
-   * @return View jobs table page with job data
+   * @return View groups table view page with gropu data
    */
   public function retrieveAll(Request $request)
   {
        try
        {
       // create new instance of JobPostingBusinessService
-      $jobBS = new JobPostingBusinessService();
+           $groupBS = new AffinityGroupBusinessService();
       
-      // attempt to readAll jobs
-      $jobs = $jobBS->retrieveAll();
-      // store jobs information into variable
-      // display jobs table page
+      // attempt to readAll groups
+      $groups = $groupBS->retrieveAll();
+      // store groups information into variable
+      // display groups table page
       $data = [
-          'model' => $jobs
+          'model' => $groups
       ];
-      return view("jobs.jobTable")->with($data);
+      return view("groups.groupTable")->with($data);
   }
        catch (Exception $e2) {
   // display our Global Exception Handler page

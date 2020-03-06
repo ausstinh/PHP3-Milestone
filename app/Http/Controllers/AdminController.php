@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Exception;
@@ -16,7 +17,7 @@ class AdminController extends Controller
      * If not, return the home page
      *
      * @param Request
-     * @return AdminControl view page
+     * @return View AdminControl page
      */
     public function retrieveAll(Request $request)
     {

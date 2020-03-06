@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Exception;
@@ -24,7 +25,7 @@ class ProfileController extends Controller
      *
      * @param
      *           User users_Id
-     * @return profile view page with user data
+     * @return View profile page with user data
      */
     public function readProfile($users_id)
     {
@@ -58,7 +59,7 @@ class ProfileController extends Controller
      *
      * @param
      *            User information to update
-     * @return profile view page with user data
+     * @return View profile page with user data
      */
     public function updateProfile(Request $request)
     {
@@ -110,7 +111,7 @@ class ProfileController extends Controller
      *
      * @param
      *           Experience information to update
-     * @return experience view page with experience data
+     * @return View experience page with experience data
      */
     public function updateExperience(Request $request)
     {
@@ -160,7 +161,7 @@ class ProfileController extends Controller
      *
      * @param
      *           Educaton information to update
-     * @return education view page with user data
+     * @return View education page with user data
      */
     public function updateEducation(Request $request)
     {
@@ -202,7 +203,7 @@ class ProfileController extends Controller
      *
      * @param
      *           Skill information to update
-     * @return skill view page with user data
+     * @return View skill page with user data
      */
     public function updateSkill(Request $request)
     {
@@ -241,7 +242,7 @@ class ProfileController extends Controller
      *
      * @param
      *            user Id
-     * @return profileEdit view page with user data
+     * @return View profileEdit page with user data
      */
     public function readEdit($users_id)
     {
@@ -273,7 +274,7 @@ class ProfileController extends Controller
      *
      * @param
      *            Education information to create
-     * @return education view page with user data
+     * @return View education page with user data
      */
     public function createEducation(Request $request)
     {
@@ -312,7 +313,7 @@ class ProfileController extends Controller
      *
      * @param
      *           Skill information to create
-     * @return skill view page with user data
+     * @return View skill page with user data
      */
     public function createSkill(Request $request)
     {
@@ -352,7 +353,7 @@ class ProfileController extends Controller
      *
      * @param
      *            Experience information to create
-     * @return experience view page with user data
+     * @return View experience page with user data
      */
     public function createExperience(Request $request)
     {
@@ -397,7 +398,7 @@ class ProfileController extends Controller
      *
      * @param
      *            user Id
-     * @return skill view page with user data
+     * @return View skill page with user data
      */
     public function readSkill(Request $request)
     {
@@ -428,7 +429,7 @@ class ProfileController extends Controller
      *
      * @param
      *            user Id
-     * @return experience view page with user data
+     * @return View experience page with user data
      */
     public function readExperience(Request $request)
     {
@@ -460,7 +461,7 @@ class ProfileController extends Controller
      *
      * @param
      *            user Id
-     * @return education view page with user data
+     * @return View education page with user data
      */
     public function readEducation(Request $request)
     {
@@ -491,7 +492,7 @@ class ProfileController extends Controller
      *
      * @param
      *            user Id
-     * @return education view page with user data
+     * @return View education page with user data
      */
     public function deleteEducation($id)
     {
@@ -526,7 +527,7 @@ class ProfileController extends Controller
      *
      * @param
      *            user Id
-     * @return experience view page with user data
+     * @return View experience page with user data
      */
     public function deleteExperience($id)
     {
@@ -562,7 +563,7 @@ class ProfileController extends Controller
      *
      * @param
      *            user Id
-     * @return skill view page with user data
+     * @return View skill page with user data
      */
     public function deleteSkill($id)
     {
@@ -597,7 +598,7 @@ class ProfileController extends Controller
      *
      * @param
      *            user Id
-     * @return educationUpdate view page with user data
+     * @return View educationUpdate page with user data
      */
     public function readEducationEdit($id)
     {
@@ -627,7 +628,7 @@ class ProfileController extends Controller
      *
      * @param
      *            user Id
-     * @return experienceUpdate view page with user data
+     * @return View experienceUpdate page with user data
      */
     public function readExperienceEdit($id)
     {
@@ -657,7 +658,7 @@ class ProfileController extends Controller
      *
      * @param
      *            user Id
-     * @return skillUpdate view page with user data
+     * @return View skillUpdate page with user data
      */
     public function readSkillEdit($id)
     {

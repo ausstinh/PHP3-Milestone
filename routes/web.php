@@ -51,6 +51,7 @@ Route::get('/readEducation',[ "uses" => 'ProfileController@readEducation', "as" 
 Route::get('/readExperience',[ "uses" => 'ProfileController@readExperience', "as" => 'readExperience']);
 Route::get('/readSkill',[ "uses" => 'ProfileController@readSkill', "as" => 'readSkill']);
 
+
 Route::get('/EducationEdit/{id}',[ "uses" => 'ProfileController@readEducationEdit', "as" => 'readEducationEdit']);
 Route::get('/ExperienceEdit/{id}',[ "uses" => 'ProfileController@readExperienceEdit', "as" => 'readExperienceEdit']);
 Route::get('/SkillEdit/{id}',[ "uses" => 'ProfileController@readSkillEdit', "as" => 'readSkillEdit']);
@@ -72,6 +73,12 @@ Route::get('/jobEdit/{id}',[ "uses" => 'JobPostingController@retrieve', "as" => 
 Route::post('/createJob',[ "uses" => 'JobPostingController@insert', "as" => 'createJob']);
 Route::post('/updateJob',[ "uses" => 'JobPostingController@reburish', "as" => 'updateJob']);
 Route::get('/deleteJob/{id}',[ "uses" => 'JobPostingController@terminate']);
+
+Route::get('/readGroups',[ "uses" => 'AffinityGroupsController@retrieveAll', "as" => 'readGroups']);
+Route::get('/GroupEdit/{id}',[ "uses" => 'AffinityGroupsController@retrieve', "as" => 'readGroupEdit']);
+Route::post('/createGroup',[ "uses" => 'AffinityGroupsController@insert', "as" => 'createGroup']);
+Route::post('/updateGroup',[ "uses" => 'AffinityGroupsController@reburish', "as" => 'updateGroup']);
+Route::get('/deleteGroup/{id}',[ "uses" => 'AffinityGroupsController@terminate']);
 
 Route::get('image/{filename}', 'ImageController@displayImage')->name('displayImage');
 
