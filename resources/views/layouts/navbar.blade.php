@@ -49,6 +49,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile', Session::get('users_id')) }}">Profile</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('viewGroups')}}">Affinity Groups</a>
+                </li>
                 <!-- If role of user is 1 or 2, grant admin control  -->
                 @if( session()->get('role')  == 1)
                 <!-- Register page -->

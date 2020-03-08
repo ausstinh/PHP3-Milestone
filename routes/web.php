@@ -35,6 +35,9 @@ Route::get('/createJob', function(){
     return view('jobs.jobCreate');
 })->name('jobCreate');
 
+Route::get('/createGroup', function(){
+    return view('groups.groupCreate');
+})->name('groupCreate');
 Route::get('/createSkill', function(){
     return view('skills.skillCreate');
 })->name('skillCreate');
@@ -74,11 +77,16 @@ Route::post('/createJob',[ "uses" => 'JobPostingController@insert', "as" => 'cre
 Route::post('/updateJob',[ "uses" => 'JobPostingController@reburish', "as" => 'updateJob']);
 Route::get('/deleteJob/{id}',[ "uses" => 'JobPostingController@terminate']);
 
-Route::get('/readGroups',[ "uses" => 'AffinityGroupsController@retrieveAll', "as" => 'readGroups']);
-Route::get('/GroupEdit/{id}',[ "uses" => 'AffinityGroupsController@retrieve', "as" => 'readGroupEdit']);
+Route::get('/viewGroups',[ "uses" => 'AffinityGroupsController@retrieveAll', "as" => 'viewGroups']);
+Route::get('/readGroup/{id}',[ "uses" => 'AffinityGroupsController@retrieve', "as" => 'readGroup']);
+Route::get('/GroupEdit/{id}',[ "uses" => 'AffinityGroupsController@retrieveEdit', "as" => 'readGroupEdit']);
 Route::post('/createGroup',[ "uses" => 'AffinityGroupsController@insert', "as" => 'createGroup']);
-Route::post('/updateGroup',[ "uses" => 'AffinityGroupsController@reburish', "as" => 'updateGroup']);
+Route::post('/updateGroup',[ "uses" => 'AffinityGroupsController@refurbish', "as" => 'updateGroup']);
 Route::get('/deleteGroup/{id}',[ "uses" => 'AffinityGroupsController@terminate']);
+Route::get('/joinGroup/{id}',[ "uses" => 'AffinityGroupsController@joinGroup', "as" => 'joinGroup']);
+Route::get('/leaveGroup/{id}',[ "uses" => 'AffinityGroupsController@leaveGroup', "as" => 'leaveGroup']);
+
+Route::get('/terminate/{id}','AffinityGroupsController@removeUser');
 
 Route::get('image/{filename}', 'ImageController@displayImage')->name('displayImage');
 

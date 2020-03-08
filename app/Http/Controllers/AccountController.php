@@ -129,10 +129,11 @@ class AccountController extends Controller
                     ]);
                     return view("suspended");
                 }
+
                 //create session variables
                 session(['users_id' => $user->getUsers_id()]);
                 session(['role' => $user->getRole() ]);
-                session([ 'user' => $user]);
+                session([ 'username' => $user->getFirstName() . " " . $user->getLastName()]);
             
                 // create new instance of JobPostingBusinessService
                 $jobBS = new JobPostingBusinessService();

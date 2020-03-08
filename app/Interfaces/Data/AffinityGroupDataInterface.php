@@ -1,24 +1,43 @@
 <?php
 namespace App\Interfaces\Data;
 interface AffinityGroupDataInterface {
-
-    public function create($group);
     /**
-     * Takes in a user ID
-     * Delete user from the database
-     * @param $userid
+     * Takes in a group and userGroup model
+     * create group into the database
+     * @param $group, $userGroup
      * @return true or false for delete
      */
+    public function create($group, $userGroup);
+    
+    /**
+     * Takes in a group model
+     * update group from the database
+     * @param $group
+     * @return Model group
+     */
     public function update($group);
+    
     /**.
-     * Takes in a user
-     * Updates user from the database
-     * @param $user
-     * @return $user updated information
+     * read all groups from the database
+     * @return array of groups
      */
     public function readall();
-   
+    
+    /**
+     * Takes in a group ID
+     * Delete group from the database
+     * @param $id
+     * @return true or false for delete
+     */
     public function delete($id);
     
+    /**
+     * Takes in a group ID
+     * Read group from the database
+     * @param $id
+     * @return Model group
+     */
     public function read($id);
+    
+
 }

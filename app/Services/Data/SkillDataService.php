@@ -3,6 +3,7 @@ namespace App\Services\Data;
 
 use App\Interfaces\Data\ProfileDataInterface;
 use App\Models\SkillsModel;
+use Exception;
 use PDO;
 
 class SkillDataService implements ProfileDataInterface
@@ -18,6 +19,7 @@ class SkillDataService implements ProfileDataInterface
 
     public function create($skill)
     {
+        try{
         $rating = $skill->getRating();
         $desc = $skill->getDescription();
   
@@ -37,12 +39,17 @@ class SkillDataService implements ProfileDataInterface
         else {
             return false;
         }
+        } catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
     /*
      * @see UserBusinessService findById
      */
     public function read($id)
     {
+        try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM SKILLS WHERE id = :id");
         // variable to store sql statment and connection to database
@@ -57,8 +64,12 @@ class SkillDataService implements ProfileDataInterface
           
             $profileInfo = new SkillsModel($id, $row['DESCRIPTION'], $row['RATING'], $row['USERS_ID']);
         }
-        // return user
+        // return skill
         return $profileInfo;
+        }catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
     
 
@@ -68,6 +79,7 @@ class SkillDataService implements ProfileDataInterface
      */
     public function update($skill)
     {
+        try{
         // variables to retrieve new information from $user
         $id = $skill->getId();
         $DescEdit = $skill->getDescription();
@@ -90,12 +102,17 @@ class SkillDataService implements ProfileDataInterface
         else {
             return null;
         }
-        // return user
+        // return skill
         return $skillInfo;
+        }catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
         
     }
     public function delete($id)
     {
+        try{
         // Delete statement where user ID is ID passed in
         $stmt = $this->db->prepare("DELETE FROM `SKILLS` WHERE `SKILLS`.`id` = :id");
         $stmt->bindParam(':id', $id);
@@ -108,10 +125,15 @@ class SkillDataService implements ProfileDataInterface
             // if result vaiable doesn't find user with entered credentials
             else
                 return false;
+        } catch (Exception $e2) {
+                    // display our Global Exception Handler page
+                    return view("error");
+                }
     }
     
     public function readall($users_id)
     {
+        try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM SKILLS WHERE USERS_ID = :users_id");
         // variable to store sql statment and connection to database
@@ -128,6 +150,10 @@ class SkillDataService implements ProfileDataInterface
             array_push($education_array, $profileInfo);
         }
         return $education_array;
+        } catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
 
 

@@ -3,6 +3,7 @@ namespace App\Services\Data;
 
 use App\Interfaces\Data\UserDataInterface;
 use App\Models\UserModel;
+use Exception;
 use PDO;
 session_start();
 
@@ -22,6 +23,7 @@ class UserDataService implements UserDataInterface
      */
     public function create($user)
     {
+        try{
         if (!$this->read($user)) {
 
             // create varibales to retrieve properties of user
@@ -45,7 +47,7 @@ class UserDataService implements UserDataInterface
 
             // if number of affected rows within the database is greater than 0, meaning user got successfully entered
             if ($stmt->rowCount() == 1) {
-                echo "here";
+                
                 // create sql statement to insert user into database
                 $stmt = $this->db->prepare("INSERT INTO USERS (FIRSTNAME, LASTNAME, EMAIL, PASSWORD, ROLE, WEBSITE, COMPANY, PHONENUMBER, BIRTHDATE, GENDER, BIO, SUSPEND, USERS_ID) VALUES (:fn, :ln,:email,:password,:role,:website,:company,:phonenumber,:birthdate,:gender,:bio,:suspend,LAST_INSERT_ID())");
 
@@ -82,6 +84,10 @@ class UserDataService implements UserDataInterface
             else
                 return false;
         }
+        }  catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
 
     /*
@@ -89,6 +95,7 @@ class UserDataService implements UserDataInterface
      */
     public function authenticateUser($user)
     {
+        try{
         // variables to retrieve email and password from $user
         $attemptedLoginEmail = $user->getEmail();
         $attemptedPassword = $user->getPassword();
@@ -110,6 +117,10 @@ class UserDataService implements UserDataInterface
         }
         // return user
         return $p;
+        }catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
 
     /*
@@ -117,6 +128,7 @@ class UserDataService implements UserDataInterface
      */
     public function findbyId($users_id)
     {
+        try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM USERS WHERE USERS_ID = :users_id LIMIT 1");
         // variable to store sql statment and connection to database
@@ -132,6 +144,10 @@ class UserDataService implements UserDataInterface
         }
         // return user
         return $p;
+        }catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
 
     /*
@@ -139,6 +155,7 @@ class UserDataService implements UserDataInterface
      */
     public function read($user)
     {
+        try{
         // variables to retrieve email and password from $user
         $attemptedLoginEmail = $user->getEmail();
         $attemptedPassword = $user->getPassword();
@@ -155,6 +172,10 @@ class UserDataService implements UserDataInterface
             // return false
             return false;
         }
+        }catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
 
     /*
@@ -162,7 +183,7 @@ class UserDataService implements UserDataInterface
      */
     public function delete($users_id)
     {
-
+        try{
         // Delete statement where user ID is ID passed in
         $stmt = $this->db->prepare("DELETE FROM `USERS` WHERE `USERS`.`id` = :users_id");
         $stmt->bindParam(':users_id', $users_id);
@@ -175,6 +196,10 @@ class UserDataService implements UserDataInterface
         // if result vaiable doesn't find user with entered credentials
         else
             return false;
+        } catch (Exception $e2) {
+                // display our Global Exception Handler page
+                return view("error");
+            }
     }
 
     /*
@@ -182,6 +207,7 @@ class UserDataService implements UserDataInterface
      */
     public function update($user)
     {
+        try{
         // variables to retrieve new information from $user
         $users_id = $user->getUsers_id();
         $emailEdit = $user->getEmail();
@@ -222,6 +248,10 @@ class UserDataService implements UserDataInterface
         }
         // return user
         return $p;
+        } catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
 
     /*
@@ -229,7 +259,7 @@ class UserDataService implements UserDataInterface
      */
     public function readAll()
     {
-
+        try{
         // select statement for all information in users
         $stmt = $this->db->prepare("SELECT * FROM USERS");
 
@@ -246,6 +276,10 @@ class UserDataService implements UserDataInterface
         }
         // return user array
         return $user_array;
+        }catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
 
 

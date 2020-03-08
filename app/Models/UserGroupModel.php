@@ -6,8 +6,25 @@ class UserGroupModel
     private $id;
     private $users_id;
     private $groups_id;
+    private $username;
     private $role;
     
+    /**
+     * @return mixed
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
     /**
      * @return mixed
      */
@@ -32,14 +49,7 @@ class UserGroupModel
         return $this->groups_id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
+  
     /**
      * @param mixed $id
      */
@@ -63,7 +73,13 @@ class UserGroupModel
     {
         $this->groups_id = $groups_id;
     }
-
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
     /**
      * @param mixed $role
      */
@@ -71,13 +87,15 @@ class UserGroupModel
     {
         $this->role = $role;
     }
-
-    public function __construct($id, $users_id, $groups_id, $role)
+    
+    
+    public function __construct($id, $username, $role, $users_id, $groups_id)
     {
         $this->id = $id;
+        $this->username = $username;
+        $this->role = $role;
         $this->users_id = $users_id;
         $this->groups_id = $groups_id;
-        $this->role = $role;
     }
     
     

@@ -106,7 +106,7 @@ class AdminController extends Controller
      */
         public function toggleSuspend($users_id)
         {
-           // try{
+            try{
             //new instance of business service
             $userBS = new UserBusinessService();
              $user = $userBS->findById($users_id);
@@ -149,11 +149,11 @@ class AdminController extends Controller
                 return view("home")->with($data);
             }
             }
-        //    catch (Exception $e2) {
+            catch (Exception $e2) {
                 // display our Global Exception Handler page
-        //        return view("error");
-        //    }
-    //     }
+                return view("error");
+           }
+        }
             
         
     

@@ -3,6 +3,7 @@ namespace App\Services\Data;
 
 use App\Interfaces\Data\ProfileDataInterface;
 use App\Models\ExperienceModel;
+use Exception;
 use PDO;
 
 
@@ -19,7 +20,7 @@ class ExperienceDataService implements ProfileDataInterface
     
     public function create($experience)
     {
-        
+        try{
         $users_id = $experience->getUsers_id();
         $ed = $experience->getEndDate();
         $sd = $experience->getStartDate();
@@ -46,12 +47,18 @@ class ExperienceDataService implements ProfileDataInterface
         else {
             return false;
         }
+        }catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
     /*
      * @see UserBusinessService findById
      */
     public function read($id)
     {  
+      
+        try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM EXPERIENCE WHERE id = :id LIMIT 1");
         // variable to store sql statment and connection to database
@@ -66,6 +73,10 @@ class ExperienceDataService implements ProfileDataInterface
         }
         // return user
         return $profileInfo;
+        }catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
     }
 
    
@@ -74,6 +85,7 @@ class ExperienceDataService implements ProfileDataInterface
      */
     public function update($experience)
     {
+        try{
         // variables to retrieve new information from $user
         $id = $experience->getId();
         $exCompany = $experience->getCompany();
@@ -104,10 +116,15 @@ class ExperienceDataService implements ProfileDataInterface
         }
         // return user
         return $newExperience;
+    }catch (Exception $e2) {
+        // display our Global Exception Handler page
+        return view("error");
+    }
     }
     
     public function delete($id)
     {
+        try{
         // Delete statement where user ID is ID passed in
         $stmt = $this->db->prepare("DELETE FROM `EXPERIENCE` WHERE `EXPERIENCE`.`id` = :id");
         $stmt->bindParam(':id', $id);
@@ -120,9 +137,14 @@ class ExperienceDataService implements ProfileDataInterface
             // if result vaiable doesn't find user with entered credentials
             else
             return false;
+    }catch (Exception $e2) {
+        // display our Global Exception Handler page
+        return view("error");
+    }
     }
     public function readall($users_id)
     {
+        try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM EXPERIENCE WHERE USERS_ID = :users_id");
         // variable to store sql statment and connection to database
@@ -141,6 +163,10 @@ class ExperienceDataService implements ProfileDataInterface
         }
         // return user
         return $experience_array;
+    }catch (Exception $e2) {
+        // display our Global Exception Handler page
+        return view("error");
+    }
     }
 
 

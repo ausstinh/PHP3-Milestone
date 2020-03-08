@@ -16,7 +16,7 @@ use App\Models\UserModel;
 				    <div class="col-sm-3"></div>
                     <div class="col-sm-4" style="margin-left: 80px; display: flex;">                
                          <input type="submit" value="Save Changes" class="btn btn-primary bold">	     
-                          <a class="btn btn-primary bold"  href="javascript:history.back()">Cancel Changes</a>                                                      
+                          <a class="btn btn-primary bold" style="margin-left: 10px;" href="javascript:history.back()">Cancel Changes</a>                                                      
 				 </div>
 			</div>
 			<div class="row" style="margin-top: 30px;">

@@ -6,7 +6,42 @@ class GroupModel
     private $id;
     private $name;
     private $description;
+    private $members;
+    private $role;
     
+    
+    /**
+     * @return mixed
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param mixed $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMembers()
+    {
+        return $this->members;
+    }
+
+    /**
+     * @param mixed $members
+     */
+    public function setMembers($members)
+    {
+        $this->members = $members;
+    }
+
     /**
      * @return mixed
      */
@@ -60,8 +95,9 @@ class GroupModel
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
+      
     }
     
-    
+ 
 }
 
