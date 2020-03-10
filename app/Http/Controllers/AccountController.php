@@ -27,7 +27,7 @@ class AccountController extends Controller
      */
     public function register(Request $request)
     {
-        try {
+       // try {
             $this->validateRegisterForm($request);
             // variables to store user input
             $firstName = $request->input('firstname');
@@ -48,14 +48,14 @@ class AccountController extends Controller
                 // if false, re-return register page so user can try again
                 return view("register");
             }
-        } catch (ValidationException $e1) {
-            throw $e1;
-        }
-        catch (Exception $e2) {
-            // display our Global Exception Handler page
+     //   } catch (ValidationException $e1) {
+      //      throw $e1;
+      //  }
+      //  catch (Exception $e2) {
+           // display our Global Exception Handler page
           //  return view("error");
-          return $e2->getMessage();
-        }
+       //   return $e2->getMessage();
+       // }
     }
     
 

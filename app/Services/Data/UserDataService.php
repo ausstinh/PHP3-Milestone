@@ -23,7 +23,7 @@ class UserDataService implements UserDataInterface
      */
     public function create($user)
     {
-        try{
+       // try{
         if (!$this->read($user)) {
 
             // create varibales to retrieve properties of user
@@ -84,10 +84,10 @@ class UserDataService implements UserDataInterface
             else
                 return false;
         }
-        }  catch (Exception $e2) {
+       // }  catch (Exception $e2) {
             // display our Global Exception Handler page
-            return view("error");
-        }
+       //     return view("error");
+      //  }
     }
 
     /*
