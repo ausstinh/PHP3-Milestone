@@ -95,7 +95,7 @@ class UserDataService implements UserDataInterface
      */
     public function authenticateUser($user)
     {
-        try{
+       // try{
         // variables to retrieve email and password from $user
         $attemptedLoginEmail = $user->getEmail();
         $attemptedPassword = $user->getPassword();
@@ -117,10 +117,10 @@ class UserDataService implements UserDataInterface
         }
         // return user
         return $p;
-        }catch (Exception $e2) {
+     //   }catch (Exception $e2) {
             // display our Global Exception Handler page
-            return view("error");
-        }
+      //     return view("error");
+       // }
     }
 
     /*

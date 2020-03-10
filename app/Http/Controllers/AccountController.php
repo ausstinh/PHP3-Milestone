@@ -108,7 +108,7 @@ class AccountController extends Controller
      */
     public function login(Request $request)
     {
-        try {
+       // try {
             $this->validateLoginForm($request);
             // two variables to store user email and password
             $email = $request->input('email');
@@ -153,13 +153,13 @@ class AccountController extends Controller
                 return view("login");
         } // this exception MUST be caught before Exception because ValidaitonException extends from Exception
         // youmust rethrow this exception
-        catch (ValidationException $e1) {
-            throw $e1;
-        } 
-       catch (Exception $e2) {
-            // display our Global Exception Handler page
-           return view("error");
-       }
+       // catch (ValidationException $e1) {
+      //      throw $e1;
+      //  } 
+     //  catch (Exception $e2) {
+     //       // display our Global Exception Handler page
+     //      return view("error");
+     //  }
     }
         
     
