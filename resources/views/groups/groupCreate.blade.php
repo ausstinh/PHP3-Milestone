@@ -5,7 +5,7 @@
 <html lang="{{ app()->getLocale() }}">
 <body>
 	<div class="container emp-profile">
-			<!-- Stores user entered information for controller to use using POST method -->
+			<!-- Stores group entered information for controller to use using POST method -->
 		<form method="post" action="createGroup">
 			<input type="hidden" name="_token" value="<?php echo csrf_token()?>" />
 			<div class="row">
@@ -21,7 +21,7 @@
 					<div class="tab-content profile-tab" id="myTabContent">
 						<div class="tab-pane fade show active center" id="home"
 							role="tabpanel" aria-labelledby="home-tab">					
-							<!-- Rows to allow user to edit any information -->
+							<!-- Rows to allow user to create information -->
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Name</label>
