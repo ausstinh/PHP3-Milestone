@@ -2,6 +2,7 @@
 namespace App\Services\Data;
 
 use App\Interfaces\Data\ProfileDataInterface;
+use Exception;
 use PDO;
 use App\Models\EducationModel;
 
@@ -19,6 +20,7 @@ class EducationDataService implements ProfileDataInterface
 
     public function create($education)
     {
+        try{
         $school = $education->getSchool();
         $desc = $education->getDescription();
         $ui = $education->getUsers_id();
@@ -37,16 +39,17 @@ class EducationDataService implements ProfileDataInterface
         else {
             return false;
         }
-        //catch (Exception $e2) {
+        }catch (Exception $e2) {
             // display our Global Exception Handler page
-      //      return view("error");
-       // }
+            return view("error");
+        }
     }
     /*
      * @see UserBusinessService findById
      */
     public function read($id)
     {  
+        try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM EDUCATION WHERE id = :id");
         // variable to store sql statment and connection to database
@@ -64,10 +67,10 @@ class EducationDataService implements ProfileDataInterface
         }
         // return user
         return $profileInfo;
-        //catch (Exception $e2) {
+        }  catch (Exception $e2) {
             // display our Global Exception Handler page
-         //   return view("error");
-       // }
+            return view("error");
+        }
     }
 
    
@@ -76,6 +79,7 @@ class EducationDataService implements ProfileDataInterface
      */
     public function update($education)
     {
+        try{
         // variables to retrieve new information from $user
         $id = $education->getId();
         $schoolEdit = $education->getSchool();
@@ -98,14 +102,15 @@ class EducationDataService implements ProfileDataInterface
         }
         // return user
         return $educationInfo;
-     //   catch (Exception $e2) {
+        } catch (Exception $e2) {
             // display our Global Exception Handler page
-      //      return view("error");
-     //   }
+            return view("error");
+        }
         
     }
     public function delete($id)
     {
+        try{
         // Delete statement where user ID is ID passed in
         $stmt = $this->db->prepare("DELETE FROM `EDUCATION` WHERE `EDUCATION`.`id` = :id");
         $stmt->bindParam(':id', $id);
@@ -118,13 +123,14 @@ class EducationDataService implements ProfileDataInterface
             // if result vaiable doesn't find user with entered credentials
             else
                 return false;
-          //      catch (Exception $e2) {
+        } catch (Exception $e2) {
                     // display our Global Exception Handler page
-          //          return view("error");
-          //      }
+                    return view("error");
+                }
     }
     public function readall($users_id)
     {
+        try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM EDUCATION WHERE USERS_ID = :users_id");
         // variable to store sql statment and connection to database
@@ -141,10 +147,10 @@ class EducationDataService implements ProfileDataInterface
             array_push($education_array, $profileInfo);
         }
         return $education_array;
-       // catch (Exception $e2) {
+        }catch (Exception $e2) {
             // display our Global Exception Handler page
-       //     return view("error");
-      //  }
+            return view("error");
+        }
     }
 
 

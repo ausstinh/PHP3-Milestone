@@ -27,7 +27,7 @@ class AccountController extends Controller
      */
     public function register(Request $request)
     {
-       // try {
+        try {
             $this->validateRegisterForm($request);
             // variables to store user input
             $firstName = $request->input('firstname');
@@ -48,14 +48,14 @@ class AccountController extends Controller
                 // if false, re-return register page so user can try again
                 return view("register");
             }
-     //   } catch (ValidationException $e1) {
-      //      throw $e1;
-      //  }
-      //  catch (Exception $e2) {
-           // display our Global Exception Handler page
+        } catch (ValidationException $e1) {
+            throw $e1;
+        }
+        catch (Exception $e2) {
+            // display our Global Exception Handler page
           //  return view("error");
-       //   return $e2->getMessage();
-       // }
+          return $e2->getMessage();
+        }
     }
     
 
@@ -108,7 +108,7 @@ class AccountController extends Controller
      */
     public function login(Request $request)
     {
-       // try {
+        try {
             $this->validateLoginForm($request);
             // two variables to store user email and password
             $email = $request->input('email');
@@ -151,15 +151,15 @@ class AccountController extends Controller
             } else
                 // if user is not authenticated successfully, return login view so user can attempt to login again
                 return view("login");
-       // } // this exception MUST be caught before Exception because ValidaitonException extends from Exception
+        } // this exception MUST be caught before Exception because ValidaitonException extends from Exception
         // youmust rethrow this exception
-       // catch (ValidationException $e1) {
-      //      throw $e1;
-      //  } 
-     //  catch (Exception $e2) {
-     //       // display our Global Exception Handler page
-     //      return view("error");
-      // }
+        catch (ValidationException $e1) {
+            throw $e1;
+        } 
+       catch (Exception $e2) {
+            // display our Global Exception Handler page
+           return view("error");
+       }
     }
         
     

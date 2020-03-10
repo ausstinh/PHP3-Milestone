@@ -165,7 +165,7 @@ class ProfileController extends Controller
      */
     public function updateEducation(Request $request)
     {
-         // try{
+          try{
         //get education information
         $edId = $request->input("id");
         $edSchool = $request->input('school');
@@ -191,10 +191,10 @@ class ProfileController extends Controller
             //return userstable view with data holding users
             return view("education.educationTable")->with($data);
         }
-      //  } catch (Exception $e2) {
+        } catch (Exception $e2) {
         // display our Global Exception Handler page
-      //      return view("error");
-      //   }
+            return view("error");
+          }
     }
     /**
      * Takes in a request for skill information
@@ -278,7 +278,7 @@ class ProfileController extends Controller
      */
     public function createEducation(Request $request)
     {
-       // try{
+        try{
             
             $edSchool = $request->input('school');
             $edDesc = $request->input('description');
@@ -301,10 +301,10 @@ class ProfileController extends Controller
                 return view("education.educationTable")->with($data);
                 
             }
-    //    } catch (Exception $e2) {
+        } catch (Exception $e2) {
             // display our Global Exception Handler page
             return view("error");
-     //   }
+        }
     }
     /**
      * Takes in a request for skill information
@@ -377,7 +377,7 @@ class ProfileController extends Controller
         //check if experience information
         if($create){
             //execute read all Experience
-            $experiences = $profileBS->readAllExperience(session()->get('users_id'));
+            $experiences = $profileBS->retrieveAll(session()->get('users_id'));
             if($experiences)
                 //store value of experience into new variable
                 $data = ['model' => $experiences];
@@ -466,7 +466,7 @@ class ProfileController extends Controller
     public function readEducation(Request $request)
     {
         
-        //  try{
+          try{
         //new instance of business service
               $profileBS = new EducationBusinessService();
         //call getAllUsers method from sevice and store in new users variable
@@ -479,10 +479,10 @@ class ProfileController extends Controller
         //return userstable view with data holding users
         return view("education.educationTable")->with($data);
         
-      //     } catch (Exception $e2) {
+           } catch (Exception $e2) {
         // display our Global Exception Handler page
-      //        return view("error");
-     //     }
+              return view("error");
+          }
         
     }
     /**
@@ -496,7 +496,7 @@ class ProfileController extends Controller
      */
     public function deleteEducation($id)
     {
-        //try{
+        try{
         //new instance of business service
             $profileBS = new EducationBusinessService();
         //call delete education method passing in education id and storing result into new variable
@@ -515,11 +515,11 @@ class ProfileController extends Controller
             return view("education.educationTable")->with($data);
         }
     }
-   // catch (Exception $e2) {
+    catch (Exception $e2) {
         // display our Global Exception Handler page
-   //     return view("error");
-  //  }
-    //}
+        return view("error");
+    }
+    }
     /**
      * Takes in a request for experience id
      * Calls the business service to delete
@@ -602,8 +602,8 @@ class ProfileController extends Controller
      */
     public function readEducationEdit($id)
     {
-     //    try
-     //   {
+         try
+        {
             // create new instance of profileBusinessService
             $profileBS = new EducationBusinessService();
         
@@ -614,11 +614,11 @@ class ProfileController extends Controller
             'education' => $education
         ];
         return view("education.educationUpdate")->with($data);
-   // }
-   //      catch (Exception $e2) {
+    }
+         catch (Exception $e2) {
     // display our Global Exception Handler page
-    //         return view("error");
-       //  }
+             return view("error");
+         }
        }
     
     /**
