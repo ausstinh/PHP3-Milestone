@@ -27,7 +27,10 @@ class AffinityGroupsController extends Controller
             $userGroup = $userGroupBS->retrieve($id, session()->get('users_id'));
             
             //set current user role in group
+            if($userGroup != null)
             $group->setRole($userGroup->getRole());
+            else
+             $group->setRole(0);
             //retrieve all users in group
             $userGroup = $userGroupBS->retrieveAll($id);
            
@@ -108,6 +111,10 @@ class AffinityGroupsController extends Controller
         //if statement checking if update returns true
         if($group)
         {
+            // attempt to retrieve userGroup
+            $userGroup = $userGroupBS->retrieve($id, session()->get('users_id'));
+            //set current user role in group
+            $group->setRole($userGroup->getRole());
             //attempt to retrieve all users
             $userGroup = $userGroupBS->retrieveAll($id);
             // if group is successfully found, return view displaying group information

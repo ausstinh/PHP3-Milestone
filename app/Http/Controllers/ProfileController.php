@@ -278,7 +278,7 @@ class ProfileController extends Controller
      */
     public function createEducation(Request $request)
     {
-        try{
+       // try{
             
             $edSchool = $request->input('school');
             $edDesc = $request->input('description');
@@ -301,10 +301,10 @@ class ProfileController extends Controller
                 return view("education.educationTable")->with($data);
                 
             }
-        } catch (Exception $e2) {
+    //    } catch (Exception $e2) {
             // display our Global Exception Handler page
             return view("error");
-        }
+     //   }
     }
     /**
      * Takes in a request for skill information
