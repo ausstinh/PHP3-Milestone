@@ -64,10 +64,10 @@ class EducationDataService implements ProfileDataInterface
         }
         // return user
         return $profileInfo;
-        catch (Exception $e2) {
+        //catch (Exception $e2) {
             // display our Global Exception Handler page
-            return view("error");
-        }
+         //   return view("error");
+       // }
     }
 
    
@@ -98,10 +98,10 @@ class EducationDataService implements ProfileDataInterface
         }
         // return user
         return $educationInfo;
-        catch (Exception $e2) {
+     //   catch (Exception $e2) {
             // display our Global Exception Handler page
-            return view("error");
-        }
+      //      return view("error");
+     //   }
         
     }
     public function delete($id)
@@ -118,10 +118,10 @@ class EducationDataService implements ProfileDataInterface
             // if result vaiable doesn't find user with entered credentials
             else
                 return false;
-                catch (Exception $e2) {
+          //      catch (Exception $e2) {
                     // display our Global Exception Handler page
-                    return view("error");
-                }
+          //          return view("error");
+          //      }
     }
     public function readall($users_id)
     {
@@ -141,10 +141,10 @@ class EducationDataService implements ProfileDataInterface
             array_push($education_array, $profileInfo);
         }
         return $education_array;
-        catch (Exception $e2) {
+       // catch (Exception $e2) {
             // display our Global Exception Handler page
-            return view("error");
-        }
+       //     return view("error");
+      //  }
     }
 
 
