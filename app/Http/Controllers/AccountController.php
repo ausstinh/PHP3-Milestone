@@ -151,7 +151,7 @@ class AccountController extends Controller
             } else
                 // if user is not authenticated successfully, return login view so user can attempt to login again
                 return view("login");
-        } // this exception MUST be caught before Exception because ValidaitonException extends from Exception
+       // } // this exception MUST be caught before Exception because ValidaitonException extends from Exception
         // youmust rethrow this exception
        // catch (ValidationException $e1) {
       //      throw $e1;
@@ -159,7 +159,7 @@ class AccountController extends Controller
      //  catch (Exception $e2) {
      //       // display our Global Exception Handler page
      //      return view("error");
-     //  }
+      // }
     }
         
     
