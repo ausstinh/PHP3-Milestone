@@ -85,7 +85,7 @@ class AccountController extends Controller
                 $jobBS = new JobPostingBusinessService();
                 
                 // attempt to readAll
-                $jobs = $jobBS->retrieveAll();
+                $jobs = $jobBS->retrieveAllJobs();
               
                 // if user and jobs is successfully found, return view displaying home
                 $data = [
