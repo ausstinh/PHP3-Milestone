@@ -16,7 +16,9 @@ class SkillDataService implements ProfileDataInterface
     {
         $this->db = $db;
     }
-
+    /*
+     * Refer to SkillDataInterface
+     */
     public function create($skill)
     {
         try{
@@ -45,8 +47,9 @@ class SkillDataService implements ProfileDataInterface
         }
     }
     /*
-     * @see UserBusinessService findById
+     * Refer to SkillDataInterface
      */
+    
     public function read($id)
     {
         try{
@@ -75,8 +78,9 @@ class SkillDataService implements ProfileDataInterface
 
    
     /*
-     * @see UserBusinessService updateNewUser
+     * Refer to SkillDataInterface
      */
+    
     public function update($skill)
     {
         try{
@@ -110,6 +114,10 @@ class SkillDataService implements ProfileDataInterface
         }
         
     }
+    /*
+     * Refer to SkillDataInterface
+     */
+    
     public function delete($id)
     {
         try{
@@ -130,6 +138,9 @@ class SkillDataService implements ProfileDataInterface
                     return view("error");
                 }
     }
+    /*
+     * Refer to SkillDataInterface
+     */
     
     public function readall($users_id)
     {

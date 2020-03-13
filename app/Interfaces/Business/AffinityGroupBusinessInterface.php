@@ -10,7 +10,7 @@ interface AffinityGroupBusinessInterface{
      * @param $userGroup, $group     userGroup Model and group Model
      * @return true or false for delete
      */
-    public function insert($group, $userGroup);
+    public function insertGroup($group, $userGroup);
     
     
     /**
@@ -19,7 +19,7 @@ interface AffinityGroupBusinessInterface{
      * @param $group     group Model
      * @return group Model
      */
-    public function refurbish($group);
+    public function refurbishGroup($group);
     
     
     /**
@@ -27,7 +27,7 @@ interface AffinityGroupBusinessInterface{
      * @param $group     group Model
      * @return array of group models
      */
-    public function retrieveAll();
+    public function retrieveAllGroups();
     
     
     /**
@@ -36,7 +36,7 @@ interface AffinityGroupBusinessInterface{
      * @param $id    group Model
      * @return true or false for delete
      */
-    public function terminate($id);
+    public function terminateGroup($id);
     
     
     /**
@@ -45,6 +45,6 @@ interface AffinityGroupBusinessInterface{
      * @param $group     group Model
      * @return  group Model
      */
-    public function retrieve($id);
+    public function retrieveGroup($id);
     
 }

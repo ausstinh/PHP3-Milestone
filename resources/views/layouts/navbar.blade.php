@@ -31,7 +31,7 @@
 
 </head>
 <body>
-@if(session()->get('users_id') != null)
+@if(session()->get('users_id'))
 <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
     <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -51,6 +51,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('viewGroups')}}">Affinity Groups</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('jobSearch')}}">Jobs</a>
                 </li>
                 <!-- If role of user is 1 or 2, grant admin control  -->
                 @if( session()->get('role')  == 1)

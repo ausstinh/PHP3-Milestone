@@ -18,7 +18,7 @@ interface UserBusinessInterface{
      * @param $user     User information to register
      * @return true or false for create
      */  
-    public function insert($user);
+    public function insertUser($user);
     
     /**
      * Takes in a user
@@ -26,14 +26,14 @@ interface UserBusinessInterface{
      * @param $user     User ID
      * @return true or false for delete
      */
-    public function terminate($users_ids);
+    public function terminateUser($users_ids);
     /**
      * Takes in a user
      * Uses the UserDataService method to update() and returns instance of new user
      * @param $user     User information to update
      * @return user
      */
-    public function refurbish($user);
+    public function refurbishUser($user);
     /**
      * Takes in a user
      * Uses the UserDataService method to findById() and returns found person
@@ -45,6 +45,6 @@ interface UserBusinessInterface{
      * Uses the UserDataService method to readAll() and returns array of users
      * @return array of users
      */
-    public function retrieveAll();
+    public function retrieveAllUsers();
 
 }

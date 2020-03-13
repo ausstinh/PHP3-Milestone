@@ -8,7 +8,10 @@ use PDO;
 
 class ExperienceBusinessService implements ExperienceBusinessInterface
 {
-    public function insert($experience)
+    /*
+     * Refer to ExperienceBusinessInterface
+     */
+    public function insertExperience($experience)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -25,8 +28,10 @@ class ExperienceBusinessService implements ExperienceBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function retrieve($id)
+    /*
+     * Refer to ExperienceBusinessInterface
+     */
+    public function retrieveExperience($id)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -43,8 +48,10 @@ class ExperienceBusinessService implements ExperienceBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function retrieveAll($users_id)
+    /*
+     * Refer to ExperienceBusinessInterface
+     */
+    public function retrieveAllExperiences($users_id)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -61,8 +68,10 @@ class ExperienceBusinessService implements ExperienceBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function refurbish($experience)
+    /*
+     * Refer to ExperienceBusinessInterface
+     */
+    public function refurbishExperience($experience)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -79,8 +88,10 @@ class ExperienceBusinessService implements ExperienceBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function terminate($id)
+    /*
+     * Refer to ExperienceBusinessInterface
+     */
+    public function terminateExperience($id)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");

@@ -19,7 +19,7 @@ class UserDataService implements UserDataInterface
     }
 
     /*
-     * @see UserBusinessService createNewUser
+     * Refer to UserDataInterface
      */
     public function create($user)
     {
@@ -91,7 +91,7 @@ class UserDataService implements UserDataInterface
     }
 
     /*
-     * @see UserBusinessService authenticateUser
+     * Refer to UserDataInterface
      */
     public function authenticateUser($user)
     {
@@ -124,7 +124,7 @@ class UserDataService implements UserDataInterface
     }
 
     /*
-     * @see UserBusinessService findById
+     * Refer to UserDataInterface
      */
     public function findbyId($users_id)
     {
@@ -151,7 +151,7 @@ class UserDataService implements UserDataInterface
     }
 
     /*
-     * @see UserBusinessService credentials
+     * Refer to UserDataInterface
      */
     public function read($user)
     {
@@ -179,7 +179,7 @@ class UserDataService implements UserDataInterface
     }
 
     /*
-     * @see UserBusinessService terminateUser
+     * Refer to UserDataInterface
      */
     public function delete($users_id)
     {
@@ -203,7 +203,7 @@ class UserDataService implements UserDataInterface
     }
 
     /*
-     * @see UserBusinessService updateNewUser
+     * Refer to UserDataInterface
      */
     public function update($user)
     {
@@ -255,7 +255,7 @@ class UserDataService implements UserDataInterface
     }
 
     /*
-     * @see UserBusinessService getAllUsers
+     * Refer to UserDataInterface
      */
     public function readAll()
     {

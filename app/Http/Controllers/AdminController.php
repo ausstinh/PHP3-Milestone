@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use Exception;
 use App\Services\Business\UserBusinessService;
 use App\Services\Business\JobPostingBusinessService;
+use App\Services\Utility\MyLogger2;
 class AdminController extends Controller
 {
     /**
@@ -19,16 +20,18 @@ class AdminController extends Controller
      * @param Request
      * @return View AdminControl page
      */
-    public function retrieveAll(Request $request)
+    public function retrieveAllUsers(Request $request)
     {
+        MyLogger2::info("Entering AdminController.retrieveAll()");
         try{
         //new instance of business service
         $userBS = new UserBusinessService();
         //call getAllUsers method from sevice and store in new users variable
-        $users = $userBS->retrieveAll();
+        $users = $userBS->retrieveAllUsers();
         //if statement checking if $users returns true
         if($users)
         {
+            MyLogger2::info("Exit AdminController.retrieveAllUsers() with user passed");
             //store value of users into new variable
             $data = ['model' => $users];
             //if statement checking if role of user is 2
@@ -42,6 +45,7 @@ class AdminController extends Controller
             return view("usertable")->with($data);
         }
         else{
+            MyLogger2::info("Exit AdminController.retrieveAllUsers() with user failed");
             $user = session('user');
             $data = ['model'=> $user];
             //if false, re-return register page so user can try again
@@ -63,16 +67,18 @@ class AdminController extends Controller
      * @param UserId
      * @return admincontrol/userstable view page
      */
-    public function terminate($users_id)
+    public function terminateUser($users_id)
     {
+        MyLogger2::info("Entering AdminController.terminate()");
         try{
         //new instance of business service
         $userBS = new UserBusinessService();
         //call terminateUser method passing in user id and storing result into new variable
-        $users = $userBS->terminate($users_id);
+        $users = $userBS->terminateUser($users_id);
         //if statement checking if terminateUser returns true
         if($users)
         {
+            MyLogger2::info("Exiting AdminController.terminate() with user passed");
             //if role == 2
             if(session('role') == 2)
                 //return admincontrol view
@@ -83,6 +89,7 @@ class AdminController extends Controller
                     return Redirect::route('usertable');
         }
         else{
+            MyLogger2::info("Exiting AdminController.terminate() with user failed");
             $user = session('user');
             $data = ['model'=> $user];
             //if false, re-return register page so user can try again
@@ -106,6 +113,7 @@ class AdminController extends Controller
      */
         public function toggleSuspend($users_id)
         {
+            MyLogger2::info("Entering AdminController.toggleSuspend()");
             try{
             //new instance of business service
             $userBS = new UserBusinessService();
@@ -123,6 +131,7 @@ class AdminController extends Controller
             //if statement checking if suspendUser returns true
             if($users)
             {
+                MyLogger2::info("Exiting AdminController.toggleSuspend() with user passed");
                 //if role == 2
                 if(session('role') == 2)
                     //return admincontrol view
@@ -132,6 +141,7 @@ class AdminController extends Controller
                         return Redirect::route('usertable');
             }
             else{
+                MyLogger2::info("Exiting AdminController.toggleSuspend() with user failed");
                 $user = session('user');
                 // create new instance of JobPostingBusinessService
                 $jobBS = new JobPostingBusinessService();

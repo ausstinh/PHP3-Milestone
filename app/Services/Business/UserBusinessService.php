@@ -6,7 +6,9 @@ use App\Models\DatabaseModel;
 use PDO;
 class UserBusinessService implements UserBusinessInterface{
     
-    //Refer to UserBusinessInterface
+    /*
+     * Refer to UserBusinessInterface
+     */
    public function authenticateUser($user) {
        $servername = config("database.connections.mysql.host");
        $port = config("database.connections.mysql.port");
@@ -23,8 +25,10 @@ class UserBusinessService implements UserBusinessInterface{
        $db = null;
         return $person;
     }
-    //Refer to UserBusinessInterface
-    public function insert($user) {
+    /*
+     * Refer to UserBusinessInterface
+     */
+    public function insertUser($user) {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
         $username = config("database.connections.mysql.username");
@@ -40,8 +44,10 @@ class UserBusinessService implements UserBusinessInterface{
         $db = null;
         return $persons;
     }
-    //Refer to UserBusinessInterface
-    public function terminate($users_id)
+    /*
+     * Refer to UserBusinessInterface
+     */
+    public function terminateUser($users_id)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -57,8 +63,10 @@ class UserBusinessService implements UserBusinessInterface{
         $db = null;
         return $person;
     }
-    //Refer to UserBusinessInterface
-    public function refurbish($user)
+    /*
+     * Refer to UserBusinessInterface
+     */
+    public function refurbishUser($user)
     {  
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -75,7 +83,9 @@ class UserBusinessService implements UserBusinessInterface{
         $db = null;
         return $person;
     }
-    //Refer to UserBusinessInterface
+    /*
+     * Refer to UserBusinessInterface
+     */
     public function findById($users_id)
     {
         $servername = config("database.connections.mysql.host");
@@ -93,8 +103,10 @@ class UserBusinessService implements UserBusinessInterface{
         $db = null;
         return $person;
     }
-    //Refer to UserBusinessInterface
-    public function retrieveAll()
+    /*
+     * Refer to UserBusinessInterface
+     */
+    public function retrieveAllUsers()
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");

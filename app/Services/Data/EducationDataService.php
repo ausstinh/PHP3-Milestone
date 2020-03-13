@@ -17,7 +17,9 @@ class EducationDataService implements ProfileDataInterface
     {
         $this->db = $db;
     }
-
+    /*
+     * Refer to EducationDataInterface
+     */
     public function create($education)
     {
         try{
@@ -45,7 +47,7 @@ class EducationDataService implements ProfileDataInterface
         }
     }
     /*
-     * @see UserBusinessService findById
+     * Refer to EducationDataInterface
      */
     public function read($id)
     {  
@@ -74,8 +76,8 @@ class EducationDataService implements ProfileDataInterface
     }
 
    
-    /*
-     * @see UserBusinessService updateNewUser
+       /*
+     * Refer to EducationDataInterface
      */
     public function update($education)
     {
@@ -108,6 +110,9 @@ class EducationDataService implements ProfileDataInterface
         }
         
     }
+    /*
+     * Refer to EducationDataInterface
+     */
     public function delete($id)
     {
         try{
@@ -128,6 +133,9 @@ class EducationDataService implements ProfileDataInterface
                     return view("error");
                 }
     }
+    /*
+     * Refer to EducationDataInterface
+     */
     public function readall($users_id)
     {
         try{

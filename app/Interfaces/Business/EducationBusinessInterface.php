@@ -10,21 +10,21 @@ interface EducationBusinessInterface{
      * @param $education     Education information to create
      * @return $education
      */
-    public function insert($experience);
+    public function insertEducation($experience);
     /**
      * Takes in a user
      * Uses the EducationDataService method to update() and returns it's result
      * @param $user     Education information to update
      * @return $education
      */
-    public function refurbish($experience);
+    public function refurbishEducation($experience);
     /**
      * Takes in a user's id
      * Uses the EducationDataService method to readAll() and returns it's result
      * @param $user's id    Education information to read
      * @return $education array
      */
-    public function retrieveAll($users_id);
+    public function retrieveAllEducations($users_id);
    
     /**
      * Takes in a user's id
@@ -32,7 +32,7 @@ interface EducationBusinessInterface{
      * @param $user     User ID
      * @return $education
      */
-    public function terminate($id);
+    public function terminateEducation($id);
   
     /**
      * Takes in a user's id
@@ -40,6 +40,6 @@ interface EducationBusinessInterface{
      * @param $user's id    Education information to read
      * @return $education
      */
-    public function retrieve($id);
+    public function retrieveEducation($id);
   
 }

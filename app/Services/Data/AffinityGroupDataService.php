@@ -17,7 +17,9 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
     {
         $this->db = $db;
     }
-    
+    /*
+     * Refer to AffinityGroupDataInterface
+     */
     public function read($id)
     {
         try
@@ -44,7 +46,9 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
             return view("error");
         }
     }
-    
+    /*
+     * Refer to AffinityGroupDataInterface
+     */
     public function create($group, $userGroup)
     {
         try
@@ -87,7 +91,9 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
         return view("error");
     }
     }
-    
+    /*
+     * Refer to AffinityGroupDataInterface
+     */
     public function update($group)
     {
         try
@@ -123,7 +129,9 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
         return view("error");
     }
     }
-    
+    /*
+     * Refer to AffinityGroupDataInterface
+     */
     public function delete($id)
     {
         try
@@ -153,6 +161,9 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
         return view("error");
     }
     }
+    /*
+     * Refer to AffinityGroupDataInterface
+     */
     public function readAllUsers($group_id)
     {
         try
@@ -179,7 +190,9 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
         return view("error");
     }
     }
-    
+    /*
+     * Refer to AffinityGroupDataInterface
+     */
     public function readall()
     {
         try

@@ -18,7 +18,9 @@ class UserGroupDataService implements UserGroupDataInterface
         $this->db = $db;
     }
     
-
+    /*
+     * Refer to UserGroupDataInterface
+     */
     public function delete($userGroup)
     {
         try{
@@ -44,7 +46,9 @@ class UserGroupDataService implements UserGroupDataInterface
                 }
     }
    
-    
+    /*
+     * Refer to UserGroupDataInterface
+     */
     public function readAll($group_id)
     {
         try{
@@ -71,6 +75,9 @@ class UserGroupDataService implements UserGroupDataInterface
             return view("error");
         }
     }
+    /*
+     * Refer to UserGroupDataInterface
+     */
     public function create($userGroup)
     {
         try{
@@ -100,6 +107,9 @@ class UserGroupDataService implements UserGroupDataInterface
             }
             
     }
+    /*
+     * Refer to UserGroupDataInterface
+     */
     public function read($group_id, $users_id)
     {
         try{

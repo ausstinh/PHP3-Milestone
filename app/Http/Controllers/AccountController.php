@@ -8,6 +8,7 @@ use Illuminate\Validation\ValidationException;
 use Exception;
 use App\Services\Business\UserBusinessService;
 use App\Services\Business\JobPostingBusinessService;
+use App\Services\Utility\MyLogger2;
 use App\Models\UserModel;
 use App\Models\CredentialsModel;
 use Illuminate\Contracts\View\View;
@@ -27,6 +28,7 @@ class AccountController extends Controller
      */
     public function register(Request $request)
     {
+        MyLogger2::info("Entering AccountController.register()");
         try {
             $this->validateRegisterForm($request);
             // variables to store user input
@@ -38,14 +40,16 @@ class AccountController extends Controller
             // new instance of business service
             $userBS = new UserBusinessService();
             // create new user and with variables holding user input
-            
+            MyLogger2::info(" Parameters: ", array("FirstName" => $firstName,"LastName" => $lastName,"Email" => $email, "password" => $password, "gender" => $gender));
             $user = new UserModel(null, $firstName, $lastName, $email, $password, 0, null, null, null, null, $gender, null, 0, null);
             // if statement checking if createNewUser returns true
-            if ($userBS->insert($user)) {
+            if ($userBS->insertUser($user)) {
                 // if true, return login view
+                MyLogger2::info("Exit AccountController.register() with register passed");
                 return view("login");
             } else {
                 // if false, re-return register page so user can try again
+                MyLogger2::info("Exit AccountController.register() with register failed");
                 return view("register");
             }
         } catch (ValidationException $e1) {
@@ -67,6 +71,7 @@ class AccountController extends Controller
      */
     public function showHome()
     {
+        MyLogger2::info("Entering AccountController.showHome()");
         try {
             // create new instance of userBusinessService
             $userBS = new UserBusinessService();
@@ -75,6 +80,7 @@ class AccountController extends Controller
             $user = $userBS->findById(session('users_id'));
             // if statement using findById method from business service class is true
             if ($user) {
+                MyLogger2::info("Exit AccountController.showHome() with user passed");
                 // create new instance of jobPostingBusinessService
                 $jobBS = new JobPostingBusinessService();
                 
@@ -92,6 +98,7 @@ class AccountController extends Controller
             }
         } 
         catch (Exception $e2) {
+            MyLogger2::info("Exit AccountController.showHome() with user failed");
             // display our Global Exception Handler page
             return view("error");
         }
@@ -108,6 +115,7 @@ class AccountController extends Controller
      */
     public function login(Request $request)
     {
+        MyLogger2::info("Entering AccountController.login()");
         try {
             $this->validateLoginForm($request);
             // two variables to store user email and password
@@ -115,7 +123,7 @@ class AccountController extends Controller
             $password = $request->input('password');
             // create new instance of userBusinessService
             $userBS = new UserBusinessService();
-
+            MyLogger2::info(" Parameters: ", array("Email" => $email,"Password" => $password)); 
             // create new user with variables storing user input
             $attemptedUser = new CredentialsModel(null, $email, $password);
 
@@ -123,6 +131,7 @@ class AccountController extends Controller
             $user = $userBS->authenticateUser($attemptedUser);
             // if statement using authenticate method from business service class passing new user created
             if ($user) {
+                MyLogger2::info("Exit AccountController.login() with login passed");
                 if ($user->getSuspend() == 1) {
                     session([
                         'suspended' => $user->getSuspend()
@@ -139,7 +148,7 @@ class AccountController extends Controller
                 $jobBS = new JobPostingBusinessService();
                 
                 // attempt to findById
-                $jobs = $jobBS->retrieveAll();
+                $jobs = $jobBS->retrieveAllJobs();
                 // store user and jobs information into variable
          
                 $data = [
@@ -148,9 +157,11 @@ class AccountController extends Controller
                 ];
                 // if user is successfully authenticated, return view displaying success
                 return view("home")->with($data);
-            } else
+            } else{
+                MyLogger2::info("Exit AccountController.login() with login failed");
                 // if user is not authenticated successfully, return login view so user can attempt to login again
                 return view("login");
+            }
         } // this exception MUST be caught before Exception because ValidaitonException extends from Exception
         // youmust rethrow this exception
         catch (ValidationException $e1) {

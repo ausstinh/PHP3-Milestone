@@ -8,7 +8,10 @@ use PDO;
 
 class SkillBusinessService implements SkillBusinessInterface
 {
-    public function insert($skill)
+    /*
+     * Refer to SkillBusinessInterface
+     */
+    public function insertSkill($skill)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -25,8 +28,10 @@ class SkillBusinessService implements SkillBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function retrieve($id)
+    /*
+     * Refer to SkillBusinessInterface
+     */
+    public function retrieveSkill($id)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -43,8 +48,10 @@ class SkillBusinessService implements SkillBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function retrieveAll($users_id)
+    /*
+     * Refer to SkillBusinessInterface
+     */
+    public function retrieveAllSkills($users_id)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -61,8 +68,10 @@ class SkillBusinessService implements SkillBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function refurbish($skill)
+    /*
+     * Refer to SkillBusinessInterface
+     */
+    public function refurbishSkill($skill)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -79,8 +88,10 @@ class SkillBusinessService implements SkillBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function terminate($id)
+    /*
+     * Refer to SkillBusinessInterface
+     */
+    public function terminateSkill($id)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");

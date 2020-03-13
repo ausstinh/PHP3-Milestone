@@ -8,7 +8,10 @@ use PDO;
 
 class EducationBusinessService implements EducationBusinessInterface
 {
-    public function insert($education)
+    /*
+     * Refer to EducationBusinessInterface
+     */
+    public function insertEducation($education)
     {
         
         $servername = config("database.connections.mysql.host");
@@ -26,8 +29,10 @@ class EducationBusinessService implements EducationBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function retrieve($id)
+    /*
+     * Refer to EducationBusinessInterface
+     */
+    public function retrieveEducation($id)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -44,8 +49,10 @@ class EducationBusinessService implements EducationBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function retrieveAll($users_id)
+    /*
+     * Refer to EducationBusinessInterface
+     */
+    public function retrieveAllEducations($users_id)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -62,8 +69,10 @@ class EducationBusinessService implements EducationBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function refurbish($experience)
+    /*
+     * Refer to EducationBusinessInterface
+     */
+    public function refurbishEducation($experience)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
@@ -80,8 +89,10 @@ class EducationBusinessService implements EducationBusinessInterface
         $db = null;
         return $profileInfo;
     }
-
-    public function terminate($id)
+    /*
+     * Refer to EducationBusinessInterface
+     */
+    public function terminateEducation($id)
     {
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");

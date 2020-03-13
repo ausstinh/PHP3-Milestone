@@ -11,7 +11,7 @@
   				<tr>
   					<th style="width: 1%;">Name</th>
   					<th style="width: 1%;">Description</th>
-  					<th style="width: 1%;">Salary</th>
+  					<th style="width: 1%;">Salary (per year)</th>
   					<th>Location</th>	
   				</tr>
   			</table>
@@ -20,7 +20,7 @@
   				<tr>
   					<th style="width: 6%;">{{$job->getName()}}</th>
   					<th style="width: 6%;">{{$job->getDescription()}}</th>
-  					<th style="width: 6%;">{{$job->getSalary()}}</th>		
+  					<th style="width: 6%;">${{$job->getSalary()}}</th>		
   					<th style="width: 6%;">{{$job->getLocation()}}</th>		 							
   					<th><a class="btn btn-primary bold" href="{{ route('readJobEdit', $job->getId()) }}">Edit Job</a></th>
   				    <th><a class="btn btn-primary bold" href="{{URL::to('/deleteJob/'.$job->getId()) }}">Delete Job</a></th>					

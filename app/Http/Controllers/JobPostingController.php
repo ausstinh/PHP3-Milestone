@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Exception;
 use App\Services\Business\JobPostingBusinessService;
+use App\Services\Utility\MyLogger2;
 use App\Models\JobPostingModel;
 
 
 class JobPostingController extends Controller
 {
-
     /**
      * Takes in a job ID
      * Calls the business service to read
@@ -21,17 +21,51 @@ class JobPostingController extends Controller
      *            Job Id
      * @return View job update page with job data
      */
-    public function retrieve($id)
+    public function retrieveJob($id)
     {
+        MyLogger2::info("Entering JobPostingController.retrieveJob()");
+        try {
+            // create new instance of userBusinessService
+            $jobBS = new JobPostingBusinessService();
+            
+            // attempt to findById user
+            $job = $jobBS->retrieveJob($id);
+            // if statement using read method from business service class passing job ID
+            if ($job) {
+                MyLogger2::info("Exiting JobPostingController.retrieveJob() with job passed");
+                // if job is successfully found, return view displaying job update table
+                $data = [
+                    'job' => $job,
+                ];
+                return view("jobs.jobView")->with($data);
+            } 
+        } catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
+    }
+    
+    /**
+     * Takes in a job ID
+     * Calls the business service to read
+     * If successful, return job table page If not, return the home form
+     *
+     * @param
+     *            Job Id
+     * @return View job update page with job data
+     */
+    public function retrieveJobEdit($id)
+    {
+        MyLogger2::info("Entering JobPostingController.retrieveJobEdit()");
         try {
             // create new instance of userBusinessService
         $jobBS = new JobPostingBusinessService();
            
             // attempt to findById user
-            $job = $jobBS->retrieve($id);
+            $job = $jobBS->retrieveJob($id);
             // if statement using read method from business service class passing job ID
             if ($job) {
-              
+                MyLogger2::info("Exiting JobPostingController.retrieveJobEdit() with job passed");
                 // if job is successfully found, return view displaying job update table
                 $data = [
                     'job' => $job,      
@@ -55,9 +89,10 @@ class JobPostingController extends Controller
      *           Job information to edit
      * @return View job table page with job data
      */
-    public function refurbish(Request $request)
+    public function refurbishJob(Request $request)
     {
-   try 
+        MyLogger2::info("Entering JobPostingController.refurbishJob()");
+     try 
      {
         // update job entered information
         $id = $request->input('id');
@@ -75,13 +110,14 @@ class JobPostingController extends Controller
         $jobEdit = new JobPostingModel($id, $n, $desc, $salary, $location, $ci);
         
         // call update method using service passing new Job
-         $job = $jobBS->refurbish($jobEdit);
+         $job = $jobBS->refurbishJob($jobEdit);
         
         //if statement checking if update returns true
         if($job)
         {
+            MyLogger2::info("Exiting JobPostingController.refurbishJob() with job passed");
             // attempt to readAll jobs
-            $jobs = $jobBS->retrieveAll();
+            $jobs = $jobBS->retrieveAllJobs();
             // store jobs information into variable
             // display jobs table page
             $data = [
@@ -111,8 +147,9 @@ class JobPostingController extends Controller
      */
   
 
-   public function insert(Request $request)
+   public function insertJob(Request $request)
    {
+       MyLogger2::info("Entering JobPostingController.insertJob()");
       try{
       
            // new user entered information
@@ -125,16 +162,17 @@ class JobPostingController extends Controller
            // create new instance of JobPostingBusinessService
            $jobBS = new JobPostingBusinessService();
            
-           
+           MyLogger2::info(" Parameters: ", array("Name" => $n,"Description" => $desc, "Salary" => $salary, "Location" => $location)); 
            // create new job using new variables
            $jobEdit = new JobPostingModel(null, $n, $desc, $salary, $location, null);
-           $job = $jobBS->insert($jobEdit);
+           $job = $jobBS->insertJob($jobEdit);
        
            //if statement checking if create returns true
            if($job)
            {
+               MyLogger2::info("Exiting JobPostingController.refurbishJob() with job passed");
                // attempt to readAll jobs
-               $jobs = $jobBS->retrieveAll();
+               $jobs = $jobBS->retrieveAllJobs();
                // store jobs information into variable
                // display jobs table page
                $data = [
@@ -161,20 +199,22 @@ class JobPostingController extends Controller
    * @return View jobs table page with job data
    */
  
-  public function terminate($id)
+  public function terminateJob($id)
   {
+      MyLogger2::info("Entering JobPostingController.terminateJob()");
       try
       {
       //new instance of business service
       $jobBS = new JobPostingBusinessService();
       //call delete method passing in job id and storing result into new variable
-      $job = $jobBS->terminate($id);
+      $job = $jobBS->terminateJob($id);
    
       //if statement checking if delete returns true
       if($job)
       {
+          MyLogger2::info("Exiting JobPostingController.terminateJob() with job passed");
           // attempt to readAll jobs
-          $jobs = $jobBS->retrieveAll();
+          $jobs = $jobBS->retrieveAllJobs();
           // store jobs information into variable
           // display jobs table page
           $data = [
@@ -199,29 +239,84 @@ class JobPostingController extends Controller
    * 
    * @return View jobs table page with job data
    */
-  public function retrieveAll(Request $request)
+  public function retrieveAllJobs(Request $request)
   {
+      MyLogger2::info("Entering JobPostingController.retrieveAllJobs()");
        try
        {
       // create new instance of JobPostingBusinessService
       $jobBS = new JobPostingBusinessService();
       
       // attempt to readAll jobs
-      $jobs = $jobBS->retrieveAll();
+      $jobs = $jobBS->retrieveAllJobs();
+      if($jobs){
+          MyLogger2::info("Exiting JobPostingController.retrieveAllJobs() with job passed");
       // store jobs information into variable
       // display jobs table page
       $data = [
           'model' => $jobs
       ];
       return view("jobs.jobTable")->with($data);
+      }
   }
        catch (Exception $e2) {
   // display our Global Exception Handler page
           return view("error");
       }
     }
-  
+    
+   public function viewJobs(Request $request)
+    {
+        MyLogger2::info("Entering JobPostingController.viewJobs()");
+        try
+        {
+            // create new instance of JobPostingBusinessService
+            $jobBS = new JobPostingBusinessService();
+            
+            // attempt to readAll jobs
+            $jobs = $jobBS->retrieveAllJobs();
+            if($jobs){
+            // store jobs information into variable
+            // display jobs table page
+            $data = [
+                'model' => $jobs
+            ];
+            return view("jobs.jobSearch")->with($data);
+            }
+        }
+        catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+        }
+    }
+
+    public function searchJobs(Request $request)
+    {
+        MyLogger2::info("Entering JobPostingController.searchJobs()");
+        try
+       {
+            $search = $request->input('search');
+            // create new instance of JobPostingBusinessService
+            $jobBS = new JobPostingBusinessService();
+            
+            // attempt to readAll jobs
+            $jobs = $jobBS->searchJob($search);
+            if($jobs){
+            MyLogger2::info("Exiting JobPostingController.searchJobs() with jobs");
+            // store jobs information into variable
+            // display jobs table page
+          
+            $data = [
+                'model' => $jobs
+            ];
+            return view("jobs.jobSearchResults")->with($data);
+            }
+       }
+       catch (Exception $e2) {
+            // display our Global Exception Handler page
+            return view("error");
+       }
  
-  
+    }
 
 }

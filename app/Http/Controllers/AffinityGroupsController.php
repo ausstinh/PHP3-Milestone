@@ -9,22 +9,23 @@ use App\Models\GroupModel;
 use App\Models\UserGroupModel;
 use App\Services\Business\UserGroupBusinessService;
 use App\Services\Business\UserBusinessService;
+use App\Services\Utility\MyLogger2;
 
 
 
 class AffinityGroupsController extends Controller
 {
-    public function retrieve($id)
+    public function retrieveGroup($id)
     {
-        try {
+        MyLogger2::info("Entering AffinityGroupsController.retrieveGroup()");
+       // try {
             // create new instance of AffinityGroupBusinessService and UserGroupBusinessSerivce
             $groupBS = new AffinityGroupBusinessService();
-            $userGroupBS = new UserGroupBusinessService();
-         
+           
             // attempt to retrieve group
-            $group = $groupBS->retrieve($id);
+            $group = $groupBS->retrieveGroup($id);
             // attempt to retrieve userGroup
-            $userGroup = $userGroupBS->retrieve($id, session()->get('users_id'));
+           $userGroup = app('App\Http\Controllers\UserGroupController')->retrieveUserGroup($id);
             
             //set current user role in group
             if($userGroup != null)
@@ -32,9 +33,10 @@ class AffinityGroupsController extends Controller
             else
              $group->setRole(0);
             //retrieve all users in group
-            $userGroup = $userGroupBS->retrieveAll($id);
+             $userGroup = app('App\Http\Controllers\UserGroupController')->retrieveAllUserGroup($id);
            
-            if ($group) {           
+            if ($group) { 
+                MyLogger2::info("Exiting AffinityGroupsController.retrieveGroup() with group passed");
                 // if group is successfully found, return view displaying group information
                 $data = [
                     'group' => $group,
@@ -42,10 +44,10 @@ class AffinityGroupsController extends Controller
                 ];
                 return view("groups.groupView")->with($data);
             } 
-       } catch (Exception $e2) {
+     //  } catch (Exception $e2) {
             // display our Global Exception Handler page
-           return view("error");
-       }
+       //    return view("error");
+      // }
     }
     /**
      * Takes in a group ID
@@ -56,17 +58,18 @@ class AffinityGroupsController extends Controller
      *            Group Id
      * @return View group update view page with group data
      */
-    public function retrieveEdit($id)
+    public function retrieveGroupEdit($id)
     {
+        MyLogger2::info("Entering AffinityGroupsController.retrieveGroupEdit()");
         try {
             // create new instance of userBusinessService
             $groupBS = new AffinityGroupBusinessService();
            
             // attempt to findById user
-            $group = $groupBS->retrieve($id);
+            $group = $groupBS->retrieveGroup($id);
             // if statement using read method from business service class passing job ID
             if ($group) {
-              
+                MyLogger2::info("Exiting AffinityGroupsController.retrieveGroupEdit() with group passed");
                 // if job is successfully found, return view displaying job update table
                 $data = [
                     'group' => $group,      
@@ -88,8 +91,9 @@ class AffinityGroupsController extends Controller
      *           Group information to edit
      * @return View groups table view page with group data
      */
-    public function refurbish(Request $request)
+    public function refurbishGroup(Request $request)
     {
+        MyLogger2::info("Entering AffinityGroupsController.refurbishGroup()");
      try 
      {
         // update group entered information
@@ -106,11 +110,12 @@ class AffinityGroupsController extends Controller
         $groupEdit = new GroupModel($id, $n, $desc);
         
         // call update method using service passing new group
-        $group = $groupBS->refurbish($groupEdit);
+        $group = $groupBS->refurbishGroup($groupEdit);
         
         //if statement checking if update returns true
         if($group)
         {
+            MyLogger2::info("Exiting AffinityGroupsController.refurbishGroup() with group passed");
             // attempt to retrieve userGroup
             $userGroup = $userGroupBS->retrieve($id, session()->get('users_id'));
             //set current user role in group
@@ -144,8 +149,9 @@ class AffinityGroupsController extends Controller
      */
   
 
-   public function insert(Request $request)
+   public function createGroup(Request $request)
    {
+       MyLogger2::info("Entering AffinityGroupsController.insertGroup()");
       try{
       
            // new group entered information
@@ -177,13 +183,14 @@ class AffinityGroupsController extends Controller
            $group->setRole($userGroup->getRole());
            
            //create new group 
-           $createGroup = $groupBS->insert($group, $userGroup);
+           $createGroup = $groupBS->insertGroup($group, $userGroup);
             
            //if statement checking if create returns true
            if($createGroup)
            {
+               MyLogger2::info("Exiting AffinityGroupsController.insertGroup() with group passed");
                // attempt to readAll groups
-               $groups = $groupBS->retrieveAll();
+               $groups = $groupBS->retrieveAllGroups();
                // store groups information into variable
                // display groups table page
                $data = [
@@ -210,20 +217,22 @@ class AffinityGroupsController extends Controller
    * @return View groups table view page with group data
    */
  
-  public function terminate($id)
+  public function deleteGroup($id)
   {
+      MyLogger2::info("Entering AffinityGroupsController.deleteGroup()");
      try
     {
       //new instance of business service
           $groupBS = new AffinityGroupBusinessService();
       //call delete method passing in job id and storing result into new variable
-          $group = $groupBS->terminate($id);
+          $group = $groupBS->terminateGroup($id);
    
       //if statement checking if delete returns true
           if($group)
       {
+          MyLogger2::info("Exiting AffinityGroupsController.deleteGroup() with group passed");
           // attempt to readAll groups
-          $groups = $groupBS->retrieveAll();
+          $groups = $groupBS->retrieveAllGroups();
           // store groups information into variable
           // display groups table page
           $data = [
@@ -246,114 +255,31 @@ class AffinityGroupsController extends Controller
    * 
    * @return View groups table view page with group data
    */
-  public function retrieveAll(Request $request)
+  public function retrieveAllGroups(Request $request)
   {
+      MyLogger2::info("Entering AffinityGroupsController.retrieveAllGroups()");
        try
        {
       // create new instance of AffinityGroupBusinessService
       $groupBS = new AffinityGroupBusinessService();
       
       // attempt to readAll groups
-      $groups = $groupBS->retrieveAll();
+      $groups = $groupBS->retrieveAllGroups();
      
+      if($groups)
+      {
+          MyLogger2::info("Exiting AffinityGroupsController.retrieveAllGroups() with group passed");
       // store groups information into variable
       // display groups table page
       $data = [
           'model' => $groups
       ];
       return view("groups.groupTable")->with($data);
+      }
   }
        catch (Exception $e2) {
   // display our Global Exception Handler page
           return view("error");
       }
-    }
-  
-    /**
-     *
-     * Calls the business service to join group
-     * If successful, return group view
-     *
-     * @return View groups table view page with group data
-     */
-    public function joinGroup($groups_id)
-    {
-        try {
-        // create new instance of userGroupBusinessService and AffinityGroupBusinessService
-        $userGroupBS = new UserGroupBusinessService();
-        $groupBS = new AffinityGroupBusinessService();
-        
-        //new instance of user in group
-        $userGroup = new UserGroupModel(null, session()->get('username'), 0, session()->get('users_id'), $groups_id);
-       
-        //attempt to insert new user
-        $success = $userGroupBS->insert($userGroup);
-        
-        // attempt to retieve group
-        $group = $groupBS->retrieve($groups_id);
-        
-        //set current user group role
-        $group->setRole($userGroup->getRole());
-        
-        //checks if user has been inserted into group
-        if ($success) {
-            
-            //gets all users in group
-            $userGroup = $userGroupBS->retrieveAll($groups_id);
-            // if users in group are successfully found, return view displaying group 
-            $data = [
-                'group' => $group,
-                'userGroup' => $userGroup
-            ];
-            return view("groups.groupView")->with($data);
-        }
-        } catch (Exception $e2) {
-        // display our Global Exception Handler page
-            return view("error");
-          }
-    }
-      
-    /**
-     *
-     * Calls the business service to leave group
-     * If successful, return group view
-     *
-     * @return View groups table view page with group data
-     */
-    public function leaveGroup($groups_id)
-    {
-         try {
-        // create new instance of userGroupBusinessService and AffinityGroupBusinessService
-        $userGroupBS = new UserGroupBusinessService();
-        $groupBS = new AffinityGroupBusinessService();
-        
-        //new instance of user in group
-        $userGroup = new UserGroupModel(null, session()->get('username'), 0, session()->get('users_id'), $groups_id);
-     
-        //attempt to remove user from group
-        $success = $userGroupBS->remove($userGroup);
-        
-        // attempt to retrieve group
-        $group = $groupBS->retrieve($groups_id);
-        
-        //set current user group role
-        $group->setRole($userGroup->getRole());
-        
-        //checks if user has been removed from group
-        if ($success) {
-            
-            
-            // if group is successfully found, return view displaying group
-            $userGroup = $userGroupBS->retrieveAll($groups_id);
-            $data = [
-                'group' => $group,
-                'userGroup' => $userGroup
-            ];
-            return view("groups.groupView")->with($data);
-        }
-        } catch (Exception $e2) {
-        // display our Global Exception Handler page
-             return view("error");
-         }
     }
 }
