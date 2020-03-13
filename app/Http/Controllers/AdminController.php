@@ -127,7 +127,7 @@ class AdminController extends Controller
              }
     
             //call reburbish method passing in user id and storing result into new variable
-            $users = $userBS->refurbish($user);
+            $users = $userBS->refurbishUser($user);
             //if statement checking if suspendUser returns true
             if($users)
             {
@@ -147,7 +147,7 @@ class AdminController extends Controller
                 $jobBS = new JobPostingBusinessService();
                 
                 // attempt to findById
-                $jobs = $jobBS->retrieveAll();
+                $jobs = $jobBS->retrieveAllJobs();
                 // store user and jobs information into variable
                 
                 $data = [
