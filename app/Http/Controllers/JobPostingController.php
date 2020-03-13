@@ -249,7 +249,7 @@ class JobPostingController extends Controller
       
       // attempt to readAll jobs
       $jobs = $jobBS->retrieveAllJobs();
-      if($jobs){
+      
           MyLogger2::info("Exiting JobPostingController.retrieveAllJobs() with job passed");
       // store jobs information into variable
       // display jobs table page
@@ -257,7 +257,7 @@ class JobPostingController extends Controller
           'model' => $jobs
       ];
       return view("jobs.jobTable")->with($data);
-      }
+      
   }
        catch (Exception $e2) {
   // display our Global Exception Handler page
@@ -275,14 +275,14 @@ class JobPostingController extends Controller
             
             // attempt to readAll jobs
             $jobs = $jobBS->retrieveAllJobs();
-            if($jobs){
+           
             // store jobs information into variable
             // display jobs table page
             $data = [
                 'model' => $jobs
             ];
             return view("jobs.jobSearch")->with($data);
-            }
+            
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page

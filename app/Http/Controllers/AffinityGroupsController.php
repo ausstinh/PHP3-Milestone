@@ -266,16 +266,14 @@ class AffinityGroupsController extends Controller
       // attempt to readAll groups
       $groups = $groupBS->retrieveAllGroups();
      
-      if($groups)
-      {
-          MyLogger2::info("Exiting AffinityGroupsController.retrieveAllGroups() with group passed");
+         MyLogger2::info("Exiting AffinityGroupsController.retrieveAllGroups() with group passed");
       // store groups information into variable
       // display groups table page
       $data = [
           'model' => $groups
       ];
       return view("groups.groupTable")->with($data);
-      }
+      
   }
        catch (Exception $e2) {
   // display our Global Exception Handler page

@@ -185,7 +185,7 @@ class JobPostingDataService implements JobPostingDataInterface
     public function readall()
     {
         MyLogger2::info("Entering JobPostingDataService.readall()");
-        try{
+      //  try{
         // read all from jobs table
         $stmt = $this->db->prepare("SELECT * FROM JOBS");
         // variable to store sql statment and connection to database
@@ -204,10 +204,10 @@ class JobPostingDataService implements JobPostingDataInterface
         // return jobs
         MyLogger2::info("Exiting JobPostingDataService.readall() with job array passed");
         return $job_array;
-        }catch (Exception $e2) {
+       // }catch (Exception $e2) {
             // display our Global Exception Handler page
-            return view("error");
-        }
+        //    return view("error");
+       // }
     }
     
     
