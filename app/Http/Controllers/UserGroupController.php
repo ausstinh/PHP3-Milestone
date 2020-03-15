@@ -11,7 +11,7 @@ use App\Services\Utility\MyLogger2;
 
 class UserGroupController extends Controller
 {
-    public function retrieveUserGroup($id)
+    public function retrieveUserGroup($group_id)
     {
         MyLogger2::info("Entering AffinityGroupsController.retrieveGroup()");
         try {
@@ -21,7 +21,7 @@ class UserGroupController extends Controller
          
           
             // attempt to retrieve userGroup
-            $userGroup = $userGroupBS->retrieveUserGroup($id, session()->get('users_id'));
+            $userGroup = $userGroupBS->retrieveUserGroup($group_id, session()->get('users_id'));
            
             if ($userGroup) { 
               return $userGroup;
@@ -31,7 +31,7 @@ class UserGroupController extends Controller
            return view("error");
        }
     }
-    public function retrieveAllUserGroup($id)
+    public function retrieveAllUserGroup($group_id)
     {
         MyLogger2::info("Entering UserGroupsController.retrieveGroup()");
         try {
@@ -40,7 +40,7 @@ class UserGroupController extends Controller
             $userGroupBS = new UserGroupBusinessService();
             
             
-            $userGroups = $userGroupBS->retrieveAllUserGroups($id);
+            $userGroups = $userGroupBS->retrieveAllUserGroups($group_id);
             
             if ($userGroups) {
               return $userGroups;

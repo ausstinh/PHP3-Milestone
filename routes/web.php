@@ -91,7 +91,7 @@ Route::post('/searchJob',[ "uses" => 'JobPostingController@searchJobs', "as" => 
 Route::get('/viewGroups',[ "uses" => 'AffinityGroupsController@retrieveAllGroups', "as" => 'viewGroups']);
 Route::get('/readGroup/{id}',[ "uses" => 'AffinityGroupsController@retrieveGroup', "as" => 'readGroup']);
 Route::get('/GroupEdit/{id}',[ "uses" => 'AffinityGroupsController@retrieveGroupEdit', "as" => 'readGroupEdit']);
-Route::post('/createGroup',[ "uses" => 'AffinityGroupsController@insertGroup', "as" => 'createGroup']);
+Route::post('/createGroup',[ "uses" => 'AffinityGroupsController@createGroup', "as" => 'createGroup']);
 Route::post('/updateGroup',[ "uses" => 'AffinityGroupsController@refurbishGroup', "as" => 'updateGroup']);
 Route::get('/deleteGroup/{id}',[ "uses" => 'AffinityGroupsController@terminateGroup']);
 Route::get('/joinGroup/{id}',[ "uses" => 'UserGroupController@joinUserGroup', "as" => 'joinGroup']);

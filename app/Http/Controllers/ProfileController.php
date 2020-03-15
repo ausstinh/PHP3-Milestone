@@ -441,6 +441,14 @@ class ProfileController extends Controller
         //return skilltable view with data holding skills
         return view("skills.skillTable")->with($data);
         }
+        else{
+            MyLogger2::info("Entering ProfileController.readSkill() with no skills passed");
+            //store value of skills into new variable
+            $data = ['skills' => $skills];
+            //if role == 1
+            //return skilltable view with data holding skills
+            return view("skills.skillTable")->with($data);
+        }
            } catch (Exception $e2) {
         // display our Global Exception Handler page
                 return view("error");
@@ -473,6 +481,14 @@ class ProfileController extends Controller
         //return experience table view with data holding experiences
         return view("experience.experienceTable")->with($data);
         }
+        else{
+            MyLogger2::info("Exiting ProfileController.readExperience() with no experience passed");
+            //store value of experience into new variable
+            $data = ['model' => $experiences];
+            //if role == 1
+            //return experience table view with data holding experiences
+            return view("experience.experienceTable")->with($data);
+        }
           } catch (Exception $e2) {
         // display our Global Exception Handler page
                return view("error");
@@ -498,12 +514,20 @@ class ProfileController extends Controller
         $educations = $profileBS->retrieveAllEducations(session()->get('users_id'));
         //if statement checking if $users returns true
         if($educations){
-            MyLogger2::info("Entering ProfileController.readEducation() with education passed");
+            MyLogger2::info("Exiting ProfileController.readEducation() with education passed");
         //store value of users into new variable
         $data = ['model' => $educations];
-        //if role == 1
+     
         //return userstable view with data holding users
         return view("education.educationTable")->with($data);
+        }
+        else{
+            MyLogger2::info("Exiting ProfileController.readEducation() with  no education passed");
+            //store value of users into new variable
+            $data = ['model' => $educations];
+            
+            //return userstable view with data holding users
+            return view("education.educationTable")->with($data);
         }
            } catch (Exception $e2) {
         // display our Global Exception Handler page
@@ -531,6 +555,7 @@ class ProfileController extends Controller
         //if statement checking if delete education returns true
         if($education)
         {
+            MyLogger2::info("Exiting ProfileController.deleteEducation() with education passed");
            //call getAllUsers method from sevice and store in new users variable
             $educations = $profileBS->retrieveAllEducations(session()->get('users_id'));
             //if statement checking if $users returns true
@@ -566,6 +591,7 @@ class ProfileController extends Controller
         //if statement checking if delete experience returns true
         if($experiences)
         {
+            MyLogger2::info("Exiting ProfileController.deleteExperience() with experience passed");
             //call get all experience method from sevice and store in new experiences variable
             $experiences= $profileBS->retrieveAllExperiences(session()->get('users_id'));
             //if statement checking if $users returns true
@@ -604,6 +630,7 @@ class ProfileController extends Controller
         //if statement checking if delete skill returns true
          if($skills)
          {
+             MyLogger2::info("Exiting ProfileController.deleteSkill() with skill passed");
             //call get all skill method from sevice and store in new skills variable
             $skills = $profileBS->retrieveAllSkills(session()->get('users_id'));
             //if statement checking if $users returns true
