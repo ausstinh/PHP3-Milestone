@@ -61,7 +61,7 @@ class AccountController extends Controller
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page
-            $this->logger->error("Exit AccountController.register() with register failed " + $e2->getMessage());
+            $this->logger->error("Exit AccountController.register() with register failed ");
             return view("error");
         }
     }
@@ -76,7 +76,7 @@ class AccountController extends Controller
     public function showHome()
     {
         $this->logger->info("Entering AccountController.showHome()");
-        try {
+       // try {
             // create new instance of userBusinessService
             $userBS = new UserBusinessService();
 
@@ -100,12 +100,12 @@ class AccountController extends Controller
                 //return home page with data
                 return view("home")->with($data);
             }
-        } 
-        catch (Exception $e2) {
-            $this->logger->error("Exit AccountController.showHome() with user failed" + " " + $e2->getMessage());
+       // } 
+       // catch (Exception $e2) {
+            $this->logger->error("Exit AccountController.showHome() with user failed" );
             // display our Global Exception Handler page
             return view("error");
-        }
+      //  }
     }
 
     /**
@@ -169,7 +169,7 @@ class AccountController extends Controller
         } // this exception MUST be caught before Exception because ValidaitonException extends from Exception
         // youmust rethrow this exception
         catch (ValidationException $e1) {
-            throw  $this->logger->error("Exit AccountController.login() with login failed" + " " + $e1);;
+            throw  $this->logger->error("Exit AccountController.login() with login failed");;
         } 
        catch (Exception $e2) {
             // display our Global Exception Handler page
@@ -211,7 +211,7 @@ class AccountController extends Controller
         } 
         catch (Exception $e2) {
             // display our Global Exception Handler page
-            $this->logger->error("Exit AccountController.register() with register failed " + $e2->getMessage());
+            $this->logger->error("Exit AccountController.register() with register failed ");
             return view("error");
         }
     }
@@ -237,7 +237,7 @@ class AccountController extends Controller
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page
-            $this->logger->error("Exit AccountController.register() with register failed " + $e2->getMessage());
+            $this->logger->error("Exit AccountController.register() with register failed ");
             return view("error");
         }
     }

@@ -52,7 +52,7 @@ class AffinityGroupsController extends Controller
             } 
        } catch (Exception $e2) {
             // display our Global Exception Handler page
-           $this->logger->error("Exiting AffinityGroupsController.retrieveGroup() with group passed " + $e2->getMessage());
+           $this->logger->error("Exiting AffinityGroupsController.retrieveGroup() with group failed ");
           return view("error");
        }
     }
@@ -85,7 +85,7 @@ class AffinityGroupsController extends Controller
             }
        } catch (Exception $e2) {
             // display our Global Exception Handler page
-           $this->logger->info("Exiting AffinityGroupsController.retrieveGroupEdit() with group failed " + $e2->getMessage());
+           $this->logger->info("Exiting AffinityGroupsController.retrieveGroupEdit() with group failed");
            return view("error");
        }
     }
@@ -141,7 +141,7 @@ class AffinityGroupsController extends Controller
       
       } catch (Exception $e2) {
             // display our Global Exception Handler page
-          $this->logger->error("Exiting AffinityGroupsController.refurbishGroup() with group failed " + $e2->getMessage());
+          $this->logger->error("Exiting AffinityGroupsController.refurbishGroup() with group failed ");
           return view("error");
     }
     }
@@ -212,7 +212,7 @@ class AffinityGroupsController extends Controller
        }
   } catch (Exception $e2) {
        // display our Global Exception Handler page
-      $this->logger->error("Exiting AffinityGroupsController.insertGroup() with group passed " + $e2->getMessage());
+      $this->logger->error("Exiting AffinityGroupsController.insertGroup() with group passed ");
       return view("error");
    }
   }
@@ -254,7 +254,7 @@ class AffinityGroupsController extends Controller
     }
      catch (Exception $e2) {
           // display our Global Exception Handler page
-         $this->logger->error("Exiting AffinityGroupsController.deleteGroup() with group passed " + $e2->getMessage());
+         $this->logger->error("Exiting AffinityGroupsController.deleteGroup() with group passed ");
           return view("error");
           
      }
@@ -289,7 +289,7 @@ class AffinityGroupsController extends Controller
   }
        catch (Exception $e2) {
   // display our Global Exception Handler page
-           $this->logger->error("Exiting AffinityGroupsController.retrieveAllGroups() with group failed " + $e2->getMessage());
+           $this->logger->error("Exiting AffinityGroupsController.retrieveAllGroups() with group failed ");
           return view("error");
       }
     }

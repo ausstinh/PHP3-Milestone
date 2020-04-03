@@ -60,7 +60,7 @@ class AdminController extends Controller
     }
     catch (Exception $e2) {
         // display our Global Exception Handler page
-        $this->logger->error("Exit AdminController.retrieveAllUsers() with user failed " + $e2->getMessage());
+        $this->logger->error("Exit AdminController.retrieveAllUsers() with user failed ");
         return view("error");
     }
         
@@ -105,7 +105,7 @@ class AdminController extends Controller
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page
-            $this->logger->error("Exiting AdminController.terminate() with user failed " + $e2->getMessage());
+            $this->logger->error("Exiting AdminController.terminate() with user failed ");
             return view("error");
         }
     }
@@ -169,7 +169,7 @@ class AdminController extends Controller
             }
             catch (Exception $e2) {
                 // display our Global Exception Handler page
-                $this->logger->error("Exiting AdminController.toggleSuspend() with user failed " + $e2->getMessage());
+                $this->logger->error("Exiting AdminController.toggleSuspend() with user failed ");
                 return view("error");
            }
         }

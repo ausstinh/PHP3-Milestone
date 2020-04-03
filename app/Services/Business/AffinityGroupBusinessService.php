@@ -3,11 +3,10 @@ namespace App\Services\Business;
 use App\Interfaces\Business\AffinityGroupBusinessInterface;
 
 use App\Services\Data\AffinityGroupDataService;
-use App\Services\Data\UserGroupDataService;
 use PDO;
 
 use App\Services\Data\UserDataService;
-use App\Services\Utility\MyLogger3;
+use App\Services\Utility\MyLogger2;
 use App\Models\GroupModel;
 
 class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
@@ -17,7 +16,7 @@ class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
      */
     public function retrieveGroup($id)
     {
-        MyLogger3::info("Entering AfffinityGroupBusinessService.retrieveGroup()");
+        MyLogger2::info("Entering AfffinityGroupBusinessService.retrieveGroup()");
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
         $username = config("database.connections.mysql.username");
@@ -48,11 +47,11 @@ class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
         }
         //in PDO you "close" the database connection by setting the PDO object to null
         $db = null;
-        MyLogger3::info("Exiting AfffinityGroupBusinessService.retrieveGroup() with users passed");
+        MyLogger2::info("Exiting AfffinityGroupBusinessService.retrieveGroup() with users passed");
         return $groupInfo;
         }
         else{
-            MyLogger3::info("Exiting AfffinityGroupBusinessService.retrieveGroup() with users failed");
+            MyLogger2::info("Exiting AfffinityGroupBusinessService.retrieveGroup() with users failed");
             return new GroupModel(null, null, null);
         }
     }
@@ -61,7 +60,7 @@ class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
      */
     public function insertGroup($group, $userGroup)
     {
-        MyLogger3::info("Entering AfffinityGroupBusinessService.insertGroup()");
+        MyLogger2::info("Entering AfffinityGroupBusinessService.insertGroup()");
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
         $username = config("database.connections.mysql.username");
@@ -75,7 +74,7 @@ class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
         $profileInfo = $dbService->create($group, $userGroup);
         //in PDO you "close" the database connection by setting the PDO object to null
         $db = null;
-        MyLogger3::info("Exiting AfffinityGroupBusinessService.insertGroup()");
+        MyLogger2::info("Exiting AfffinityGroupBusinessService.insertGroup()");
         return $profileInfo;
     }
     /*
@@ -83,7 +82,7 @@ class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
      */
     public function refurbishGroup($group)
     {
-        MyLogger3::info("Entering AfffinityGroupBusinessService.refurbishGroup()");
+        MyLogger2::info("Entering AfffinityGroupBusinessService.refurbishGroup()");
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
         $username = config("database.connections.mysql.username");
@@ -97,7 +96,7 @@ class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
         $profileInfo = $dbService->update($group);
         //in PDO you "close" the database connection by setting the PDO object to null
         $db = null;
-        MyLogger3::info("Exiting AfffinityGroupBusinessService.refurbishGroup()");
+        MyLogger2::info("Exiting AfffinityGroupBusinessService.refurbishGroup()");
         return $profileInfo;
     }
     /*
@@ -105,7 +104,7 @@ class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
      */
     public function terminateGroup($id)
     {
-        MyLogger3::info("Entering AfffinityGroupBusinessService.terminateGroup()");
+        MyLogger2::info("Entering AfffinityGroupBusinessService.terminateGroup()");
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
         $username = config("database.connections.mysql.username");
@@ -119,7 +118,7 @@ class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
         $profileInfo = $dbService->delete($id);
         //in PDO you "close" the database connection by setting the PDO object to null
         $db = null;
-        MyLogger3::info("Exiting AfffinityGroupBusinessService.terminateGroup()");
+        MyLogger2::info("Exiting AfffinityGroupBusinessService.terminateGroup()");
         return $profileInfo;
     }
     /*
@@ -127,7 +126,7 @@ class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
      */
     public function retrieveAllGroups()
     {
-        MyLogger3::info("Entering AfffinityGroupBusinessService.retrieveAllGroups()");
+        MyLogger2::info("Entering AfffinityGroupBusinessService.retrieveAllGroups()");
         $servername = config("database.connections.mysql.host");
         $port = config("database.connections.mysql.port");
         $username = config("database.connections.mysql.username");
@@ -141,7 +140,7 @@ class AffinityGroupBusinessService implements AffinityGroupBusinessInterface
         $profileInfo = $dbService->readall();
         //in PDO you "close" the database connection by setting the PDO object to null
         $db = null;
-        MyLogger3::info("Exiting AfffinityGroupBusinessService.retrieveAllGroups()");
+        MyLogger2::info("Exiting AfffinityGroupBusinessService.retrieveAllGroups()");
         return $profileInfo;
     }
 

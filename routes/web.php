@@ -105,8 +105,8 @@ Route::get('logout', 'AccountController@logout')->name('logout');
 Route::post('/login','AccountController@login');
 Route::post('/register','AccountController@register');
 
-Route::get('/userstable', 'AdminController@retrieveAll')->name('userstable');
-Route::get('/admincontrol', 'AdminController@retrieveAll')->name('admincontrol');
+Route::get('/userstable', 'AdminController@retrieveAllUsers')->name('userstable');
+Route::get('/admincontrol', 'AdminController@retrieveAllUsers')->name('admincontrol');
 Route::get('/toggleSuspend/{id}','AdminController@toggleSuspend');
 Route::get('/terminate/{id}','AdminController@terminate');
 

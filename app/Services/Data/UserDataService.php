@@ -3,6 +3,7 @@ namespace App\Services\Data;
 
 use App\Interfaces\Data\UserDataInterface;
 use App\Models\UserModel;
+use App\Services\Utility\MyLogger2;
 use Exception;
 use PDO;
 session_start();
@@ -23,6 +24,7 @@ class UserDataService implements UserDataInterface
      */
     public function create($user)
     {
+        MyLogger2::info("Entering UserDataService.create()");
         try{
         if (!$this->read($user)) {
 
@@ -75,9 +77,11 @@ class UserDataService implements UserDataInterface
                 // if number of affected rows within the database is greater than 0, meaning user got successfully entered
                 if ($stmt->rowCount() == 1) {
                     // return true
+                    MyLogger2::info("Exiting UserDataService.create() with user passed");
                     return true;
                 } // else return false
                 else {
+                    MyLogger2::info("Exiting UserDataService.create() with user failed");
                     return false;
                 }
             } // else return false
@@ -95,6 +99,7 @@ class UserDataService implements UserDataInterface
      */
     public function authenticateUser($user)
     {
+        MyLogger2::info("Entering UserDataService.authenticateUser()");
         try{
         // variables to retrieve email and password from $user
         $attemptedLoginEmail = $user->getEmail();
@@ -115,6 +120,7 @@ class UserDataService implements UserDataInterface
         } else {
             return null;
         }
+        MyLogger2::info("Exiting UserDataService.authenticateUser()");
         // return user
         return $p;
         }catch (Exception $e2) {
@@ -128,6 +134,7 @@ class UserDataService implements UserDataInterface
      */
     public function findbyId($users_id)
     {
+        MyLogger2::info("Entering UserDataService.findbyId()");
         try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM USERS WHERE USERS_ID = :users_id LIMIT 1");
@@ -142,6 +149,7 @@ class UserDataService implements UserDataInterface
             // create new user with found ID
             $p = new UserModel($row['id'], $row['FIRSTNAME'], $row['LASTNAME'], $row['EMAIL'], $row['PASSWORD'], $row['ROLE'], $row['WEBSITE'], $row['COMPANY'], $row['PHONENUMBER'], $row['BIRTHDATE'], $row['GENDER'], $row['BIO'], $row['SUSPEND'], $users_id);   
         }
+        MyLogger2::info("Exiting UserDataService.findbyId()");
         // return user
         return $p;
         }catch (Exception $e2) {
@@ -155,6 +163,7 @@ class UserDataService implements UserDataInterface
      */
     public function read($user)
     {
+        MyLogger2::info("Entering UserDataService.read()");
         try{
         // variables to retrieve email and password from $user
         $attemptedLoginEmail = $user->getEmail();
@@ -167,6 +176,7 @@ class UserDataService implements UserDataInterface
         $stmt->execute();
 
         if ($stmt->rowCount() == 1) {
+            MyLogger2::info("Exiting UserDataService.read()");
             return true;
         } else {
             // return false
@@ -183,6 +193,7 @@ class UserDataService implements UserDataInterface
      */
     public function delete($users_id)
     {
+        MyLogger2::info("Entering UserDataService.delete()");
         try{
         // Delete statement where user ID is ID passed in
         $stmt = $this->db->prepare("DELETE FROM `USERS` WHERE `USERS`.`id` = :users_id");
@@ -190,8 +201,10 @@ class UserDataService implements UserDataInterface
         $stmt->execute();
 
         // if result == 1
-        if ($stmt->rowCount() == 1)
+        if ($stmt->rowCount() == 1){
+            MyLogger2::info("Exiting UserDataService.delete()");
             return true;
+        }
 
         // if result vaiable doesn't find user with entered credentials
         else
@@ -207,6 +220,7 @@ class UserDataService implements UserDataInterface
      */
     public function update($user)
     {
+        MyLogger2::info("Entering UserDataService.update()");
         try{
         // variables to retrieve new information from $user
         $users_id = $user->getUsers_id();
@@ -247,6 +261,7 @@ class UserDataService implements UserDataInterface
             return null;
         }
         // return user
+        MyLogger2::info("Exiting UserDataService.update()");
         return $p;
         } catch (Exception $e2) {
             // display our Global Exception Handler page
@@ -259,6 +274,7 @@ class UserDataService implements UserDataInterface
      */
     public function readAll()
     {
+        MyLogger2::info("Entering UserDataService.readAll()");
         try{
         // select statement for all information in users
         $stmt = $this->db->prepare("SELECT * FROM USERS");
@@ -275,6 +291,7 @@ class UserDataService implements UserDataInterface
             array_push($user_array, $p);
         }
         // return user array
+        MyLogger2::info("Exiting UserDataService.readAll()");
         return $user_array;
         }catch (Exception $e2) {
             // display our Global Exception Handler page

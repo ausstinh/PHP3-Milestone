@@ -4,6 +4,7 @@ namespace App\Services\Data;
 
 use App\Models\GroupModel;
 use App\Models\UserModel;
+use App\Services\Utility\MyLogger2;
 use Exception;
 use PDO;
 use App\Interfaces\Data\AffinityGroupDataInterface;
@@ -22,6 +23,7 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
      */
     public function read($id)
     {
+        MyLogger2::info("Entering AffinityGroupDataService.read()");
         try
         {
         // select statement to search through database using ID passed in
@@ -38,6 +40,7 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
             
             $groupInfo = new GroupModel($id, $row['NAME'], $row['DESCRIPTION']);
         }
+        MyLogger2::info("Exiting AffinityGroupDataService.read()");
         // return group
         return $groupInfo;
         }
@@ -51,6 +54,7 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
      */
     public function create($group, $userGroup)
     {
+        MyLogger2::info("Entering AffinityGroupDataService.create()");
         try
         {
         $name = $group->getName();
@@ -75,14 +79,17 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
         
         // if number of affected rows within the database is greater than 0, meaning user got successfully entered
         if ($stmt->rowCount() == 1) {
+            MyLogger2::info("Exiting AffinityGroupDataService.create() with group passed");
             // return true
             return true;
         } // else return false
-        else 
+        else {
+            MyLogger2::info("Exiting AffinityGroupDataService.create() with group failed");
             return false;
-        
+        }
         }
         else {
+            MyLogger2::info("Exiting AffinityGroupDataService.create() with group failed");
             return false;
         }
     }
@@ -96,6 +103,7 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
      */
     public function update($group)
     {
+        MyLogger2::info("Entering AffinityGroupDataService.update()");
         try
         {
         // variables to retrieve new information from $user
@@ -119,9 +127,11 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
             $groupinfo = new GroupModel($id, $name, $desc);
         }
         else {
+            MyLogger2::info("Exiting AffinityGroupDataService.update() with group failed");
             return null;
         }
         // return user
+        MyLogger2::info("Exiting AffinityGroupDataService.update() with group passed");
         return $groupinfo;
     }
     catch (Exception $e2) {
@@ -134,6 +144,7 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
      */
     public function delete($id)
     {
+        MyLogger2::info("Entering AffinityGroupDataService.delete()");
         try
         {
         // Delete statement where group ID is ID passed in
@@ -146,8 +157,10 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
             $stmt = $this->db->prepare("DELETE FROM GROUPS WHERE id = :id");
             $stmt->bindParam(':id', $id);
             $stmt->execute();
-            if($stmt->rowCount() == 1)
+            if($stmt->rowCount() == 1){
+                MyLogger2::info("Exiting AffinityGroupDataService.delete()");
             return true;
+            }
             else 
                 return false;
         }
@@ -166,6 +179,7 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
      */
     public function readAllUsers($group_id)
     {
+        MyLogger2::info("Entering AffinityGroupDataService.readAllUsers()");
         try
         {
         // select statement for all information in groups
@@ -178,6 +192,7 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 array_push($userGroups, $row);
             }
+            MyLogger2::info("Exiting AffinityGroupDataService.readAllUsers()");
             return $userGroups;
         }
         else{
@@ -195,6 +210,7 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
      */
     public function readall()
     {
+        MyLogger2::info("Entering AffinityGroupDataService.readall()");
         try
         {
         // select statement to search through database using ID passed in
@@ -212,6 +228,7 @@ class AffinityGroupDataService implements AffinityGroupDataInterface
             $profileInfo = new GroupModel($row['id'], $row['NAME'], $row['DESCRIPTION']);
             array_push($group_array, $profileInfo);
         }
+        MyLogger2::info("Exiting AffinityGroupDataService.readall()");
         // return group array
         return $group_array;
     }

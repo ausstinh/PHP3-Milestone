@@ -47,7 +47,7 @@ class JobPostingController extends Controller
             } 
         } catch (Exception $e2) {
             // display our Global Exception Handler page
-            $this->logger->error("Exiting JobPostingController.retrieveJob() with job failed " + $e2->getMessage());
+            $this->logger->error("Exiting JobPostingController.retrieveJob() with job failed ");
             return view("error");
         }
     }
@@ -83,7 +83,7 @@ class JobPostingController extends Controller
             }
        } catch (Exception $e2) {
             // display our Global Exception Handler page
-           $this->logger->error("Exiting JobPostingController.retrieveJobEdit() with job failed " + $e2->getMessage());
+           $this->logger->error("Exiting JobPostingController.retrieveJobEdit() with job failed ");
            return view("error");
        }
     }
@@ -139,7 +139,7 @@ class JobPostingController extends Controller
         }
        } catch (Exception $e2) {
             // display our Global Exception Handler page
-           $this->logger->error("Exiting JobPostingController.refurbishJob() with job failed " + $e2->getMessage());
+           $this->logger->error("Exiting JobPostingController.refurbishJob() with job failed ");
            return view("error");
      }
     }
@@ -194,7 +194,7 @@ class JobPostingController extends Controller
        }
    } catch (Exception $e2) {
        // display our Global Exception Handler page
-       $this->logger->error("Exiting JobPostingController.refurbishJob() with job failed " + $e2->getMessage());
+       $this->logger->error("Exiting JobPostingController.refurbishJob() with job failed ");
       return view("error");
    }
   }
@@ -238,7 +238,7 @@ class JobPostingController extends Controller
       }
       catch (Exception $e2) {
           // display our Global Exception Handler page
-          $this->logger->info("Exiting JobPostingController.terminateJob() with job failed " + $e2->getMessage());
+          $this->logger->info("Exiting JobPostingController.terminateJob() with job failed ");
           return view("error");
       }
    
@@ -272,7 +272,7 @@ class JobPostingController extends Controller
   }
        catch (Exception $e2) {
   // display our Global Exception Handler page
-           $this->logger->error("Exiting JobPostingController.retrieveAllJobs() with job failed " + $e2->getMessage());
+           $this->logger->error("Exiting JobPostingController.retrieveAllJobs() with job failed " );
           return view("error");
           
       }
@@ -299,7 +299,7 @@ class JobPostingController extends Controller
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page
-            $this->logger->error("Entering JobPostingController.viewJobs() failed " + $e2->getMessage());
+            $this->logger->error("Entering JobPostingController.viewJobs() failed ");
             return view("error");
         }
     }
@@ -328,7 +328,7 @@ class JobPostingController extends Controller
        }
        catch (Exception $e2) {
             // display our Global Exception Handler page
-           $this->logger->error("Exiting JobPostingController.searchJobs() with jobs failed " + $e2->getMessage());
+           $this->logger->error("Exiting JobPostingController.searchJobs() with jobs failed ");
             return view("error");
        }
  

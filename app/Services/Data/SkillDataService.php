@@ -3,6 +3,7 @@ namespace App\Services\Data;
 
 use App\Interfaces\Data\ProfileDataInterface;
 use App\Models\SkillsModel;
+use App\Services\Utility\MyLogger2;
 use Exception;
 use PDO;
 
@@ -21,6 +22,7 @@ class SkillDataService implements ProfileDataInterface
      */
     public function create($skill)
     {
+        MyLogger2::info("Entering SkillDataService.create()");
         try{
         $rating = $skill->getRating();
         $desc = $skill->getDescription();
@@ -35,6 +37,7 @@ class SkillDataService implements ProfileDataInterface
         $stmt->execute();
         // if number of affected rows within the database is greater than 0, meaning user got successfully entered
         if ($stmt->rowCount() == 1) {
+            MyLogger2::info("Exiting SkillDataService.create()");
             // return true
             return true;
         } // else return false
@@ -52,6 +55,7 @@ class SkillDataService implements ProfileDataInterface
     
     public function read($id)
     {
+        MyLogger2::info("Entering SkillDataService.read()");
         try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM SKILLS WHERE id = :id");
@@ -68,6 +72,7 @@ class SkillDataService implements ProfileDataInterface
             $profileInfo = new SkillsModel($id, $row['DESCRIPTION'], $row['RATING'], $row['USERS_ID']);
         }
         // return skill
+        MyLogger2::info("Exiting SkillDataService.create()");
         return $profileInfo;
         }catch (Exception $e2) {
             // display our Global Exception Handler page
@@ -83,6 +88,7 @@ class SkillDataService implements ProfileDataInterface
     
     public function update($skill)
     {
+        MyLogger2::info("Entering SkillDataService.update()");
         try{
         // variables to retrieve new information from $user
         $id = $skill->getId();
@@ -100,6 +106,7 @@ class SkillDataService implements ProfileDataInterface
      
         // if result has information
         if ($stmt->rowCount() == 1) {
+            MyLogger2::info("Exiting SkillDataService.create()");
             // create new user with updated information
             $skillInfo = new SkillsModel($id, $DescEdit, $RatingEdit, $users_id);
         }
@@ -119,17 +126,19 @@ class SkillDataService implements ProfileDataInterface
      */
     
     public function delete($id)
-    {
-        try{
+    {  
+        MyLogger2::info("Entering SkillDataService.delete()");
+        try{ 
         // Delete statement where user ID is ID passed in
         $stmt = $this->db->prepare("DELETE FROM `SKILLS` WHERE `SKILLS`.`id` = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         
         // if result == 1
-        if ($stmt->rowCount() == 1)
+        if ($stmt->rowCount() == 1){
+            MyLogger2::info("Exiting SkillDataService.delete()");
             return true;
-            
+        }
             // if result vaiable doesn't find user with entered credentials
             else
                 return false;
@@ -144,6 +153,7 @@ class SkillDataService implements ProfileDataInterface
     
     public function readall($users_id)
     {
+        MyLogger2::info("Entering SkillDataService.readall()");
         try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM SKILLS WHERE USERS_ID = :users_id");
@@ -160,6 +170,7 @@ class SkillDataService implements ProfileDataInterface
             $profileInfo = new SkillsModel($row['id'], $row['DESCRIPTION'], $row['RATING'], $users_id);
             array_push($education_array, $profileInfo);
         }
+        MyLogger2::info("Exiting SkillDataService.readall()");
         return $education_array;
         } catch (Exception $e2) {
             // display our Global Exception Handler page

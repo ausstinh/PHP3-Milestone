@@ -3,6 +3,7 @@ namespace App\Services\Data;
 
 use App\Interfaces\Data\ProfileDataInterface;
 use App\Models\ExperienceModel;
+use App\Services\Utility\MyLogger2;
 use Exception;
 use PDO;
 
@@ -22,6 +23,7 @@ class ExperienceDataService implements ProfileDataInterface
      */
     public function create($experience)
     {
+        MyLogger2::info("Entering ExperienceDataService.create()");
         try{
         $users_id = $experience->getUsers_id();
         $ed = $experience->getEndDate();
@@ -43,6 +45,7 @@ class ExperienceDataService implements ProfileDataInterface
         $stmt->execute();
         // if number of affected rows within the database is greater than 0, meaning user got successfully entered
         if ($stmt->rowCount() == 1) {
+            MyLogger2::info("Exiting ExperienceDataService.create()");
             // return true
             return true;
         } // else return false
@@ -59,7 +62,7 @@ class ExperienceDataService implements ProfileDataInterface
      */
     public function read($id)
     {  
-      
+        MyLogger2::info("Entering ExperienceDataService.read()");
         try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM EXPERIENCE WHERE id = :id LIMIT 1");
@@ -74,6 +77,7 @@ class ExperienceDataService implements ProfileDataInterface
             
         }
         // return user
+        MyLogger2::info("Exiting ExperienceDataService.read()");
         return $profileInfo;
         }catch (Exception $e2) {
             // display our Global Exception Handler page
@@ -87,6 +91,7 @@ class ExperienceDataService implements ProfileDataInterface
      */
     public function update($experience)
     {
+        MyLogger2::info("Entering ExperienceDataService.update()");
         try{
         // variables to retrieve new information from $user
         $id = $experience->getId();
@@ -117,6 +122,7 @@ class ExperienceDataService implements ProfileDataInterface
             return null;
         }
         // return user
+        MyLogger2::info("Exiting ExperienceDataService.update()");
         return $newExperience;
     }catch (Exception $e2) {
         // display our Global Exception Handler page
@@ -128,6 +134,7 @@ class ExperienceDataService implements ProfileDataInterface
      */
     public function delete($id)
     {
+        MyLogger2::info("Entering ExperienceDataService.delete()");
         try{
         // Delete statement where user ID is ID passed in
         $stmt = $this->db->prepare("DELETE FROM `EXPERIENCE` WHERE `EXPERIENCE`.`id` = :id");
@@ -135,9 +142,11 @@ class ExperienceDataService implements ProfileDataInterface
         $stmt->execute();
         
         // if result == 1
-        if ($stmt->rowCount() == 1)
+        if ($stmt->rowCount() == 1){
+            MyLogger2::info("Exiting ExperienceDataService.delete()");
             return true;
             
+        }
             // if result vaiable doesn't find user with entered credentials
             else
             return false;
@@ -151,6 +160,7 @@ class ExperienceDataService implements ProfileDataInterface
      */
     public function readall($users_id)
     {
+        MyLogger2::info("Entering ExperienceDataService.readall()");
         try{
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM EXPERIENCE WHERE USERS_ID = :users_id");
@@ -169,6 +179,7 @@ class ExperienceDataService implements ProfileDataInterface
             array_push($experience_array, $profileInfo);
         }
         // return user
+        MyLogger2::info("Exiting ExperienceDataService.readall()");
         return $experience_array;
     }catch (Exception $e2) {
         // display our Global Exception Handler page
