@@ -112,6 +112,9 @@ Route::get('/terminate/{id}','AdminController@terminate');
 
 Route::post('/update','ProfileController@updateProfile')->name('refurbish');
 
+Route::resource('/usersrest', 'UserRestController');
+Route::resource('/jobsrest', 'JobPostingRestController');
+
 
 
 

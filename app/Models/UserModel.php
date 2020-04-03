@@ -1,6 +1,6 @@
 <?php
 namespace App\Models;
-class UserModel{
+class UserModel implements \JsonSerializable{
     
     private $id;
     private $password;
@@ -243,6 +243,11 @@ class UserModel{
     {
         $this->role = $role;
     }
+    public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
+
     
     
 }

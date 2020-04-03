@@ -6,12 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Exception;
 use App\Services\Business\JobPostingBusinessService;
+use App\Services\Utility\ILoggerService;
 use App\Services\Utility\MyLogger2;
 use App\Models\JobPostingModel;
 
 
 class JobPostingController extends Controller
 {
+    protected $logger;
+    
+    public function __construct(ILoggerService $logger){
+        $this->logger = $logger;
+    }
     /**
      * Takes in a job ID
      * Calls the business service to read
@@ -23,7 +29,7 @@ class JobPostingController extends Controller
      */
     public function retrieveJob($id)
     {
-        MyLogger2::info("Entering JobPostingController.retrieveJob()");
+        $this->logger->info("Entering JobPostingController.retrieveJob()");
         try {
             // create new instance of userBusinessService
             $jobBS = new JobPostingBusinessService();
@@ -32,7 +38,7 @@ class JobPostingController extends Controller
             $job = $jobBS->retrieveJob($id);
             // if statement using read method from business service class passing job ID
             if ($job) {
-                MyLogger2::info("Exiting JobPostingController.retrieveJob() with job passed");
+                $this->logger->info("Exiting JobPostingController.retrieveJob() with job passed");
                 // if job is successfully found, return view displaying job update table
                 $data = [
                     'job' => $job,
@@ -41,6 +47,7 @@ class JobPostingController extends Controller
             } 
         } catch (Exception $e2) {
             // display our Global Exception Handler page
+            $this->logger->error("Exiting JobPostingController.retrieveJob() with job failed " + $e2->getMessage());
             return view("error");
         }
     }
@@ -56,7 +63,7 @@ class JobPostingController extends Controller
      */
     public function retrieveJobEdit($id)
     {
-        MyLogger2::info("Entering JobPostingController.retrieveJobEdit()");
+        $this->logger->info("Entering JobPostingController.retrieveJobEdit()");
         try {
             // create new instance of userBusinessService
         $jobBS = new JobPostingBusinessService();
@@ -65,7 +72,7 @@ class JobPostingController extends Controller
             $job = $jobBS->retrieveJob($id);
             // if statement using read method from business service class passing job ID
             if ($job) {
-                MyLogger2::info("Exiting JobPostingController.retrieveJobEdit() with job passed");
+                $this->logger->info("Exiting JobPostingController.retrieveJobEdit() with job passed");
                 // if job is successfully found, return view displaying job update table
                 $data = [
                     'job' => $job,      
@@ -76,6 +83,7 @@ class JobPostingController extends Controller
             }
        } catch (Exception $e2) {
             // display our Global Exception Handler page
+           $this->logger->error("Exiting JobPostingController.retrieveJobEdit() with job failed " + $e2->getMessage());
            return view("error");
        }
     }
@@ -91,7 +99,7 @@ class JobPostingController extends Controller
      */
     public function refurbishJob(Request $request)
     {
-        MyLogger2::info("Entering JobPostingController.refurbishJob()");
+        $this->logger->info("Entering JobPostingController.refurbishJob()");
      try 
      {
         // update job entered information
@@ -115,7 +123,7 @@ class JobPostingController extends Controller
         //if statement checking if update returns true
         if($job)
         {
-            MyLogger2::info("Exiting JobPostingController.refurbishJob() with job passed");
+            $this->logger->info("Exiting JobPostingController.refurbishJob() with job passed");
             // attempt to readAll jobs
             $jobs = $jobBS->retrieveAllJobs();
             // store jobs information into variable
@@ -131,6 +139,7 @@ class JobPostingController extends Controller
         }
        } catch (Exception $e2) {
             // display our Global Exception Handler page
+           $this->logger->error("Exiting JobPostingController.refurbishJob() with job failed " + $e2->getMessage());
            return view("error");
      }
     }
@@ -149,7 +158,7 @@ class JobPostingController extends Controller
 
    public function insertJob(Request $request)
    {
-       MyLogger2::info("Entering JobPostingController.insertJob()");
+       $this->logger->info("Entering JobPostingController.insertJob()");
       try{
       
            // new user entered information
@@ -162,7 +171,7 @@ class JobPostingController extends Controller
            // create new instance of JobPostingBusinessService
            $jobBS = new JobPostingBusinessService();
            
-           MyLogger2::info(" Parameters: ", array("Name" => $n,"Description" => $desc, "Salary" => $salary, "Location" => $location)); 
+           $this->logger->info(" Parameters: ", array("Name" => $n,"Description" => $desc, "Salary" => $salary, "Location" => $location)); 
            // create new job using new variables
            $jobEdit = new JobPostingModel(null, $n, $desc, $salary, $location, null);
            $job = $jobBS->insertJob($jobEdit);
@@ -170,7 +179,7 @@ class JobPostingController extends Controller
            //if statement checking if create returns true
            if($job)
            {
-               MyLogger2::info("Exiting JobPostingController.refurbishJob() with job passed");
+               $this->logger->info("Exiting JobPostingController.refurbishJob() with job passed");
                // attempt to readAll jobs
                $jobs = $jobBS->retrieveAllJobs();
                // store jobs information into variable
@@ -185,6 +194,7 @@ class JobPostingController extends Controller
        }
    } catch (Exception $e2) {
        // display our Global Exception Handler page
+       $this->logger->error("Exiting JobPostingController.refurbishJob() with job failed " + $e2->getMessage());
       return view("error");
    }
   }
@@ -201,7 +211,7 @@ class JobPostingController extends Controller
  
   public function terminateJob($id)
   {
-      MyLogger2::info("Entering JobPostingController.terminateJob()");
+      $this->logger->info("Entering JobPostingController.terminateJob()");
       try
       {
       //new instance of business service
@@ -212,7 +222,7 @@ class JobPostingController extends Controller
       //if statement checking if delete returns true
       if($job)
       {
-          MyLogger2::info("Exiting JobPostingController.terminateJob() with job passed");
+          $this->logger->info("Exiting JobPostingController.terminateJob() with job passed");
           // attempt to readAll jobs
           $jobs = $jobBS->retrieveAllJobs();
           // store jobs information into variable
@@ -228,6 +238,7 @@ class JobPostingController extends Controller
       }
       catch (Exception $e2) {
           // display our Global Exception Handler page
+          $this->logger->info("Exiting JobPostingController.terminateJob() with job failed " + $e2->getMessage());
           return view("error");
       }
    
@@ -241,7 +252,7 @@ class JobPostingController extends Controller
    */
   public function retrieveAllJobs(Request $request)
   {
-      MyLogger2::info("Entering JobPostingController.retrieveAllJobs()");
+      $this->logger->info("Entering JobPostingController.retrieveAllJobs()");
        try
        {
       // create new instance of JobPostingBusinessService
@@ -250,7 +261,7 @@ class JobPostingController extends Controller
       // attempt to readAll jobs
       $jobs = $jobBS->retrieveAllJobs();
       
-          MyLogger2::info("Exiting JobPostingController.retrieveAllJobs() with job passed");
+      $this->logger->info("Exiting JobPostingController.retrieveAllJobs() with job passed");
       // store jobs information into variable
       // display jobs table page
       $data = [
@@ -261,13 +272,15 @@ class JobPostingController extends Controller
   }
        catch (Exception $e2) {
   // display our Global Exception Handler page
+           $this->logger->error("Exiting JobPostingController.retrieveAllJobs() with job failed " + $e2->getMessage());
           return view("error");
+          
       }
     }
     
    public function viewJobs(Request $request)
     {
-        MyLogger2::info("Entering JobPostingController.viewJobs()");
+        $this->logger->info("Entering JobPostingController.viewJobs()");
         try
         {
             // create new instance of JobPostingBusinessService
@@ -286,13 +299,14 @@ class JobPostingController extends Controller
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page
+            $this->logger->error("Entering JobPostingController.viewJobs() failed " + $e2->getMessage());
             return view("error");
         }
     }
 
     public function searchJobs(Request $request)
     {
-        MyLogger2::info("Entering JobPostingController.searchJobs()");
+        $this->logger->info("Entering JobPostingController.searchJobs()");
         try
        {
             $search = $request->input('search');
@@ -302,7 +316,7 @@ class JobPostingController extends Controller
             // attempt to readAll jobs
             $jobs = $jobBS->searchJob($search);
             if($jobs){
-            MyLogger2::info("Exiting JobPostingController.searchJobs() with jobs");
+            $this->logger->info("Exiting JobPostingController.searchJobs() with jobs");
             // store jobs information into variable
             // display jobs table page
           
@@ -314,6 +328,7 @@ class JobPostingController extends Controller
        }
        catch (Exception $e2) {
             // display our Global Exception Handler page
+           $this->logger->error("Exiting JobPostingController.searchJobs() with jobs failed " + $e2->getMessage());
             return view("error");
        }
  

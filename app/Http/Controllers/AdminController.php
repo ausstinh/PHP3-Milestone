@@ -8,9 +8,15 @@ use Illuminate\Support\Facades\Redirect;
 use Exception;
 use App\Services\Business\UserBusinessService;
 use App\Services\Business\JobPostingBusinessService;
+use App\Services\Utility\ILoggerService;
 use App\Services\Utility\MyLogger2;
 class AdminController extends Controller
 {
+    protected $logger;
+    
+    public function __construct(ILoggerService $logger){
+        $this->logger = $logger;
+    }
     /**
      * Takes in a request
      * Calls the business service to getAllUsers
@@ -22,7 +28,7 @@ class AdminController extends Controller
      */
     public function retrieveAllUsers(Request $request)
     {
-        MyLogger2::info("Entering AdminController.retrieveAll()");
+        $this->logger->info("Entering AdminController.retrieveAll()");
         try{
         //new instance of business service
         $userBS = new UserBusinessService();
@@ -31,21 +37,21 @@ class AdminController extends Controller
         //if statement checking if $users returns true
         if($users)
         {
-            MyLogger2::info("Exit AdminController.retrieveAllUsers() with user passed");
+            $this->logger->info("Exit AdminController.retrieveAllUsers() with user passed");
             //store value of users into new variable
             $data = ['model' => $users];
             //if statement checking if role of user is 2
             if(session('role') == 2)
                 //if true, return adminControl view with data holding users
                 return view("adminControl")->with($data);
-            //else
+        
             else
-            //if role == 1
+            
             //return userstable view with data holding users
             return view("usertable")->with($data);
         }
         else{
-            MyLogger2::info("Exit AdminController.retrieveAllUsers() with user failed");
+            $this->logger->error("Exit AdminController.retrieveAllUsers() with user failed");
             $user = session('user');
             $data = ['model'=> $user];
             //if false, re-return register page so user can try again
@@ -54,6 +60,7 @@ class AdminController extends Controller
     }
     catch (Exception $e2) {
         // display our Global Exception Handler page
+        $this->logger->error("Exit AdminController.retrieveAllUsers() with user failed " + $e2->getMessage());
         return view("error");
     }
         
@@ -69,7 +76,7 @@ class AdminController extends Controller
      */
     public function terminateUser($users_id)
     {
-        MyLogger2::info("Entering AdminController.terminate()");
+        $this->logger->info("Entering AdminController.terminate()");
         try{
         //new instance of business service
         $userBS = new UserBusinessService();
@@ -78,7 +85,7 @@ class AdminController extends Controller
         //if statement checking if terminateUser returns true
         if($users)
         {
-            MyLogger2::info("Exiting AdminController.terminate() with user passed");
+            $this->logger->info("Exiting AdminController.terminate() with user passed");
             //if role == 2
             if(session('role') == 2)
                 //return admincontrol view
@@ -89,7 +96,7 @@ class AdminController extends Controller
                     return Redirect::route('usertable');
         }
         else{
-            MyLogger2::info("Exiting AdminController.terminate() with user failed");
+            $this->logger->error("Exiting AdminController.terminate() with user failed");
             $user = session('user');
             $data = ['model'=> $user];
             //if false, re-return register page so user can try again
@@ -98,6 +105,7 @@ class AdminController extends Controller
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page
+            $this->logger->error("Exiting AdminController.terminate() with user failed " + $e2->getMessage());
             return view("error");
         }
     }
@@ -113,7 +121,7 @@ class AdminController extends Controller
      */
         public function toggleSuspend($users_id)
         {
-            MyLogger2::info("Entering AdminController.toggleSuspend()");
+            $this->logger->info("Entering AdminController.toggleSuspend()");
             try{
             //new instance of business service
             $userBS = new UserBusinessService();
@@ -131,7 +139,7 @@ class AdminController extends Controller
             //if statement checking if suspendUser returns true
             if($users)
             {
-                MyLogger2::info("Exiting AdminController.toggleSuspend() with user passed");
+                $this->logger->info("Exiting AdminController.toggleSuspend() with user passed");
                 //if role == 2
                 if(session('role') == 2)
                     //return admincontrol view
@@ -141,7 +149,7 @@ class AdminController extends Controller
                         return Redirect::route('usertable');
             }
             else{
-                MyLogger2::info("Exiting AdminController.toggleSuspend() with user failed");
+                $this->logger->error("Exiting AdminController.toggleSuspend() with user failed");
                 $user = session('user');
                 // create new instance of JobPostingBusinessService
                 $jobBS = new JobPostingBusinessService();
@@ -161,6 +169,7 @@ class AdminController extends Controller
             }
             catch (Exception $e2) {
                 // display our Global Exception Handler page
+                $this->logger->error("Exiting AdminController.toggleSuspend() with user failed " + $e2->getMessage());
                 return view("error");
            }
         }

@@ -1,8 +1,8 @@
 <?php
 namespace App\Models;
 
-class JobPostingModel
-{
+class JobPostingModel implements \JsonSerializable{
+
     private $id;
     private $name;
     private $description;
@@ -115,7 +115,10 @@ class JobPostingModel
     {
         $this->company_id = $company_id;
     }
-
+    public function jsonSerialize(){
+        
+        return get_object_vars($this);
+    }
     
     
     

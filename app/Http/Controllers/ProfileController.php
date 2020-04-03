@@ -9,6 +9,7 @@ use App\Services\Business\UserBusinessService;
 use App\Services\Business\EducationBusinessService;
 use App\Services\Business\ExperienceBusinessService;
 use App\Services\Business\SkillBusinessService;
+use App\Services\Utility\ILoggerService;
 use App\Services\Utility\MyLogger2;
 use App\Models\UserModel;
 use App\Models\EducationModel;
@@ -18,7 +19,11 @@ use Dotenv\Exception\ValidationException;
 
 class ProfileController extends Controller
 {
-
+    protected $logger;
+    
+    public function __construct(ILoggerService $logger){
+        $this->logger = $logger;
+    }
     /**
      * Takes in a user ID
      * Calls the business service to findById
@@ -30,7 +35,7 @@ class ProfileController extends Controller
      */
     public function readProfile($users_id)
     {
-        MyLogger2::info("Entering ProfileController.readProfile()");
+        $this->logger->info("Entering ProfileController.readProfile()");
         try {
         // create new instance of userBusinessService
         $userBS = new UserBusinessService();
@@ -39,18 +44,19 @@ class ProfileController extends Controller
         $user = $userBS->findById($users_id);
         // if statement using findById method from business service class passing user ID
         if ($user) {
-            MyLogger2::info("Exiting ProfileController.readProfile() with user passed");
+            $this->logger->info("Exiting ProfileController.readProfile() with user passed");
             // if user is successfully found, return view displaying profile
             $data = [
                 'model' => $user,
             ];
             return view("profile")->with($data);
         } else {
-            MyLogger2::info("Exiting ProfileController.readProfile() with user failed");
+            $this->logger->error("Exiting ProfileController.readProfile() with user failed");
             return view("home");
         }
          } catch (Exception $e2) {
         // display our Global Exception Handler page
+             $this->logger->error("Exiting ProfileController.readProfile() with user failed " + $e2->getMessage());
              return view("error");
          }
     }
@@ -66,7 +72,7 @@ class ProfileController extends Controller
      */
     public function updateProfile(Request $request)
     {
-        MyLogger2::info("Entering ProfileController.updateProfile()");
+        $this->logger->info("Entering ProfileController.updateProfile()");
          try
          {
         // new user entered information
@@ -83,7 +89,7 @@ class ProfileController extends Controller
         // create new instance of userBusinessService
         $userBS = new UserBusinessService();
         
-        MyLogger2::info(" Parameters: ", array("FirstName" => $fn,"LastName" => $ln, "Email" => $email, "Company" => $company, "Website" => $website, "PhoneNumber" => $pn, "Birthdate" => $bd, "Gender" => $gender, "Bio" => $bio, "Role" => $role));
+        $this->logger->info(" Parameters: ", array("FirstName" => $fn,"LastName" => $ln, "Email" => $email, "Company" => $company, "Website" => $website, "PhoneNumber" => $pn, "Birthdate" => $bd, "Gender" => $gender, "Bio" => $bio, "Role" => $role));
         
         // create new user using new variables
         $userEdit = new UserModel(null, $fn, $ln, $email, null, $role, $company, $website, $pn, $bd, $gender, $bio, null,  session()->get('users_id'),  session()->get('users_id'));
@@ -96,7 +102,7 @@ class ProfileController extends Controller
         
         // if user information is not empty
         if ($user) {
-            MyLogger2::info("Exiting ProfileController.updateProfile() with user passed");
+            $this->logger->info("Exiting ProfileController.updateProfile() with user passed");
             // store user values into new variable passing user
             $data = [
                 'model' => $user,
@@ -106,6 +112,7 @@ class ProfileController extends Controller
         }
          } catch (Exception $e2) {
         // display our Global Exception Handler page
+             $this->logger->error("Exiting ProfileController.updateProfile() with user failed " + $e2->getMessage());
             return view("error");
        }
     }
@@ -120,7 +127,7 @@ class ProfileController extends Controller
      */
     public function updateExperience(Request $request)
     {
-        MyLogger2::info("Entering ProfileController.updateExperience()");
+        $this->logger->info("Entering ProfileController.updateExperience()");
         try{
         // new experience entered information
         $exId = $request->input('id');
@@ -133,7 +140,7 @@ class ProfileController extends Controller
         
         // new instance of profileBusinessServerice
         $profileBS = new ExperienceBusinessService();
-        MyLogger2::info(" Parameters: ", array("id" => $exId,"Company" => $exCompany, "Description" => $exDesc, "Location" => $exLocation, "Title" => $exTitle, "StartDate" => $exStartDate, "EndDate" => $exEndDate));
+        $this->logger->info(" Parameters: ", array("id" => $exId,"Company" => $exCompany, "Description" => $exDesc, "Location" => $exLocation, "Title" => $exTitle, "StartDate" => $exStartDate, "EndDate" => $exEndDate));
         //create new experience using new variables
         $experienceEdit = new ExperienceModel($exId, $exCompany, $exDesc, $exLocation, $exTitle,$exStartDate, $exEndDate,  session()->get('users_id'));
         
@@ -143,7 +150,7 @@ class ProfileController extends Controller
         //checks experience information
         if($experiences)
         {
-            MyLogger2::info("Exiting ProfileController.updateExperience() with experiences passed");
+            $this->logger->info("Exiting ProfileController.updateExperience() with experiences passed");
             //call get all experience method from sevice and store in new experiences variable
             $experiences= $profileBS->retrieveAllExperiences(session()->get('users_id'));
             //if statement checking if $users returns true
@@ -157,6 +164,7 @@ class ProfileController extends Controller
         }
            } catch (Exception $e2) {
         // display our Global Exception Handler page
+               $this->logger->info("Exiting ProfileController.updateExperience() with experiences failed " + $e2->getMessage());
               return view("error");
            }
     }
@@ -172,7 +180,7 @@ class ProfileController extends Controller
      */
     public function updateEducation(Request $request)
     {
-        MyLogger2::info("Entering ProfileController.updateEducation()");
+        $this->logger->info("Entering ProfileController.updateEducation()");
           try{
         //get education information
         $edId = $request->input("id");
@@ -180,7 +188,7 @@ class ProfileController extends Controller
         $edDesc = $request->input('description');
         //new instance of business servic
         $profileBS = new EducationBusinessService();
-        MyLogger2::info(" Parameters: ", array("id" => $edId,"School" => $edSchool, "Description" => $edDesc));
+        $this->logger->info(" Parameters: ", array("id" => $edId,"School" => $edSchool, "Description" => $edDesc));
         
         //new education model with inserted variables
         $educationEdit = new EducationModel($edId, $edSchool, $edDesc,  session()->get('users_id'));
@@ -191,7 +199,7 @@ class ProfileController extends Controller
         //checks if update variable has information
         if($educationUpdate)
         {
-            MyLogger2::info("Exiting ProfileController.updateEducation() with education passed");
+            $this->logger->info("Exiting ProfileController.updateEducation() with education passed");
             //call getAllUsers method from sevice and store in new users variable
             $educations = $profileBS->retrieveAllEducations(session()->get('users_id'));
             //if statement checking if $users returns true
@@ -204,6 +212,7 @@ class ProfileController extends Controller
         }
         } catch (Exception $e2) {
         // display our Global Exception Handler page
+            $this->logger->error("Exiting ProfileController.updateEducation() with education failed " + $e2->getMessage());
             return view("error");
           }
     }
@@ -218,7 +227,7 @@ class ProfileController extends Controller
      */
     public function updateSkill(Request $request)
     {
-        MyLogger2::info("Entering ProfileController.updateSkill()");
+        $this->logger->info("Entering ProfileController.updateSkill()");
         try{
             //get skill information
         $skillId = $request->input("id");
@@ -226,14 +235,14 @@ class ProfileController extends Controller
         $skillRating = $request->input('rating');
         //new instance of business servic
         $profileBS = new SkillBusinessService();
-        MyLogger2::info(" Parameters: ", array("id" => $skillId,"Description" => $skillDesc, "Rating" => $skillRating));
+        $this->logger->info(" Parameters: ", array("id" => $skillId,"Description" => $skillDesc, "Rating" => $skillRating));
         //new education model with inserted variables
         $skillEdit = new SkillsModel($skillId, $skillDesc, $skillRating, session()->get('users_id'));
         $skillUpdate = $profileBS->refurbishSkill($skillEdit);
         //checks if update variable has information
         if($skillUpdate)
         {
-            MyLogger2::info("Exiting ProfileController.updateSkill() with skill passed");
+            $this->logger->info("Exiting ProfileController.updateSkill() with skill passed");
             //call get all skill method from sevice and store in new skills variable
             $skills = $profileBS->retrieveAllSkills(session()->get('users_id'));
             //if statement checking if $users returns true
@@ -246,6 +255,7 @@ class ProfileController extends Controller
         }
         } catch (Exception $e2) {
         // display our Global Exception Handler page
+            $this->logger->error("Exiting ProfileController.updateSkill() with skill failed " + $e2->getMessage());
            return view("error");
             }
     }
@@ -260,7 +270,7 @@ class ProfileController extends Controller
      */
     public function readEdit($users_id)
     {
-        MyLogger2::info("Entering ProfileController.readEdit()");
+        $this->logger->info("Entering ProfileController.readEdit()");
         try
          {
         // create new instance of userBusinessService
@@ -269,7 +279,7 @@ class ProfileController extends Controller
         // attempt to findById
         $user = $userBS->findById($users_id);
         if($user){
-            MyLogger2::info("Exiting ProfileController.readEdit() with user passed");
+            $this->logger->info("Exiting ProfileController.readEdit() with user passed");
         // store user information into variable
         // display profileEdit page
         $data = [
@@ -281,6 +291,7 @@ class ProfileController extends Controller
     }
           catch (Exception $e2) {
    //  display our Global Exception Handler page
+              $this->logger->info("Exiting ProfileController.readEdit() with user failed " + $e2->getMessage());
             return view("error");
          }
       }
@@ -295,20 +306,20 @@ class ProfileController extends Controller
      */
     public function createEducation(Request $request)
     {
-        MyLogger2::info("Entering ProfileController.createEducation()");
+        $this->logger->info("Entering ProfileController.createEducation()");
         try{
             
             $edSchool = $request->input('school');
             $edDesc = $request->input('description');
             //new instance of business servic
             $profileBS = new EducationBusinessService();
-            MyLogger2::info(" Parameters: ", array("School" => $edSchool, "Description" => $edDesc));
+            $this->logger->info(" Parameters: ", array("School" => $edSchool, "Description" => $edDesc));
             $education = new EducationModel(null, $edSchool, $edDesc, session()->get('users_id'));
             $userEducation = $profileBS->insertEducation($education);
             //checks if education variable has information
             if($userEducation)
             {
-                MyLogger2::info("Exiting ProfileController.createEducation() with education passed");
+                $this->logger->info("Exiting ProfileController.createEducation() with education passed");
                 //call getAllUsers method from sevice and store in new users variable
                 $educations = $profileBS->retrieveAllEducations(session()->get('users_id'));
                 //if statement checking if $users returns true
@@ -322,6 +333,7 @@ class ProfileController extends Controller
             }
         } catch (Exception $e2) {
             // display our Global Exception Handler page
+            $this->logger->error("Exiting ProfileController.createEducation() with education failed " + $e2->getMessage());
             return view("error");
         }
     }
@@ -336,14 +348,14 @@ class ProfileController extends Controller
      */
     public function createSkill(Request $request)
     {
-        MyLogger2::info("Entering ProfileController.createSkill()");
+        $this->logger->info("Entering ProfileController.createSkill()");
         try{
             
             $skillDesc = $request->input('description');
             $skillRating = $request->input('rating');
             //new instance of business servic
             $profileBS = new SkillBusinessService();
-            MyLogger2::info(" Parameters: ", array("Rating" => $skillRating, "Description" => $skillDesc));
+            $this->logger->info(" Parameters: ", array("Rating" => $skillRating, "Description" => $skillDesc));
             //new skill model with inserted variables
             $skill = new SkillsModel(null, $skillDesc, $skillRating, session()->get('users_id'));
             //execute skill method
@@ -351,7 +363,7 @@ class ProfileController extends Controller
             
             if($userSkill)
             {
-                MyLogger2::info("Exiting ProfileController.createSkill() with skill passed");
+                $this->logger->info("Exiting ProfileController.createSkill() with skill passed");
                 //call get all skill method from sevice and store in new skills variable
                 $skills = $profileBS->retrieveAllSkills(session()->get('users_id'));
                 //if statement checking if $users returns true
@@ -365,6 +377,7 @@ class ProfileController extends Controller
             }
         } catch (Exception $e2) {
             // display our Global Exception Handler page
+            $this->logger->error("Exiting ProfileController.createSkill() with skill failed " + $e2->getMessage());
             return view("error");
         }
     }
@@ -379,7 +392,7 @@ class ProfileController extends Controller
      */
     public function createExperience(Request $request)
     {
-        MyLogger2::info("Entering ProfileController.createExperience()");
+        $this->logger->info("Entering ProfileController.createExperience()");
           try{
         
         //get new experience information
@@ -392,14 +405,14 @@ class ProfileController extends Controller
         
         //new instance of business servic
         $profileBS = new ExperienceBusinessService();
-        MyLogger2::info(" Parameters: ", array("Company" => $exCompany,"Location" => $exLocation, "Description" => $exDesc, "Title" => $exTitle, "StartDate" => $exStartDate,"EndDate" => $exEndDate));
+        $this->logger->info(" Parameters: ", array("Company" => $exCompany,"Location" => $exLocation, "Description" => $exDesc, "Title" => $exTitle, "StartDate" => $exStartDate,"EndDate" => $exEndDate));
         //new experiemce model with inserted variables
         $experience = new ExperienceModel(null, $exCompany, $exDesc, $exLocation, $exTitle, $exStartDate, $exEndDate,  session()->get('users_id'));
         //execute create method
         $create = $profileBS->insertExperience($experience);
         //check if experience information
         if($create){
-            MyLogger2::info("Entering ProfileController.createExperience() with experience passed");
+            $this->logger->info("Entering ProfileController.createExperience() with experience passed");
             //execute read all Experience
             $experiences = $profileBS->retrieveAllExperiences(session()->get('users_id'));
             if($experiences)
@@ -412,6 +425,7 @@ class ProfileController extends Controller
         
           } catch (Exception $e2) {
         // display our Global Exception Handler page
+              $this->logger->error("Entering ProfileController.createExperience() with experience passed " + $e2->getMessage());
         return view("error");
            }
     }
@@ -426,7 +440,7 @@ class ProfileController extends Controller
      */
     public function readSkill(Request $request)
     {
-        MyLogger2::info("Entering ProfileController.readSkill()");
+        $this->logger->info("Entering ProfileController.readSkill()");
         try{
         //new instance of business service
             $profileBS = new SkillBusinessService();
@@ -434,7 +448,7 @@ class ProfileController extends Controller
         $skills = $profileBS->retrieveAllSkills(session()->get('users_id'));
         //if statement checking if $users returns true
         if($skills){
-            MyLogger2::info("Entering ProfileController.readSkill() with skills passed");
+            $this->logger->info("Entering ProfileController.readSkill() with skills passed");
         //store value of skills into new variable
         $data = ['skills' => $skills];
         //if role == 1
@@ -442,7 +456,7 @@ class ProfileController extends Controller
         return view("skills.skillTable")->with($data);
         }
         else{
-            MyLogger2::info("Entering ProfileController.readSkill() with no skills passed");
+            $this->logger->info("Entering ProfileController.readSkill() with no skills passed");
             //store value of skills into new variable
             $data = ['skills' => $skills];
             //if role == 1
@@ -451,6 +465,7 @@ class ProfileController extends Controller
         }
            } catch (Exception $e2) {
         // display our Global Exception Handler page
+               $this->logger->error("Entering ProfileController.readSkill() with no skills failed " + $e2->getMessage());
                 return view("error");
              }
         
@@ -466,7 +481,7 @@ class ProfileController extends Controller
      */
     public function readExperience(Request $request)
     {
-        MyLogger2::info("Entering ProfileController.readExperience()");
+        $this->logger->info("Entering ProfileController.readExperience()");
           try{
         //new instance of business service
               $profileBS = new ExperienceBusinessService();
@@ -474,7 +489,7 @@ class ProfileController extends Controller
         $experiences= $profileBS->retrieveAllExperiences(session()->get('users_id'));
         //if statement checking if $users returns true
         if($experiences){
-            MyLogger2::info("Entering ProfileController.readExperience() with experience passed");
+            $this->logger->info("Entering ProfileController.readExperience() with experience passed");
         //store value of experience into new variable
         $data = ['model' => $experiences];
         //if role == 1
@@ -482,7 +497,7 @@ class ProfileController extends Controller
         return view("experience.experienceTable")->with($data);
         }
         else{
-            MyLogger2::info("Exiting ProfileController.readExperience() with no experience passed");
+            $this->logger->info("Exiting ProfileController.readExperience() with no experience passed");
             //store value of experience into new variable
             $data = ['model' => $experiences];
             //if role == 1
@@ -491,6 +506,7 @@ class ProfileController extends Controller
         }
           } catch (Exception $e2) {
         // display our Global Exception Handler page
+              $this->logger->error("Exiting ProfileController.readExperience() with no experience failed " + $e2->getMessage());
                return view("error");
            }
         
@@ -506,7 +522,7 @@ class ProfileController extends Controller
      */
     public function readEducation(Request $request)
     {
-        MyLogger2::info("Entering ProfileController.readEducation()");
+        $this->logger->info("Entering ProfileController.readEducation()");
           try{
         //new instance of business service
               $profileBS = new EducationBusinessService();
@@ -514,7 +530,7 @@ class ProfileController extends Controller
         $educations = $profileBS->retrieveAllEducations(session()->get('users_id'));
         //if statement checking if $users returns true
         if($educations){
-            MyLogger2::info("Exiting ProfileController.readEducation() with education passed");
+            $this->logger->info("Exiting ProfileController.readEducation() with education passed");
         //store value of users into new variable
         $data = ['model' => $educations];
      
@@ -522,7 +538,7 @@ class ProfileController extends Controller
         return view("education.educationTable")->with($data);
         }
         else{
-            MyLogger2::info("Exiting ProfileController.readEducation() with  no education passed");
+            $this->logger->info("Exiting ProfileController.readEducation() with  no education passed");
             //store value of users into new variable
             $data = ['model' => $educations];
             
@@ -531,6 +547,7 @@ class ProfileController extends Controller
         }
            } catch (Exception $e2) {
         // display our Global Exception Handler page
+               $this->logger->error("Exiting ProfileController.readEducation() with  no education failed " + $e2->getMessage());
               return view("error");
           }
         
@@ -546,7 +563,7 @@ class ProfileController extends Controller
      */
     public function deleteEducation($id)
     {
-        MyLogger2::info("Entering ProfileController.deleteEducation()");
+        $this->logger->info("Entering ProfileController.deleteEducation()");
         try{
         //new instance of business service
             $profileBS = new EducationBusinessService();
@@ -555,7 +572,7 @@ class ProfileController extends Controller
         //if statement checking if delete education returns true
         if($education)
         {
-            MyLogger2::info("Exiting ProfileController.deleteEducation() with education passed");
+            $this->logger->info("Exiting ProfileController.deleteEducation() with education passed");
            //call getAllUsers method from sevice and store in new users variable
             $educations = $profileBS->retrieveAllEducations(session()->get('users_id'));
             //if statement checking if $users returns true
@@ -583,7 +600,7 @@ class ProfileController extends Controller
      */
     public function deleteExperience($id)
     {
-        MyLogger2::info("Entering ProfileController.deleteExperience()");
+        $this->logger->info("Entering ProfileController.deleteExperience()");
         try{
             $profileBS = new ExperienceBusinessService();
         //call delete method passing in user id and storing result into new variable
@@ -591,7 +608,7 @@ class ProfileController extends Controller
         //if statement checking if delete experience returns true
         if($experiences)
         {
-            MyLogger2::info("Exiting ProfileController.deleteExperience() with experience passed");
+            $this->logger->info("Exiting ProfileController.deleteExperience() with experience passed");
             //call get all experience method from sevice and store in new experiences variable
             $experiences= $profileBS->retrieveAllExperiences(session()->get('users_id'));
             //if statement checking if $users returns true
@@ -621,7 +638,7 @@ class ProfileController extends Controller
      */
     public function deleteSkill($id)
     {
-        MyLogger2::info("Entering ProfileController.deleteSkill()");
+        $this->logger->info("Entering ProfileController.deleteSkill()");
         try
         {
         $profileBS = new SkillBusinessService();
@@ -630,7 +647,7 @@ class ProfileController extends Controller
         //if statement checking if delete skill returns true
          if($skills)
          {
-             MyLogger2::info("Exiting ProfileController.deleteSkill() with skill passed");
+             $this->logger->info("Exiting ProfileController.deleteSkill() with skill passed");
             //call get all skill method from sevice and store in new skills variable
             $skills = $profileBS->retrieveAllSkills(session()->get('users_id'));
             //if statement checking if $users returns true
@@ -644,6 +661,7 @@ class ProfileController extends Controller
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page
+            $this->logger->info("Exiting ProfileController.deleteSkill() with skill failed " + $e2->getMessage());
             return view("error");
         }
     }
@@ -658,7 +676,7 @@ class ProfileController extends Controller
      */
     public function readEducationEdit($id)
     {
-        MyLogger2::info("Entering ProfileController.readEducationEdit()");
+        $this->logger->info("Entering ProfileController.readEducationEdit()");
          try
         {
             // create new instance of profileBusinessService
@@ -689,7 +707,7 @@ class ProfileController extends Controller
      */
     public function readExperienceEdit($id)
     {
-        MyLogger2::info("Entering ProfileController.readExperienceEdit()");
+        $this->logger->info("Entering ProfileController.readExperienceEdit()");
         try
          {
         // create new instance of profileBusinessService
@@ -720,7 +738,7 @@ class ProfileController extends Controller
      */
     public function readSkillEdit($id)
     {
-        MyLogger2::info("Entering ProfileController.readSkillEdit()");
+        $this->logger->info("Entering ProfileController.readSkillEdit()");
         try
          {
         // create new instance of profileBusinessService

@@ -5,15 +5,21 @@ use Illuminate\Contracts\View\View;
 use Exception;
 use App\Models\UserGroupModel;
 use App\Services\Business\UserGroupBusinessService;
+use App\Services\Utility\ILoggerService;
 use App\Services\Utility\MyLogger2;
 
 
 
 class UserGroupController extends Controller
 {
+    protected $logger;
+    
+    public function __construct(ILoggerService $logger){
+        $this->logger = $logger;
+    }
     public function retrieveUserGroup($group_id)
     {
-        MyLogger2::info("Entering AffinityGroupsController.retrieveGroup()");
+        $this->logger->info("Entering AffinityGroupsController.retrieveGroup()");
         try {
             // create new instance of AffinityGroupBusinessService and UserGroupBusinessSerivce
      
@@ -33,7 +39,7 @@ class UserGroupController extends Controller
     }
     public function retrieveAllUserGroup($group_id)
     {
-        MyLogger2::info("Entering UserGroupsController.retrieveGroup()");
+        $this->logger->info("Entering UserGroupsController.retrieveGroup()");
         try {
             // create new instance of AffinityGroupBusinessService and UserGroupBusinessSerivce
             
@@ -60,7 +66,7 @@ class UserGroupController extends Controller
      */
     public function joinUserGroup($groups_id)
     {
-        MyLogger2::info("Entering AffinityGroupsController.joinGroup()");
+        $this->logger->info("Entering AffinityGroupsController.joinGroup()");
         try {
         // create new instance of userGroupBusinessService and AffinityGroupBusinessService
         $userGroupBS = new UserGroupBusinessService();
@@ -91,7 +97,7 @@ class UserGroupController extends Controller
      */
     public function leaveUserGroup($groups_id)
     {
-         MyLogger2::info("Entering AffinityGroupsController.leaveGroup()");
+        $this->logger->info("Entering AffinityGroupsController.leaveGroup()");
          try {
         // create new instance of userGroupBusinessService and AffinityGroupBusinessService
         $userGroupBS = new UserGroupBusinessService();

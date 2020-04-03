@@ -140,7 +140,7 @@ class UserDataService implements UserDataInterface
 
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             // create new user with found ID
-            $p = new UserModel($row['id'], $row['FIRSTNAME'], $row['LASTNAME'], $row['EMAIL'], $row['PASSWORD'], $row['ROLE'], $row['WEBSITE'], $row['COMPANY'], $row['PHONENUMBER'], $row['BIRTHDATE'], $row['GENDER'], $row['BIO'], $row['SUSPEND'], $users_id);
+            $p = new UserModel($row['id'], $row['FIRSTNAME'], $row['LASTNAME'], $row['EMAIL'], $row['PASSWORD'], $row['ROLE'], $row['WEBSITE'], $row['COMPANY'], $row['PHONENUMBER'], $row['BIRTHDATE'], $row['GENDER'], $row['BIO'], $row['SUSPEND'], $users_id);   
         }
         // return user
         return $p;
