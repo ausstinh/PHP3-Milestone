@@ -21,28 +21,28 @@ class AffinityGroupsController extends Controller
     public function __construct(ILoggerService $logger){
         $this->logger = $logger;
     }
-    public function retrieveGroup($id)
+    public function Group($id)
     {
-        $this->logger->info("Entering AffinityGroupsController.retrieveGroup()");
-        try {
+        $this->logger->info("Entering AffinityGroupsController.Group()");
+      //  try {
             // create new instance of AffinityGroupBusinessService and UserGroupBusinessSerivce
             $groupBS = new AffinityGroupBusinessService();
            
-            // attempt to retrieve group
+            // attempt to get  group
             $group = $groupBS->retrieveGroup($id);
-            // attempt to retrieve userGroup
-           $userGroup = app('App\Http\Controllers\UserGroupController')->retrieveUserGroup($id);
+            // attempt to  userGroup
+            $userGroup = app('App\Http\Controllers\UserGroupController')->retrieveUserGroup($id);
             
             //set current user role in group
             if($userGroup != null)
             $group->setRole($userGroup->getRole());
             else
              $group->setRole(0);
-            //retrieve all users in group
+            // all users in group
              $userGroup = app('App\Http\Controllers\UserGroupController')->retrieveAllUserGroup($id);
            
             if ($group) { 
-                $this->logger->info("Exiting AffinityGroupsController.retrieveGroup() with group passed");
+                $this->logger->info("Exiting AffinityGroupsController.Group() with group passed");
                 // if group is successfully found, return view displaying group information
                 $data = [
                     'group' => $group,
@@ -50,11 +50,11 @@ class AffinityGroupsController extends Controller
                 ];
                 return view("groups.groupView")->with($data);
             } 
-       } catch (Exception $e2) {
+      // } catch (Exception $e2) {
             // display our Global Exception Handler page
-           $this->logger->error("Exiting AffinityGroupsController.retrieveGroup() with group failed ");
+           $this->logger->error("Exiting AffinityGroupsController.Group() with group failed ");
           return view("error");
-       }
+       //}
     }
     /**
      * Takes in a group ID
@@ -65,9 +65,9 @@ class AffinityGroupsController extends Controller
      *            Group Id
      * @return View group update view page with group data
      */
-    public function retrieveGroupEdit($id)
+    public function GroupEdit($id)
     {
-        $this->logger->info("Entering AffinityGroupsController.retrieveGroupEdit()");
+        $this->logger->info("Entering AffinityGroupsController.GroupEdit()");
         try {
             // create new instance of userBusinessService
             $groupBS = new AffinityGroupBusinessService();
@@ -76,7 +76,7 @@ class AffinityGroupsController extends Controller
             $group = $groupBS->retrieveGroup($id);
             // if statement using read method from business service class passing job ID
             if ($group) {
-                $this->logger->info("Exiting AffinityGroupsController.retrieveGroupEdit() with group passed");
+                $this->logger->info("Exiting AffinityGroupsController.GroupEdit() with group passed");
                 // if job is successfully found, return view displaying job update table
                 $data = [
                     'group' => $group,      
@@ -85,7 +85,7 @@ class AffinityGroupsController extends Controller
             }
        } catch (Exception $e2) {
             // display our Global Exception Handler page
-           $this->logger->info("Exiting AffinityGroupsController.retrieveGroupEdit() with group failed");
+           $this->logger->info("Exiting AffinityGroupsController.GroupEdit() with group failed");
            return view("error");
        }
     }
@@ -124,12 +124,12 @@ class AffinityGroupsController extends Controller
         if($group)
         {
             $this->logger->info("Exiting AffinityGroupsController.refurbishGroup() with group passed");
-            // attempt to retrieve userGroup
-            $userGroup = $userGroupBS->retrieve($id, session()->get('users_id'));
+            // attempt to get userGroup
+            $userGroup = $userGroupBS->retrieveUserGroup($id, session()->get('users_id'));
             //set current user role in group
             $group->setRole($userGroup->getRole());
-            //attempt to retrieve all users
-            $userGroup = $userGroupBS->retrieveAll($id);
+            //attempt to  all users
+            $userGroup = $userGroupBS->All($id);
             // if group is successfully found, return view displaying group information
             $data = [
                 'group' => $group,
@@ -267,9 +267,9 @@ class AffinityGroupsController extends Controller
    * 
    * @return View groups table view page with group data
    */
-  public function retrieveAllGroups(Request $request)
+  public function AllGroups(Request $request)
   {
-      $this->logger->info("Entering AffinityGroupsController.retrieveAllGroups()");
+      $this->logger->info("Entering AffinityGroupsController.AllGroups()");
        try
        {
       // create new instance of AffinityGroupBusinessService
@@ -278,7 +278,7 @@ class AffinityGroupsController extends Controller
       // attempt to readAll groups
       $groups = $groupBS->retrieveAllGroups();
      
-      $this->logger->info("Exiting AffinityGroupsController.retrieveAllGroups() with group passed");
+      $this->logger->info("Exiting AffinityGroupsController.AllGroups() with group passed");
       // store groups information into variable
       // display groups table page
       $data = [
@@ -289,7 +289,7 @@ class AffinityGroupsController extends Controller
   }
        catch (Exception $e2) {
   // display our Global Exception Handler page
-           $this->logger->error("Exiting AffinityGroupsController.retrieveAllGroups() with group failed ");
+           $this->logger->error("Exiting AffinityGroupsController.AllGroups() with group failed ");
           return view("error");
       }
     }

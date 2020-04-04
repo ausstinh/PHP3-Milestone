@@ -34,8 +34,10 @@ class UserGroupDataService implements UserGroupDataInterface
         $stmt->execute();
         
         // if result == 1
-        if ($stmt->rowCount() == 1)
+        if ($stmt->rowCount() == 1){
+           
             return true;
+        }
             
             // if result vaiable doesn't find user with entered credentials
             else

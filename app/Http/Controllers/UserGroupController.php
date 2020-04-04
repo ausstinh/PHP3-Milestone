@@ -67,7 +67,7 @@ class UserGroupController extends Controller
     public function joinUserGroup($groups_id)
     {
         $this->logger->info("Entering AffinityGroupsController.joinGroup()");
-        try {
+      //  try {
         // create new instance of userGroupBusinessService and AffinityGroupBusinessService
         $userGroupBS = new UserGroupBusinessService();
        
@@ -80,12 +80,12 @@ class UserGroupController extends Controller
       
         if ($success) {
            
-        return app('App\Http\Controllers\AffinityGroupsController')->retrieveGroup($groups_id);
+            return app('App\Http\Controllers\AffinityGroupsController')->Group($groups_id);
         }
-        } catch (Exception $e2) {
+    //    } catch (Exception $e2) {
         // display our Global Exception Handler page
             return view("error");
-          }
+      //    }
     }
       
     /**
@@ -98,7 +98,7 @@ class UserGroupController extends Controller
     public function leaveUserGroup($groups_id)
     {
         $this->logger->info("Entering AffinityGroupsController.leaveGroup()");
-         try {
+       //  try {
         // create new instance of userGroupBusinessService and AffinityGroupBusinessService
         $userGroupBS = new UserGroupBusinessService();
       
@@ -108,14 +108,13 @@ class UserGroupController extends Controller
      
         //attempt to remove user from group
         $success = $userGroupBS->leaveUserGroup($userGroup);
-        
-  
+      
         //checks if user has been removed from group
         if ($success) {
-                     
-        return app('App\Http\Controllers\AffinityGroupsController')->retrieveGroup($groups_id);      
-        }
-        } catch (Exception $e2) {
+                
+        return app('App\Http\Controllers\AffinityGroupsController')->Group($groups_id);      
+     //   }
+      //  } catch (Exception $e2) {
         // display our Global Exception Handler page
              return view("error");
          }
