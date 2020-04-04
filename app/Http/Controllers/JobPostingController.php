@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\ValidationException;
 use Exception;
 use App\Services\Business\JobPostingBusinessService;
 use App\Services\Utility\ILoggerService;
@@ -309,6 +310,7 @@ class JobPostingController extends Controller
         $this->logger->info("Entering JobPostingController.searchJobs()");
         try
        {
+            $this->validateJobSearch($request);
             $search = $request->input('search');
             // create new instance of JobPostingBusinessService
             $jobBS = new JobPostingBusinessService();
@@ -326,12 +328,39 @@ class JobPostingController extends Controller
             return view("jobs.jobSearchResults")->with($data);
             }
        }
+       catch (ValidationException $e1) {
+           throw  $e1;
+       } 
        catch (Exception $e2) {
             // display our Global Exception Handler page
            $this->logger->error("Exiting JobPostingController.searchJobs() with jobs failed ");
             return view("error");
        }
  
+    }
+    public function validateJobSearch(Request $request)
+    {
+        try{
+            // BEST practice: centralize your rules so you have a consistent architecture
+            // and even reuse your rules
+            
+            // BAD practice: not using a defined Data Validation Framework, putting rules
+            // all over your code, doing only on Client Side or Database
+            // Setup Data Validation Rules for Login Form
+            $rules = [
+                'search' => 'Required',           
+            ];
+            // run data validation rules
+            $this->validate($request, $rules);
+        }
+        catch (ValidationException $e1) {
+            throw $e1;
+        } 
+        catch (Exception $e2) {
+            // display our Global Exception Handler page
+            $this->logger->error("Exit JobPostingController.search() with register failed ");
+            return view("error");
+        }
     }
 
 }

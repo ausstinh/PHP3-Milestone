@@ -169,7 +169,7 @@ class AccountController extends Controller
         } // this exception MUST be caught before Exception because ValidaitonException extends from Exception
         // youmust rethrow this exception
         catch (ValidationException $e1) {
-            throw  $this->logger->error("Exit AccountController.login() with login failed");;
+            throw  $e1;
         } 
        catch (Exception $e2) {
             // display our Global Exception Handler page
@@ -235,6 +235,9 @@ class AccountController extends Controller
         // run data validation rules
         $this->validate($request, $rules);
         }
+        catch (ValidationException $e1) {
+            throw $e1;
+        } 
         catch (Exception $e2) {
             // display our Global Exception Handler page
             $this->logger->error("Exit AccountController.register() with register failed ");

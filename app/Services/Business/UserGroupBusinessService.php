@@ -72,7 +72,7 @@ class UserGroupBusinessService implements UserGroupBusinessInterface
         $dbService = new UserGroupDataService($db);
         $profileInfo = $dbService->readAll($group_id);
         //in PDO you "close" the database connection by setting the PDO object to null
-        $db = null;s
+        $db = null;
         MyLogger2::info("Exiting UserGroupBusinessService.retrieveAllUserGroups()");
         return $profileInfo;
     }
