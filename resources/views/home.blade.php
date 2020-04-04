@@ -12,11 +12,11 @@
 		@if($jobs == null)
 		<h2 style="font-weight: 700">No Jobs Posted Yet!</h2>
 		 @elseif($model != null)
-		 <div class="flex-container">
+		 <div class="flex-container" style="display: flex">
 		
         @foreach ($jobs as $card)
         
-            <div class="card" style="width: 18rem; height:auto;  text-align: center;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+            <div class="card" style="width: 18rem; height:auto; margin:10px; text-align: center;  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
                 <div class="card-body">
                 <div style="display: flex;"> 
                 <h2 style="margin-right: 20px">Job:</h2>
@@ -37,8 +37,9 @@
                 </div>
             </div>
         
-    </div>
+    
     @endforeach
+    </div>
     @endif
 	</div>
 </div>
