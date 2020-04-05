@@ -24,6 +24,10 @@ class MySecurityMiddleware
       $secureCheck = true;
       if($request->is('/') ||
       $request->is('login') ||
+      $request->is('usersrest') ||
+      $request->is('jobsrest') ||
+      $request->is('usersrest/*') ||
+      $request->is('jobsrest/*') ||
       $request->is('register'))          
       {
       $secureCheck = false;
