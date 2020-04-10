@@ -54,7 +54,7 @@ class UserRestController extends Controller
                 else{
                     $dto = new DTO(0, "OK", $user);
  
-                    return json_encode($dto);;
+                    return json_encode($dto);
                 }
                 
             

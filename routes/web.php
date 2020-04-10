@@ -88,12 +88,12 @@ Route::get('/JobSearch',[ "uses" => 'JobPostingController@viewJobs', "as" => 'vi
 Route::get('/job/{id}',[ "uses" => 'JobPostingController@retrieveJob', "as" => 'viewJob']);
 Route::post('/searchJob',[ "uses" => 'JobPostingController@searchJobs', "as" => 'searchJob']);
 
-Route::get('/viewGroups',[ "uses" => 'AffinityGroupsController@retrieveAllGroups', "as" => 'viewGroups']);
-Route::get('/readGroup/{id}',[ "uses" => 'AffinityGroupsController@retrieveGroup', "as" => 'readGroup']);
-Route::get('/GroupEdit/{id}',[ "uses" => 'AffinityGroupsController@retrieveGroupEdit', "as" => 'readGroupEdit']);
+Route::get('/viewGroups',[ "uses" => 'AffinityGroupsController@AllGroups', "as" => 'viewGroups']);
+Route::get('/readGroup/{id}',[ "uses" => 'AffinityGroupsController@Group', "as" => 'readGroup']);
+Route::get('/GroupEdit/{id}',[ "uses" => 'AffinityGroupsController@GroupEdit', "as" => 'readGroupEdit']);
 Route::post('/createGroup',[ "uses" => 'AffinityGroupsController@createGroup', "as" => 'createGroup']);
 Route::post('/updateGroup',[ "uses" => 'AffinityGroupsController@refurbishGroup', "as" => 'updateGroup']);
-Route::get('/deleteGroup/{id}',[ "uses" => 'AffinityGroupsController@terminateGroup']);
+Route::get('/deleteGroup/{id}',[ "uses" => 'AffinityGroupsController@deleteGroup']);
 Route::get('/joinGroup/{id}',[ "uses" => 'UserGroupController@joinUserGroup', "as" => 'joinGroup']);
 Route::get('/leaveGroup/{id}',[ "uses" => 'UserGroupController@leaveUserGroup', "as" => 'leaveGroup']);
 
