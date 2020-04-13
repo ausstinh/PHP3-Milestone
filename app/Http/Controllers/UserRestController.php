@@ -10,11 +10,18 @@ use App\Models\DTO;
 
 class UserRestController extends Controller
 {
+    //logger variable
     protected $logger;
     
+    //controller constructor with ILoggerService param
     public function __construct(ILoggerService $logger){
         $this->logger = $logger;
     }
+    /**
+     * Display the specified  user object array resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $this->logger->info("Entering UserRestController.index()");
@@ -36,7 +43,7 @@ class UserRestController extends Controller
     }
     
     /**
-     * Display the specified resource.
+     * Display the specified user object resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

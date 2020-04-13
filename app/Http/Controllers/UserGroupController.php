@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
 use Exception;
 use App\Models\UserGroupModel;
 use App\Services\Business\UserGroupBusinessService;
@@ -17,6 +18,13 @@ class UserGroupController extends Controller
     public function __construct(ILoggerService $logger){
         $this->logger = $logger;
     }
+    /**
+     *
+     * Calls the business service to retrieve group
+     * If successful, return user group from database
+     *
+     * @return Model user group object
+     */
     public function retrieveUserGroup($group_id)
     {
         $this->logger->info("Entering AffinityGroupsController.retrieveGroup()");
@@ -37,6 +45,13 @@ class UserGroupController extends Controller
            return view("error");
        }
     }
+    /**
+     *
+     * Calls the business service to retrieve all user groups
+     * If successful, return all user groups 
+     *
+     * @return Model user group array
+     */
     public function retrieveAllUserGroup($group_id)
     {
         $this->logger->info("Entering UserGroupsController.retrieveGroup()");

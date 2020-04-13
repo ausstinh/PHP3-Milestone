@@ -9,11 +9,18 @@ use App\Services\Business\JobPostingBusinessService;
 
 class JobPostingRestController extends Controller
 {
+    //ilogger variable
     protected $logger;
-    
+    //controller constructor with ILoggerService param
     public function __construct(ILoggerService $logger){
         $this->logger = $logger;
     }
+    /**
+     * Display the specified job object array resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $this->logger->info("Entering JobPostingRestController.index()");
@@ -35,7 +42,7 @@ class JobPostingRestController extends Controller
     }
     
     /**
-     * Display the specified resource.
+     * Display the specified job object resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
