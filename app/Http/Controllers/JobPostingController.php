@@ -327,6 +327,9 @@ class JobPostingController extends Controller
             ];
             return view("jobs.jobSearchResults")->with($data);
             }
+            else{
+                return view('jobs.jobSearch');
+            }
        }
        catch (ValidationException $e1) {
            throw  $e1;

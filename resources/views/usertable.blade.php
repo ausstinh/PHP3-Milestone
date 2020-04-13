@@ -10,13 +10,7 @@
   					<th>Email</th>
   					<th>First Name</th>
   					<th>Last Name</th>
-  					<th>Company</th>
-  					<th>Phone Number</th>
-  					<th>Website</th>
-  					<th>Birthday</th>
-  					<th>Gender</th>
-  					<th>Bio</th>
-  					
+  					<th>Gender</th>		
   				</tr>
   			</table>
   		@foreach ($model as $user)
@@ -26,13 +20,8 @@
   					<th>{{$user->getEmail()}}</th>
   					<th>{{$user->getFirstname()}}</th>
   					<th>{{$user->getLastname()}}</th> 		
-  					<th>{{$user->getCompany()}}</th>
-  					<th>{{$user->getPhonenumber()}}</th>				
-  					<th>{{$user->getWebsite()}}</th>
-  					<th>{{$user->getBirthdate()}}</th>
   					<th>{{$user->getGender()}}</th>
-  					<th>{{$user->getBio()}}</th>
-  					<th><a class="btn btn-primary bold" href="{{ route('profileEdit', $user->getId()) }}">Edit Profile</a></th>					
+  					<th><a class="btn btn-primary bold" style="width: 80px; height: 25px; font-size: 10px" href="{{ route('adminProfileEdit', $user->getUsers_id()) }}">Edit Profile</a></th>
   				</tr>
   			</table>
   			@endif

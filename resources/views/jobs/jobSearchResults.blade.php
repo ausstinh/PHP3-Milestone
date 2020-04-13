@@ -8,8 +8,10 @@
   		<form method="post" action="{{route('searchJob')}}">
 			<input type="hidden" name="_token" value="<?php echo csrf_token()?>" />
 		<div style="display: flex;">
-		<input class="form-control bold" type="text" placeholder="Search" aria-label="Search a Job">
-		 <input type="submit" value="Save Changes" class="btn btn-primary bold"></div></form>
+		<input class="form-control bold" type="text" name="search" placeholder="Search Job Name, Description, or Location" aria-label="Search a Job">
+		 <input type="submit" value="Save Changes" class="btn btn-primary bold">
+		  <p class="bold" style="color: red;">{{ $errors->first('search') }}</p>
+		  </div></form>
   		<table class="table" style="color: black">
   				<tr>
   					<th style="width: 1.7%;">Name</th>

@@ -7,18 +7,18 @@
 	<div class="container emp-profile">
 			<!-- View group information -->
 			<div class="row">
-					<div class="col-sm-3">  <a class="btn btn-primary bold"  href="javascript:history.back()">Go Back</a> 
+					<div class="col-sm-3">  <a class="btn btn-primary bold"  href="{{ route('viewGroups')}}">Go Back</a> 
                          </div>
                          
 				    <div class="col-sm-3"></div>
                     <div class="col-sm-4" style="margin-left: 80px">                
                       @if($group->getMembers() != null)
                       @foreach($group->getMembers() as $member)                                              
-                          @if($member->getUsers_id() == session()->get('users_id'))
+                          @if($member->getUsers_id() == session()->get('users_id') and $group->getRole() != 1)
                           	<a class="btn btn-primary bold" style="margin-bottom: 5px;margin-left: 10px;" href="{{ route('leaveGroup', $group->getId()) }}">Leave Group</a>
                               @break
                           @endif                                                
-                          @if($loop->last)
+                          @if($loop->last and $group->getRole() != 1)
                            	<a class="btn btn-primary bold" style="margin-bottom: 5px;margin-left: 10px;" href="{{ route('joinGroup', $group->getId()) }}">Join Group</a>
                           @endif
                         @endforeach

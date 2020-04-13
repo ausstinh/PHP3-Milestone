@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <a class="btn btn-primary bold" href="{{ route('profileEdit', $model->getId()) }}">Edit Profile</a>
+                        <a class="btn btn-primary bold" href="{{ route('profileEdit', $model->getUsers_id()) }}">Edit Profile</a>
                     </div>
                 </div>
                 <h3>Profile</h3>

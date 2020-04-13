@@ -136,6 +136,7 @@ class UserDataService implements UserDataInterface
     {
         MyLogger2::info("Entering UserDataService.findbyId()");
         try{
+          
         // select statement to search through database using ID passed in
         $stmt = $this->db->prepare("SELECT * FROM USERS WHERE USERS_ID = :users_id LIMIT 1");
         // variable to store sql statment and connection to database
@@ -193,10 +194,11 @@ class UserDataService implements UserDataInterface
      */
     public function delete($users_id)
     {
+       
         MyLogger2::info("Entering UserDataService.delete()");
         try{
         // Delete statement where user ID is ID passed in
-        $stmt = $this->db->prepare("DELETE FROM `USERS` WHERE `USERS`.`id` = :users_id");
+        $stmt = $this->db->prepare("DELETE FROM `USERS` WHERE USERS_ID = :users_id");
         $stmt->bindParam(':users_id', $users_id);
         $stmt->execute();
 

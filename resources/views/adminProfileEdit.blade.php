@@ -9,7 +9,7 @@ use App\Models\UserModel;
 <body>
 	<div class="container emp-profile">
 			<!-- Stores user entered information for controller to use using POST method -->
-		<form method="post" action="{{route('refurbish')}}">
+		<form method="post" action="{{route('adminRefurbish')}}">
 			<input type="hidden" name="_token" value="<?php echo csrf_token()?>" />
 			<div class="row">
 <!-- 				<div class="col-md-2"> -->
@@ -21,7 +21,7 @@ use App\Models\UserModel;
 <!--                     </div> -->
 					<div class="col-sm-3"></div>
 				    <div class="col-sm-3"></div>
-                    <div class="col-sm-4" style="margin-left: 80px; display:flex">                
+                    <div class="col-sm-4" style="margin-left: 80px">                
                          <input type="submit" value="Save Changes" class="btn btn-primary bold">	     
                           <a class="btn btn-primary bold" href="javascript:history.back()">Cancel Changes</a>                                                      
 				 </div>

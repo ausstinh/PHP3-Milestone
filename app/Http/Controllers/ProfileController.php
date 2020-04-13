@@ -56,7 +56,7 @@ class ProfileController extends Controller
         }
          } catch (Exception $e2) {
         // display our Global Exception Handler page
-             $this->logger->error("Exiting ProfileController.readProfile() with user failed " + $e2->getMessage());
+             $this->logger->error("Exiting ProfileController.readProfile() with user failed ");
              return view("error");
          }
     }
@@ -86,13 +86,15 @@ class ProfileController extends Controller
         $gender = $request->input('gender');
         $bio = $request->input('bio');
         $role = $request->input('role');
+        $users_id = $request->input('users_id');
+        $suspend = $request->input('suspend');
         // create new instance of userBusinessService
         $userBS = new UserBusinessService();
         
         $this->logger->info(" Parameters: ", array("FirstName" => $fn,"LastName" => $ln, "Email" => $email, "Company" => $company, "Website" => $website, "PhoneNumber" => $pn, "Birthdate" => $bd, "Gender" => $gender, "Bio" => $bio, "Role" => $role));
         
         // create new user using new variables
-        $userEdit = new UserModel(null, $fn, $ln, $email, null, $role, $company, $website, $pn, $bd, $gender, $bio, null,  session()->get('users_id'),  session()->get('users_id'));
+        $userEdit = new UserModel(null, $fn, $ln, $email, null, $role, $company, $website, $pn, $bd, $gender, $bio, $suspend,  $users_id);
         
         
         // call update method using service passing new User
@@ -112,7 +114,7 @@ class ProfileController extends Controller
         }
          } catch (Exception $e2) {
         // display our Global Exception Handler page
-             $this->logger->error("Exiting ProfileController.updateProfile() with user failed " + $e2->getMessage());
+             $this->logger->error("Exiting ProfileController.updateProfile() with user failed");
             return view("error");
        }
     }
@@ -164,7 +166,7 @@ class ProfileController extends Controller
         }
            } catch (Exception $e2) {
         // display our Global Exception Handler page
-               $this->logger->info("Exiting ProfileController.updateExperience() with experiences failed " + $e2->getMessage());
+               $this->logger->info("Exiting ProfileController.updateExperience() with experiences failed ");
               return view("error");
            }
     }
@@ -212,7 +214,7 @@ class ProfileController extends Controller
         }
         } catch (Exception $e2) {
         // display our Global Exception Handler page
-            $this->logger->error("Exiting ProfileController.updateEducation() with education failed " + $e2->getMessage());
+            $this->logger->error("Exiting ProfileController.updateEducation() with education failed ");
             return view("error");
           }
     }
@@ -255,7 +257,7 @@ class ProfileController extends Controller
         }
         } catch (Exception $e2) {
         // display our Global Exception Handler page
-            $this->logger->error("Exiting ProfileController.updateSkill() with skill failed " + $e2->getMessage());
+            $this->logger->error("Exiting ProfileController.updateSkill() with skill failed ");
            return view("error");
             }
     }
@@ -287,13 +289,13 @@ class ProfileController extends Controller
         ];
         //redirect to the readExperience method
         return view("profileEdit")->with($data);
-        }
-    }
+       }
+   }
           catch (Exception $e2) {
    //  display our Global Exception Handler page
-              $this->logger->info("Exiting ProfileController.readEdit() with user failed " + $e2->getMessage());
+             $this->logger->info("Exiting ProfileController.readEdit() with user failed ");
             return view("error");
-         }
+        }
       }
     /**
      * Takes in a request for education information
@@ -333,7 +335,7 @@ class ProfileController extends Controller
             }
         } catch (Exception $e2) {
             // display our Global Exception Handler page
-            $this->logger->error("Exiting ProfileController.createEducation() with education failed " + $e2->getMessage());
+            $this->logger->error("Exiting ProfileController.createEducation() with education failed ");
             return view("error");
         }
     }
@@ -377,7 +379,7 @@ class ProfileController extends Controller
             }
         } catch (Exception $e2) {
             // display our Global Exception Handler page
-            $this->logger->error("Exiting ProfileController.createSkill() with skill failed " + $e2->getMessage());
+            $this->logger->error("Exiting ProfileController.createSkill() with skill failed ");
             return view("error");
         }
     }
@@ -425,7 +427,7 @@ class ProfileController extends Controller
         
           } catch (Exception $e2) {
         // display our Global Exception Handler page
-              $this->logger->error("Entering ProfileController.createExperience() with experience passed " + $e2->getMessage());
+              $this->logger->error("Entering ProfileController.createExperience() with experience passed ");
         return view("error");
            }
     }
@@ -465,7 +467,7 @@ class ProfileController extends Controller
         }
            } catch (Exception $e2) {
         // display our Global Exception Handler page
-               $this->logger->error("Entering ProfileController.readSkill() with no skills failed " + $e2->getMessage());
+               $this->logger->error("Entering ProfileController.readSkill() with no skills failed ");
                 return view("error");
              }
         
@@ -506,7 +508,7 @@ class ProfileController extends Controller
         }
           } catch (Exception $e2) {
         // display our Global Exception Handler page
-              $this->logger->error("Exiting ProfileController.readExperience() with no experience failed " + $e2->getMessage());
+              $this->logger->error("Exiting ProfileController.readExperience() with no experience failed ");
                return view("error");
            }
         
@@ -547,7 +549,7 @@ class ProfileController extends Controller
         }
            } catch (Exception $e2) {
         // display our Global Exception Handler page
-               $this->logger->error("Exiting ProfileController.readEducation() with  no education failed " + $e2->getMessage());
+               $this->logger->error("Exiting ProfileController.readEducation() with  no education failed ");
               return view("error");
           }
         
@@ -661,7 +663,7 @@ class ProfileController extends Controller
         }
         catch (Exception $e2) {
             // display our Global Exception Handler page
-            $this->logger->info("Exiting ProfileController.deleteSkill() with skill failed " + $e2->getMessage());
+            $this->logger->info("Exiting ProfileController.deleteSkill() with skill failed ");
             return view("error");
         }
     }

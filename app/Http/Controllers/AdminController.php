@@ -6,6 +6,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Exception;
+use App\Models\UserModel;
 use App\Services\Business\UserBusinessService;
 use App\Services\Business\JobPostingBusinessService;
 use App\Services\Utility\ILoggerService;
@@ -64,6 +65,109 @@ class AdminController extends Controller
         return view("error");
     }
         
+    }
+    /**
+     * Takes in a user id
+     * Calls the business service to findById
+     * If successful, return user profile edit page
+     *
+     * @param
+     *            user Id
+     * @return View profileEdit page with user data
+     */
+    public function readEdit($users_id)
+    {
+        $this->logger->info("Entering AdminController.readEdit()");
+        try
+        {
+            // create new instance of userBusinessService
+            $userBS = new UserBusinessService();
+            
+            // attempt to findById
+            $user = $userBS->findById($users_id);
+            if($user){
+                $this->logger->info("Exiting AdminController.readEdit() with user passed");
+                // store user information into variable
+                // display profileEdit page
+                $data = [
+                    'model' => $user
+                ];
+                //redirect to the readExperience method
+                return view("adminProfileEdit")->with($data);
+            }
+        }
+        catch (Exception $e2) {
+            //  display our Global Exception Handler page
+            $this->logger->info("Exiting AdminController.readEdit() with user failed ");
+            return view("error");
+        }
+    }
+    /**
+     * Takes in a request for user information
+     * Calls the business service to update
+     * If successful, return user profile page If not, return the home form
+     *
+     * @param
+     *            User information to update
+     * @return View profile page with user data
+     */
+    public function updateProfile(Request $request)
+    {
+        $this->logger->info("Entering AdminController.updateProfile()");
+        try
+        {
+            // new user entered information
+            $fn = $request->input('firstname');
+            $ln = $request->input('lastname');
+            $email = $request->input('email');
+            $company = $request->input('company');
+            $website = $request->input('website');
+            $pn = $request->input('phonenumber');
+            $bd = $request->input('birthdate');
+            $gender = $request->input('gender');
+            $bio = $request->input('bio');
+            $role = $request->input('role');
+            $users_id = $request->input('users_id');
+            $suspend = $request->input('suspend');
+           
+            // create new instance of userBusinessService
+            $userBS = new UserBusinessService();
+            
+            $this->logger->info(" Parameters: ", array("FirstName" => $fn,"LastName" => $ln, "Email" => $email, "Company" => $company, "Website" => $website, "PhoneNumber" => $pn, "Birthdate" => $bd, "Gender" => $gender, "Bio" => $bio, "Role" => $role));
+            
+            // create new user using new variables
+            $userEdit = new UserModel(null, $fn, $ln, $email, null, $role, $company, $website, $pn, $bd, $gender, $bio, $suspend, $users_id);
+             
+           
+            // call update method using service passing new User
+            $user = $userBS->refurbishUser($userEdit);
+            
+            // if user information is not empty
+            if ($user) {
+                //call getAllUsers method from sevice and store in new users variable
+                $users = $userBS->retrieveAllUsers();
+                //if statement checking if $users returns true
+                if($users)
+                {
+                    $this->logger->info("Exit AdminController.retrieveAllUsers() with user passed");
+                    //store value of users into new variable
+                    $data = ['model' => $users];
+                    //if statement checking if role of user is 2
+                    if(session('role') == 2)
+                        //if true, return adminControl view with data holding users
+                        return view("adminControl")->with($data);
+                        
+                        else
+                            
+                            //return userstable view with data holding users
+                            return view("usertable")->with($data);
+            }
+        } 
+        }catch (Exception $e2) {
+            // display our Global Exception Handler page
+            $this->logger->error("Exiting ProfileController.updateProfile() with user failed");
+            return view("error");
+        }
     }
     /**
      * Takes in a ID request

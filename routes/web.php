@@ -58,6 +58,7 @@ Route::get('/error', function(){
 Route::get('/home',[ "uses" => 'AccountController@showHome', "as" => 'home']);
 Route::get('/profile/{id}',[ "uses" => 'ProfileController@readProfile', "as" => 'profile']);
 Route::get('/profileEdit/{id}',[ "uses" => 'ProfileController@readEdit', "as" => 'profileEdit']);
+Route::get('/adminProfileEdit/{id}',[ "uses" => 'AdminController@readEdit', "as" => 'adminProfileEdit']);
 
 Route::get('/readEducation',[ "uses" => 'ProfileController@readEducation', "as" => 'readEducation']);
 Route::get('/readExperience',[ "uses" => 'ProfileController@readExperience', "as" => 'readExperience']);
@@ -108,9 +109,10 @@ Route::post('/register','AccountController@register');
 Route::get('/userstable', 'AdminController@retrieveAllUsers')->name('userstable');
 Route::get('/admincontrol', 'AdminController@retrieveAllUsers')->name('admincontrol');
 Route::get('/toggleSuspend/{id}','AdminController@toggleSuspend');
-Route::get('/terminate/{id}','AdminController@terminate');
+Route::get('/terminate/{id}','AdminController@terminateUser');
 
 Route::post('/update','ProfileController@updateProfile')->name('refurbish');
+Route::post('/adminUpdate','AdminController@updateProfile')->name('adminRefurbish');
 
 Route::resource('/usersrest', 'UserRestController');
 Route::resource('/jobsrest', 'JobPostingRestController');
