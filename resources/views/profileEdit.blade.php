@@ -22,7 +22,7 @@ use App\Models\UserModel;
 					<div class="col-sm-3"></div>
 				    <div class="col-sm-3"></div>
                     <div class="col-sm-4" style="margin-left: 80px; display:flex">                
-                         <input type="submit" value="Save Changes" class="btn btn-primary bold">	     
+                         <input type="submit" value="Save Changes" style="margin-right: 10px;" class="btn btn-primary bold">	     
                           <a class="btn btn-primary bold" href="javascript:history.back()">Cancel Changes</a>                                                      
 				 </div>
 			</div>
@@ -31,6 +31,15 @@ use App\Models\UserModel;
 					<div class="tab-content profile-tab" id="myTabContent">
 						<div class="tab-pane fade show active center" id="home"
 							role="tabpanel" aria-labelledby="home-tab">
+							 @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                                @endif
 							<div class="row">
 								<div class="col-md-3 " style="color: Black">
 									<label hidden>UserId</label>
@@ -54,6 +63,7 @@ use App\Models\UserModel;
 									</div>
 								</div>
 							</div>
+							  <p class="bold" style="color: red;">{{ $errors->first('email') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>First Name</label>
@@ -65,6 +75,7 @@ use App\Models\UserModel;
 								</div>
 								</div>
 							</div>
+							  <p class="bold" style="color: red;">{{ $errors->first('firstname') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Last Name</label>
@@ -76,6 +87,7 @@ use App\Models\UserModel;
 								</div>
 								</div>
 							</div>
+							  <p class="bold" style="color: red;">{{ $errors->first('lastname') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Phone</label>
@@ -189,6 +201,7 @@ use App\Models\UserModel;
 								</div>
 								@endif
 							</div>
+							  <p class="bold" style="color: red;">{{ $errors->first('gender') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Bio</label>
@@ -233,7 +246,17 @@ use App\Models\UserModel;
                    		         </div>
 								</div>
 								@endif
+								@if(Session::get('role') == 1 || Session::get('role') == 0)
+								<label hidden>Role</label>
+								</div>
+								<div class="col-md-5 ">
+									<div class="input-group form-group" style="width:300px">
+										<input type="text" class="form-control bold"
+											value="{{$model->getRole()}}" name="role" hidden>
+									</div>
+								</div>
 							</div>
+							@endif
 								<label hidden>Suspend</label>
 								</div>
 								<div class="col-md-5 ">

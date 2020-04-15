@@ -159,6 +159,7 @@ class AccountController extends Controller
                     'jobs' => $jobs,
                     'model' => $user
                 ];
+                
                 // if user is successfully authenticated, return view displaying success
                 return view("home")->with($data);
             } else{

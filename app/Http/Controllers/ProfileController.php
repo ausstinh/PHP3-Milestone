@@ -73,8 +73,9 @@ class ProfileController extends Controller
     public function updateProfile(Request $request)
     {
         $this->logger->info("Entering ProfileController.updateProfile()");
-         try
-         {
+       //  try
+      //   {
+        $this->validateProfileForm($request);
         // new user entered information
         $fn = $request->input('firstname');
         $ln = $request->input('lastname');
@@ -100,8 +101,7 @@ class ProfileController extends Controller
         // call update method using service passing new User
         $user = $userBS->refurbishUser($userEdit);
         
-        
-        
+   
         // if user information is not empty
         if ($user) {
             $this->logger->info("Exiting ProfileController.updateProfile() with user passed");
@@ -112,11 +112,38 @@ class ProfileController extends Controller
             // return profile page displaying $data
             return view("profile")->with($data);
         }
-         } catch (Exception $e2) {
+        // } catch (Exception $e2) {
         // display our Global Exception Handler page
-             $this->logger->error("Exiting ProfileController.updateProfile() with user failed");
+      //       $this->logger->error("Exiting ProfileController.updateProfile() with user failed");
+      //      return view("error");
+      // }
+    }
+    public function validateProfileForm(Request $request)
+    {
+        try{
+            // BEST practice: centralize your rules so you have a consistent architecture
+            // and even reuse your rules
+            
+            // BAD practice: not using a defined Data Validation Framework, putting rules
+            // all over your code, doing only on Client Side or Database
+            // Setup Data Validation Rules for Login Form
+            $rules = [
+                'firstname' => 'Required | Between:4,10',
+                'lastname' => 'Required | Between:4,10',
+                'email' => 'Required | Between:4,25',       
+                'gender' => 'Required'
+            ];
+            // run data validation rules
+            $this->validate($request, $rules);
+        }
+        catch (ValidationException $e1) {
+            throw $e1;
+        }
+        catch (Exception $e2) {
+            // display our Global Exception Handler page
+            $this->logger->error("Exit ProfileController.profile() with update failed ");
             return view("error");
-       }
+        }
     }
     /**
      * Takes in a request for experience information

@@ -222,8 +222,9 @@ class UserDataService implements UserDataInterface
      */
     public function update($user)
     {
+        
         MyLogger2::info("Entering UserDataService.update()");
-        try{
+        //try{
         // variables to retrieve new information from $user
         $users_id = $user->getUsers_id();
         $emailEdit = $user->getEmail();
@@ -254,21 +255,29 @@ class UserDataService implements UserDataInterface
         $stmt->bindParam(':users_id', $users_id);
         $stmt->bindParam(':sus', $suspendEdit);
         $stmt->execute();
-
+        
         // if result has information
         if ($stmt->rowCount() == 1) {
-            // create new user with updated information
-            $p = new UserModel($user->getId(), $fnEdit, $lnEdit, $emailEdit, $user->getPassword(), $roleEdit, $companyEdit, $websiteEdit, $pnEdit, $bnEdit, $genderEdit, $bioEdit, $suspendEdit, $users_id, $users_id);
-        } else {
-            return null;
+            
+                // Select sql statement to look through database using user entered information
+            $stmt = $this->db->prepare("UPDATE `CREDENTIALS` SET `EMAIl` = :email WHERE id = :users_id Limit 1");
+            $stmt->bindParam(':email', $emailEdit);
+            $stmt->bindParam(':users_id', $users_id);
+            $stmt->execute();
+            
+           
+            $p = new UserModel($user->getId(), $fnEdit, $lnEdit, $emailEdit, $user->getPassword(), $roleEdit, $companyEdit, $websiteEdit, $pnEdit, $bnEdit, $genderEdit, $bioEdit, $suspendEdit, $users_id);        
         }
-        // return user
-        MyLogger2::info("Exiting UserDataService.update()");
-        return $p;
-        } catch (Exception $e2) {
+        else 
+            $p = new UserModel($user->getId(), $fnEdit, $lnEdit, $emailEdit, $user->getPassword(), $roleEdit, $companyEdit, $websiteEdit, $pnEdit, $bnEdit, $genderEdit, $bioEdit, $suspendEdit, $users_id);  
+            // return user
+            MyLogger2::info("Exiting UserDataService.update()");
+            
+            return $p;
+       // } catch (Exception $e2) {
             // display our Global Exception Handler page
-            return view("error");
-        }
+       //     return view("error");
+      //  }
     }
 
     /*
