@@ -15,7 +15,7 @@ use App\Models\UserModel;
 use App\Models\EducationModel;
 use App\Models\ExperienceModel;
 use App\Models\SkillsModel;
-use Dotenv\Exception\ValidationException;
+use Illuminate\Validation\ValidationException;
 use App\Models\ValidationModel;
 
 class ProfileController extends Controller
@@ -74,8 +74,8 @@ class ProfileController extends Controller
     public function updateProfile(Request $request)
     {
         $this->logger->info("Entering ProfileController.updateProfile()");
-         //try
-     //   {
+         try
+       {
         $va = new ValidationModel();
         // run data validation rules
         $this->validate($request, $va->validateEditProfile());
@@ -115,11 +115,13 @@ class ProfileController extends Controller
             // return profile page displaying $data
             return view("profile")->with($data);
         }
-        // } catch (Exception $e2) {
+    } catch (ValidationException $e1) {
+        throw $e1;
+    } catch (Exception $e2) {
         // display our Global Exception Handler page
-     //        $this->logger->error("Exiting ProfileController.updateProfile() with user failed");
-     //    return view("error");
-    //  }
+            $this->logger->error("Exiting ProfileController.updateProfile() with user failed");
+         return view("error");
+     }
     }
     /**
      * Takes in a request for experience information
@@ -170,7 +172,9 @@ class ProfileController extends Controller
             //return experience table view with data holding experiences
             return view("experience.experienceTable")->with($data);
         }
-           } catch (Exception $e2) {
+        }  catch (ValidationException $e1) {
+            throw $e1;
+        } catch (Exception $e2) {
         // display our Global Exception Handler page
                $this->logger->info("Exiting ProfileController.updateExperience() with experiences failed ");
               return view("error");
@@ -221,7 +225,9 @@ class ProfileController extends Controller
             //return userstable view with data holding users
             return view("education.educationTable")->with($data);
         }
-        } catch (Exception $e2) {
+          }  catch (ValidationException $e1) {
+              throw $e1;
+          } catch (Exception $e2) {
         // display our Global Exception Handler page
             $this->logger->error("Exiting ProfileController.updateEducation() with education failed ");
             return view("error");
@@ -267,6 +273,8 @@ class ProfileController extends Controller
             //return skilltable view with data holding skills
             return view("skills.skillTable")->with($data);
         }
+        }  catch (ValidationException $e1) {
+            throw $e1;
         } catch (Exception $e2) {
         // display our Global Exception Handler page
             $this->logger->error("Exiting ProfileController.updateSkill() with skill failed ");
@@ -347,6 +355,8 @@ class ProfileController extends Controller
                 return view("education.educationTable")->with($data);
                 
             }
+        }  catch (ValidationException $e1) {
+            throw $e1;
         } catch (Exception $e2) {
             // display our Global Exception Handler page
             $this->logger->error("Exiting ProfileController.createEducation() with education failed ");
@@ -393,6 +403,8 @@ class ProfileController extends Controller
                 return view("skills.skillTable")->with($data);
                 
             }
+        }  catch (ValidationException $e1) {
+            throw $e1;
         } catch (Exception $e2) {
             // display our Global Exception Handler page
             $this->logger->error("Exiting ProfileController.createSkill() with skill failed ");
@@ -443,6 +455,8 @@ class ProfileController extends Controller
                 return view("experience.experienceTable")->with($data);
         }
         
+          } catch (ValidationException $e1) {
+              throw $e1;
           } catch (Exception $e2) {
         // display our Global Exception Handler page
               $this->logger->error("Entering ProfileController.createExperience() with experience passed ");

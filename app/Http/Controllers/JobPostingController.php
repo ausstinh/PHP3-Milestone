@@ -142,7 +142,9 @@ class JobPostingController extends Controller
         else {
             return view("home");
         }
-       } catch (Exception $e2) {
+     }  catch (ValidationException $e1) {
+         throw $e1;
+     } catch (Exception $e2) {
             // display our Global Exception Handler page
            $this->logger->error("Exiting JobPostingController.refurbishJob() with job failed ");
            return view("error");
@@ -199,7 +201,9 @@ class JobPostingController extends Controller
        else {
            return view("home");
        }
-   } catch (Exception $e2) {
+      } catch (ValidationException $e1) {
+          throw $e1;
+      } catch (Exception $e2) {
        // display our Global Exception Handler page
        $this->logger->error("Exiting JobPostingController.refurbishJob() with job failed ");
       return view("error");

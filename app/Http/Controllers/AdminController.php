@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\ValidationException;
 use Exception;
 use App\Models\UserModel;
 use App\Services\Business\UserBusinessService;
@@ -167,7 +168,9 @@ class AdminController extends Controller
                             return view("usertable")->with($data);
             }
         } 
-        }catch (Exception $e2) {
+        } catch (ValidationException $e1) {
+            throw $e1;
+        } catch (Exception $e2) {
             // display our Global Exception Handler page
             $this->logger->error("Exiting ProfileController.updateProfile() with user failed");
             return view("error");

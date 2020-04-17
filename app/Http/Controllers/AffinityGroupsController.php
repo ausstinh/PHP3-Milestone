@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Exception;
 use App\Services\Business\AffinityGroupBusinessService;
 use App\Models\GroupModel;
@@ -143,7 +144,9 @@ class AffinityGroupsController extends Controller
             
         }
       
-      } catch (Exception $e2) {
+     }  catch (ValidationException $e1) {
+         throw $e1;
+     } catch (Exception $e2) {
             // display our Global Exception Handler page
           $this->logger->error("Exiting AffinityGroupsController.refurbishGroup() with group failed ");
           return view("error");
@@ -216,7 +219,9 @@ class AffinityGroupsController extends Controller
        else {
            return view("home");
        }
-  } catch (Exception $e2) {
+      }  catch (ValidationException $e1) {
+          throw $e1;
+      } catch (Exception $e2) {
        // display our Global Exception Handler page
       $this->logger->error("Exiting AffinityGroupsController.insertGroup() with group passed ");
       return view("error");
