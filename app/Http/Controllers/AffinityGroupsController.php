@@ -134,7 +134,7 @@ class AffinityGroupsController extends Controller
             //set current user role in group
             $group->setRole($userGroup->getRole());
             //attempt to  all users
-            $userGroup = $userGroupBS->All($id);
+            $userGroup = $userGroupBS->retrieveAllUserGroups($id);
             // if group is successfully found, return view displaying group information
             $data = [
                 'group' => $group,
