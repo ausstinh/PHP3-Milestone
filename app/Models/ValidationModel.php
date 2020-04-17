@@ -5,8 +5,8 @@ class ValidationModel
 {
     public function validateEditProfile(){
         $rules = [
-            'firstname' => 'Required | Between:4,10',
-            'lastname' => 'Required | Between:4,10',
+            'firstname' => 'Required | Between:4,20',
+            'lastname' => 'Required | Between:4,20',
             'email' => 'Required | Between:4,30',
             'gender' => 'Required'
         ];
@@ -39,14 +39,14 @@ class ValidationModel
     public function validateLoginForm(){
         $rules = [
             'email' => 'Required | Between:4,30',
-            'password' => 'Required | Between:4,10'
+            'password' => 'Required | Between:4,30'
         ];
         return $rules;
     }
     public function validateRegisterForm(){
         $rules = [
-            'firstname' => 'Required | Between:4,10',
-            'lastname' => 'Required | Between:4,10',
+            'firstname' => 'Required | Between:4,20',
+            'lastname' => 'Required | Between:4,20',
             'email' => 'Required | Between:4,30',
             'password' => 'Required | Between:4,30',
             'gender' => 'Required'
@@ -55,7 +55,7 @@ class ValidationModel
     }
     public function validateGroup(){
         $rules = [
-            'name' => 'Required | Between:4,10',
+            'name' => 'Required | Between:4,30',
             'description' => 'Required | Between:4,50',     
         ];
         return $rules;
