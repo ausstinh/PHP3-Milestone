@@ -323,7 +323,7 @@ class JobPostingController extends Controller
            $va = new ValidationModel();
            // run data validation rules
            $this->validate($request, $va->validateSearchJob());
-            $this->validateJobSearch($request);
+                
             $search = $request->input('search');
             // create new instance of JobPostingBusinessService
             $jobBS = new JobPostingBusinessService();
@@ -343,14 +343,14 @@ class JobPostingController extends Controller
             else{
                 return view('jobs.jobSearch');
             }
-       }
-       catch (ValidationException $e1) {
-           throw  $e1;
-       } 
+      }
+      catch (ValidationException $e1) {
+         throw  $e1;
+      } 
        catch (Exception $e2) {
             // display our Global Exception Handler page
-           $this->logger->error("Exiting JobPostingController.searchJobs() with jobs failed ");
-            return view("error");
+          $this->logger->error("Exiting JobPostingController.searchJobs() with jobs failed ");
+           return view("error");
        }
  
     }
