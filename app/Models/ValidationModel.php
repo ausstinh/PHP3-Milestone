@@ -48,6 +48,7 @@ class ValidationModel
             'firstname' => 'Required | Between:4,10',
             'lastname' => 'Required | Between:4,10',
             'email' => 'Required | Between:4,30',
+            'password' => 'Required | Between:4,30',
             'gender' => 'Required'
         ];
         return $rules;
