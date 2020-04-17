@@ -46,6 +46,7 @@ use App\Models\UserModel;
 								</div>
 								</div>
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('description') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Rating</label>

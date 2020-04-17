@@ -44,6 +44,7 @@
 								</div>
 								</div>
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('company') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Description</label>
@@ -54,6 +55,7 @@
 								</div>
 								</div>
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('description') }}</p>
 						<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Location</label>
@@ -65,6 +67,7 @@
 								</div>
 								</div>			
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('location') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Title</label>
@@ -76,6 +79,7 @@
 								</div>
 								</div>
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('title') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Start Date</label>
@@ -87,6 +91,7 @@
 								</div>
 								</div>
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('startdate') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>End Date</label>
@@ -98,6 +103,7 @@
 								</div>
 								</div>					
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('enddate') }}</p>
 						</div>
 					</div>
 				</div>									

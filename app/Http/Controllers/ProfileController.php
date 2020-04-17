@@ -16,6 +16,7 @@ use App\Models\EducationModel;
 use App\Models\ExperienceModel;
 use App\Models\SkillsModel;
 use Dotenv\Exception\ValidationException;
+use App\Models\ValidationModel;
 
 class ProfileController extends Controller
 {
@@ -73,9 +74,11 @@ class ProfileController extends Controller
     public function updateProfile(Request $request)
     {
         $this->logger->info("Entering ProfileController.updateProfile()");
-       //  try
-      //   {
-        $this->validateProfileForm($request);
+         //try
+     //   {
+        $va = new ValidationModel();
+        // run data validation rules
+        $this->validate($request, $va->validateEditProfile());
         // new user entered information
         $fn = $request->input('firstname');
         $ln = $request->input('lastname');
@@ -114,36 +117,9 @@ class ProfileController extends Controller
         }
         // } catch (Exception $e2) {
         // display our Global Exception Handler page
-      //       $this->logger->error("Exiting ProfileController.updateProfile() with user failed");
-      //      return view("error");
-      // }
-    }
-    public function validateProfileForm(Request $request)
-    {
-        try{
-            // BEST practice: centralize your rules so you have a consistent architecture
-            // and even reuse your rules
-            
-            // BAD practice: not using a defined Data Validation Framework, putting rules
-            // all over your code, doing only on Client Side or Database
-            // Setup Data Validation Rules for Login Form
-            $rules = [
-                'firstname' => 'Required | Between:4,10',
-                'lastname' => 'Required | Between:4,10',
-                'email' => 'Required | Between:4,25',       
-                'gender' => 'Required'
-            ];
-            // run data validation rules
-            $this->validate($request, $rules);
-        }
-        catch (ValidationException $e1) {
-            throw $e1;
-        }
-        catch (Exception $e2) {
-            // display our Global Exception Handler page
-            $this->logger->error("Exit ProfileController.profile() with update failed ");
-            return view("error");
-        }
+     //        $this->logger->error("Exiting ProfileController.updateProfile() with user failed");
+     //    return view("error");
+    //  }
     }
     /**
      * Takes in a request for experience information
@@ -158,6 +134,9 @@ class ProfileController extends Controller
     {
         $this->logger->info("Entering ProfileController.updateExperience()");
         try{
+            $va = new ValidationModel();
+            // run data validation rules
+            $this->validate($request, $va->validateExperience());
         // new experience entered information
         $exId = $request->input('id');
         $exCompany = $request->input('company');
@@ -211,6 +190,9 @@ class ProfileController extends Controller
     {
         $this->logger->info("Entering ProfileController.updateEducation()");
           try{
+              $va = new ValidationModel();
+              // run data validation rules
+              $this->validate($request, $va->validateEducation());
         //get education information
         $edId = $request->input("id");
         $edSchool = $request->input('school');
@@ -258,6 +240,9 @@ class ProfileController extends Controller
     {
         $this->logger->info("Entering ProfileController.updateSkill()");
         try{
+            $va = new ValidationModel();
+            // run data validation rules
+            $this->validate($request, $va->validateSkill());
             //get skill information
         $skillId = $request->input("id");
         $skillDesc = $request->input('description');
@@ -337,7 +322,9 @@ class ProfileController extends Controller
     {
         $this->logger->info("Entering ProfileController.createEducation()");
         try{
-            
+            $va = new ValidationModel();
+            // run data validation rules
+            $this->validate($request, $va->validateEducation());
             $edSchool = $request->input('school');
             $edDesc = $request->input('description');
             //new instance of business servic
@@ -379,7 +366,9 @@ class ProfileController extends Controller
     {
         $this->logger->info("Entering ProfileController.createSkill()");
         try{
-            
+            $va = new ValidationModel();
+            // run data validation rules
+            $this->validate($request, $va->validateSkill());
             $skillDesc = $request->input('description');
             $skillRating = $request->input('rating');
             //new instance of business servic
@@ -423,7 +412,9 @@ class ProfileController extends Controller
     {
         $this->logger->info("Entering ProfileController.createExperience()");
           try{
-        
+              $va = new ValidationModel();
+              // run data validation rules
+              $this->validate($request, $va->validateExperience());
         //get new experience information
         $exCompany = $request->input('company');
         $exDesc = $request->input('description');
@@ -789,79 +780,4 @@ class ProfileController extends Controller
             return view("error");
         }
       }
-  public function validateEducationForm(Request $request)
-  {
-      try {
-          // BEST practice: centralize your rules so you have a consistent architecture
-          // and even reuse your rules
-          
-          // BAD practice: not using a defined Data Validation Framework, putting rules
-          // all over your code, doing only on Client Side or Database
-          // Setup Data Validation Rules for Login Form
-          $rules = [
-              'school' => 'Required | Between:4,25',
-              'description' => 'Required | Between:4,10'
-          ];
-          // run data validation rules
-          $this->validate($request, $rules);
-      } catch (ValidationException $e1) {
-          throw $e1;
-      }
-      catch (Exception $e2) {
-          // display our Global Exception Handler page
-          return view("error");
-      }
-  }
-  
-  public function validateSkillForm(Request $request)
-  {
-      try {
-          // BEST practice: centralize your rules so you have a consistent architecture
-          // and even reuse your rules
-          
-          // BAD practice: not using a defined Data Validation Framework, putting rules
-          // all over your code, doing only on Client Side or Database
-          // Setup Data Validation Rules for Login Form
-          $rules = [
-              'description' => 'Required | Between:4,25'
-          ];
-          // run data validation rules
-          $this->validate($request, $rules);
-      } catch (ValidationException $e1) {
-          throw $e1;
-      }
-      catch (Exception $e2) {
-          // display our Global Exception Handler page
-          return view("error");
-      }
-  }
-  
-  public function validateExperienceForm(Request $request)
-  {
-      try {
-          // BEST practice: centralize your rules so you have a consistent architecture
-          // and even reuse your rules
-          
-          // BAD practice: not using a defined Data Validation Framework, putting rules
-          // all over your code, doing only on Client Side or Database
-          // Setup Data Validation Rules for Login Form
-          $rules = [
-              'company' => 'Required | Between:4,25',
-              'description' => 'Required | Between:4,25',
-              'location' => 'Required | Between:4,25',
-              'title' => 'Required | Between:4,25',
-              'startdate' => 'Required | Between:4,10',
-              'enddate' => 'Required | Between:4,10'
-          ];
-          // run data validation rules
-          $this->validate($request, $rules);
-      } catch (ValidationException $e1) {
-          throw $e1;
-      }
-      catch (Exception $e2) {
-          // display our Global Exception Handler page
-          return view("error");
-      }
-  }
-  
 }

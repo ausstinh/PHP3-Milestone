@@ -33,6 +33,7 @@
 								</div>
 								</div>
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('name') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Description</label>
@@ -43,6 +44,7 @@
 								</div>
 								</div>
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('description') }}</p>
 						<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Location</label>
@@ -54,6 +56,7 @@
 								</div>
 								</div>			
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('location') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Salary</label>
@@ -65,6 +68,7 @@
 								</div>
 								</div>
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('salary') }}</p>
 						</div>
 					</div>
 				</div>									

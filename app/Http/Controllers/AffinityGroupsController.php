@@ -11,6 +11,7 @@ use App\Services\Business\UserGroupBusinessService;
 use App\Services\Business\UserBusinessService;
 use App\Services\Utility\ILoggerService;
 use App\Services\Utility\MyLogger2;
+use App\Models\ValidationModel;
 
 
 
@@ -104,6 +105,9 @@ class AffinityGroupsController extends Controller
         $this->logger->info("Entering AffinityGroupsController.refurbishGroup()");
      try 
      {
+         $va = new ValidationModel();
+         // run data validation rules
+         $this->validate($request, $va->validateGroup());
         // update group entered information
         $id = $request->input('id');
         $n = $request->input('name');
@@ -162,7 +166,9 @@ class AffinityGroupsController extends Controller
    {
        $this->logger->info("Entering AffinityGroupsController.insertGroup()");
       try{
-      
+          $va = new ValidationModel();
+          // run data validation rules
+          $this->validate($request, $va->validateGroup());
            // new group entered information
            $n = $request->input('name');
            $desc = $request->input('description');

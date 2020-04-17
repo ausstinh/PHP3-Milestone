@@ -55,6 +55,7 @@
 								</div>
 								</div>
 							</div>
+							<p class="bold" style="color: red;">{{ $errors->first('name') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Description</label>
@@ -64,7 +65,7 @@
 									<textarea cols="50" class="bold" name="description"  rows="5">{{$job->getDescription()}}</textarea>
 								</div>
 								</div>
-							</div>
+							</div>'<p class="bold" style="color: red;">{{ $errors->first('description') }}</p>
 						<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Location</label>
@@ -76,6 +77,7 @@
 								</div>
 								</div>			
 							</div>
+							<p class="bold" style="color: red;">{{ $errors->first('location') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Salary</label>
@@ -86,7 +88,8 @@
 									 value="{{$job->getSalary()}}" name="salary">
 								</div>
 								</div>
-							</div>						
+							</div>				
+							<p class="bold" style="color: red;">{{ $errors->first('salary') }}</p>		
 						</div>
 					</div>
 				</div>									

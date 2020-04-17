@@ -10,6 +10,7 @@ use App\Services\Business\JobPostingBusinessService;
 use App\Services\Utility\ILoggerService;
 use App\Services\Utility\MyLogger2;
 use App\Models\JobPostingModel;
+use App\Models\ValidationModel;
 
 
 class JobPostingController extends Controller
@@ -103,6 +104,9 @@ class JobPostingController extends Controller
         $this->logger->info("Entering JobPostingController.refurbishJob()");
      try 
      {
+         $va = new ValidationModel();
+         // run data validation rules
+         $this->validate($request, $va->validateJob());
         // update job entered information
         $id = $request->input('id');
         $n = $request->input('name');
@@ -161,7 +165,9 @@ class JobPostingController extends Controller
    {
        $this->logger->info("Entering JobPostingController.insertJob()");
       try{
-      
+          $va = new ValidationModel();
+          // run data validation rules
+          $this->validate($request, $va->validateJob());
            // new user entered information
            $n = $request->input('name');
            $desc = $request->input('description');
@@ -310,6 +316,9 @@ class JobPostingController extends Controller
         $this->logger->info("Entering JobPostingController.searchJobs()");
         try
        {
+           $va = new ValidationModel();
+           // run data validation rules
+           $this->validate($request, $va->validateSearchJob());
             $this->validateJobSearch($request);
             $search = $request->input('search');
             // create new instance of JobPostingBusinessService
@@ -340,30 +349,6 @@ class JobPostingController extends Controller
             return view("error");
        }
  
-    }
-    public function validateJobSearch(Request $request)
-    {
-        try{
-            // BEST practice: centralize your rules so you have a consistent architecture
-            // and even reuse your rules
-            
-            // BAD practice: not using a defined Data Validation Framework, putting rules
-            // all over your code, doing only on Client Side or Database
-            // Setup Data Validation Rules for Login Form
-            $rules = [
-                'search' => 'Required',           
-            ];
-            // run data validation rules
-            $this->validate($request, $rules);
-        }
-        catch (ValidationException $e1) {
-            throw $e1;
-        } 
-        catch (Exception $e2) {
-            // display our Global Exception Handler page
-            $this->logger->error("Exit JobPostingController.search() with register failed ");
-            return view("error");
-        }
     }
 
 }

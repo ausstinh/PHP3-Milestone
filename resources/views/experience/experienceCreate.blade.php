@@ -32,7 +32,7 @@
 									 Placeholder="Insert A Company" name="company">
 								</div>
 								</div>
-								{{ $errors->first('company') }}
+								 <p class="bold" style="color: red;">{{ $errors->first('company') }}</p>
 							</div>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
@@ -43,7 +43,7 @@
 									<textarea cols="50" class="bold" name="description" Placeholder="Description" rows="5"></textarea>
 								</div>
 								</div>
-								{{ $errors->first('description') }}
+							 <p class="bold" style="color: red;">{{ $errors->first('description') }}</p>
 							</div>
 						<div class="row">
 								<div class="col-md-3" style="color: Black">
@@ -55,7 +55,7 @@
 									 Placeholder="Insert A Location" name="location">
 								</div>
 								</div>	
-								{{ $errors->first('location') }}		
+								 <p class="bold" style="color: red;">{{ $errors->first('location') }}</p>	
 							</div>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
@@ -67,7 +67,7 @@
 									 Placeholder="Insert A Title" name="title">
 								</div>
 								</div>
-								{{ $errors->first('title') }}
+								 <p class="bold" style="color: red;">{{ $errors->first('title') }}</p>
 							</div>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
@@ -79,7 +79,7 @@
 										Placeholder="Insert A Start Date" name="startdate">
 								</div>
 								</div>
-								{{ $errors->first('startdate') }}
+								 <p class="bold" style="color: red;">{{ $errors->first('startdate') }}</p>
 							</div>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
@@ -91,7 +91,7 @@
 										Placeholder="Insert A End Date" name="enddate">
 								</div>
 								</div>			
-								{{ $errors->first('enddate') }}		
+								 <p class="bold" style="color: red;">{{ $errors->first('enddate') }}</p>
 							</div>
 						</div>
 					</div>

@@ -44,6 +44,7 @@
 								</div>
 								</div>
 							</div>
+							 <p class="bold" style="color: red;">{{ $errors->first('school') }}</p>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">
 									<label>Description</label>
@@ -53,7 +54,8 @@
 									<textarea cols="50" class="bold" name="description"  rows="5">{{$education->getDescription()}}</textarea>
 								</div>
 								</div>
-							</div>						
+							</div>	
+							 <p class="bold" style="color: red;">{{ $errors->first('description') }}</p>					
 						</div>
 					</div>
 				</div>									

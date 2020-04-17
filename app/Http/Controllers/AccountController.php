@@ -12,6 +12,7 @@ use App\Services\Utility\ILoggerService;
 use App\Models\UserModel;
 use App\Models\CredentialsModel;
 use Illuminate\Contracts\View\View;
+use App\Models\ValidationModel;
 
 class AccountController extends Controller
 {
@@ -34,7 +35,9 @@ class AccountController extends Controller
     {
         $this->logger->info("Entering AccountController.register()");
         try {
-            $this->validateRegisterForm($request);
+            $va = new ValidationModel();
+            // run data validation rules
+            $this->validate($request, $va->validateRegisterForm());
             // variables to store user input
             $firstName = $request->input('firstname');
             $lastName = $request->input('lastname');
@@ -121,7 +124,9 @@ class AccountController extends Controller
     {
         $this->logger->info("Entering AccountController.login()");
         try {
-            $this->validateLoginForm($request);
+            $va = new ValidationModel();
+            // run data validation rules
+            $this->validate($request, $va->validateLoginForm());
             // two variables to store user email and password
             $email = $request->input('email');
             $password = $request->input('password');

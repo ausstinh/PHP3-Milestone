@@ -31,15 +31,6 @@ use App\Models\UserModel;
 					<div class="tab-content profile-tab" id="myTabContent">
 						<div class="tab-pane fade show active center" id="home"
 							role="tabpanel" aria-labelledby="home-tab">
-							 @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                                @endif
 							<div class="row">
 								<div class="col-md-3 " style="color: Black">
 									<label hidden>UserId</label>

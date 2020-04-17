@@ -11,6 +11,7 @@ use App\Services\Business\UserBusinessService;
 use App\Services\Business\JobPostingBusinessService;
 use App\Services\Utility\ILoggerService;
 use App\Services\Utility\MyLogger2;
+use App\Models\ValidationModel;
 class AdminController extends Controller
 {
     protected $logger;
@@ -116,6 +117,9 @@ class AdminController extends Controller
         $this->logger->info("Entering AdminController.updateProfile()");
         try
         {
+            $va = new ValidationModel();
+            // run data validation rules
+            $this->validate($request, $va->validateEditProfile());
             // new user entered information
             $fn = $request->input('firstname');
             $ln = $request->input('lastname');

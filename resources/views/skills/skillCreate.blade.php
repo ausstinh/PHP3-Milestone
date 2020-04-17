@@ -34,7 +34,7 @@ use App\Models\UserModel;
 									<textarea cols="50" class="bold" name="description" Placeholder="Description" rows="5"></textarea>
 								</div>
 								</div>
-								{{ $errors->first('description') }}
+								 <p class="bold" style="color: red;">{{ $errors->first('description') }}</p>
 							</div>
 							<div class="row">
 								<div class="col-md-3" style="color: Black">

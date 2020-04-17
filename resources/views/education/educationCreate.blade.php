@@ -33,7 +33,7 @@ use App\Models\UserModel;
 								<div class="input-group form-group" style="width:300px">
 									<input type="text" class="form-control bold"
 									 Placeholder="Insert A School" name="school">
-								{{ $errors->first('school') }}
+								 <p class="bold" style="color: red;">{{ $errors->first('school') }}</p>
 								</div>
 								</div>
 							
@@ -45,7 +45,7 @@ use App\Models\UserModel;
 								<div class="col-md-6">
 								<div class="input-group form-group" style="width:300px">
 									<textarea cols="50" class="bold" name="description" Placeholder="Description" rows="5"></textarea>
-								{{ $errors->first('description') }}
+								 <p class="bold" style="color: red;">{{ $errors->first('description') }}</p>
 								</div>
 								</div>
 								
