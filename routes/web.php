@@ -83,7 +83,7 @@ Route::get('/deleteSkill/{id}',[ "uses" => 'ProfileController@deleteSkill' ]);
 Route::get('/readJobs',[ "uses" => 'JobPostingController@retrieveAllJobs', "as" => 'readJobs']);
 Route::get('/jobEdit/{id}',[ "uses" => 'JobPostingController@retrieveJobEdit', "as" => 'readJobEdit']);
 Route::post('/createJob',[ "uses" => 'JobPostingController@insertJob', "as" => 'createJob']);
-Route::post('/updateJob',[ "uses" => 'JobPostingController@reburishJob', "as" => 'updateJob']);
+Route::post('/updateJob',[ "uses" => 'JobPostingController@refurbishJob', "as" => 'updateJob']);
 Route::get('/deleteJob/{id}',[ "uses" => 'JobPostingController@terminateJob']);
 Route::get('/JobSearch',[ "uses" => 'JobPostingController@viewJobs', "as" => 'viewJobSearch']);
 Route::get('/job/{id}',[ "uses" => 'JobPostingController@retrieveJob', "as" => 'viewJob']);
