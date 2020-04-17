@@ -128,19 +128,28 @@ class AffinityGroupsController extends Controller
         //if statement checking if update returns true
         if($group)
         {
-            $this->logger->info("Exiting AffinityGroupsController.refurbishGroup() with group passed");
-            // attempt to get userGroup
-            $userGroup = $userGroupBS->retrieveUserGroup($id, session()->get('users_id'));
+            // attempt to get  group
+            $group = $groupBS->retrieveGroup($id);
+            // attempt to  userGroup
+            $userGroup = app('App\Http\Controllers\UserGroupController')->retrieveUserGroup($id);
+            
             //set current user role in group
-            $group->setRole($userGroup->getRole());
-            //attempt to  all users
-            $userGroup = $userGroupBS->retrieveAllUserGroups($id);
-            // if group is successfully found, return view displaying group information
-            $data = [
-                'group' => $group,
-                'userGroup' => $userGroup
-            ];
-            return view("groups.groupView")->with($data);
+            if($userGroup != null)
+                $group->setRole($userGroup->getRole());
+                else
+                    $group->setRole(0);
+                    // all users in group
+                    $userGroup = app('App\Http\Controllers\UserGroupController')->retrieveAllUserGroup($id);
+                    
+                    if ($group) {
+                        $this->logger->info("Exiting AffinityGroupsController.Group() with group passed");
+                        // if group is successfully found, return view displaying group information
+                        $data = [
+                            'group' => $group,
+                            'userGroup' => $userGroup
+                        ];
+                        return view("groups.groupView")->with($data);
+                    }
             
         }
       
