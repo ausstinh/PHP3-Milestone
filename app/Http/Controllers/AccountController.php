@@ -16,8 +16,9 @@ use App\Models\ValidationModel;
 
 class AccountController extends Controller
 {
+    //logger variable
     protected $logger;
-    
+    //controller constructor with ILoggerService param
     public function __construct(ILoggerService $logger){
         $this->logger = $logger;
     }
@@ -79,7 +80,7 @@ class AccountController extends Controller
     public function showHome()
     {
         $this->logger->info("Entering AccountController.showHome()");
-       // try {
+        try {
             // create new instance of userBusinessService
             $userBS = new UserBusinessService();
 
@@ -103,12 +104,12 @@ class AccountController extends Controller
                 //return home page with data
                 return view("home")->with($data);
             }
-       // } 
-       // catch (Exception $e2) {
+       } 
+        catch (Exception $e2) {
             $this->logger->error("Exit AccountController.showHome() with user failed" );
             // display our Global Exception Handler page
             return view("error");
-      //  }
+       }
     }
 
     /**

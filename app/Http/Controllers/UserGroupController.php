@@ -13,8 +13,9 @@ use App\Services\Utility\MyLogger2;
 
 class UserGroupController extends Controller
 {
+    //logger variable
     protected $logger;
-    
+    //controller constructor with ILoggerService param
     public function __construct(ILoggerService $logger){
         $this->logger = $logger;
     }
@@ -36,8 +37,9 @@ class UserGroupController extends Controller
           
             // attempt to retrieve userGroup
             $userGroup = $userGroupBS->retrieveUserGroup($group_id, session()->get('users_id'));
-           
+           //checks if usergroup is found
             if ($userGroup) { 
+                //returns usergrup
               return $userGroup;
             } 
        } catch (Exception $e2) {
@@ -57,13 +59,13 @@ class UserGroupController extends Controller
         $this->logger->info("Entering UserGroupsController.retrieveGroup()");
         try {
             // create new instance of AffinityGroupBusinessService and UserGroupBusinessSerivce
-            
             $userGroupBS = new UserGroupBusinessService();
             
-            
+            //attempts to retieve all usergroups
             $userGroups = $userGroupBS->retrieveAllUserGroups($group_id);
-            
+            //checks if usergroups is found
             if ($userGroups) {
+                //return usersgroups
               return $userGroups;
             }
         } catch (Exception $e2) {
@@ -82,7 +84,7 @@ class UserGroupController extends Controller
     public function joinUserGroup($groups_id)
     {
         $this->logger->info("Entering AffinityGroupsController.joinGroup()");
-      //  try {
+        try {
         // create new instance of userGroupBusinessService and AffinityGroupBusinessService
         $userGroupBS = new UserGroupBusinessService();
        
@@ -94,13 +96,13 @@ class UserGroupController extends Controller
         $success = $userGroupBS->joinUserGroup($userGroup);
       
         if ($success) {
-           
+           //returns to affinity group controller to view group with updated usergroup
             return app('App\Http\Controllers\AffinityGroupsController')->Group($groups_id);
         }
-    //    } catch (Exception $e2) {
+       } catch (Exception $e2) {
         // display our Global Exception Handler page
             return view("error");
-      //    }
+         }
     }
       
     /**
@@ -113,7 +115,7 @@ class UserGroupController extends Controller
     public function leaveUserGroup($groups_id)
     {
         $this->logger->info("Entering AffinityGroupsController.leaveGroup()");
-       //  try {
+         try {
         // create new instance of userGroupBusinessService and AffinityGroupBusinessService
         $userGroupBS = new UserGroupBusinessService();
       
@@ -128,8 +130,8 @@ class UserGroupController extends Controller
         if ($success) {
                 
         return app('App\Http\Controllers\AffinityGroupsController')->Group($groups_id);      
-     //   }
-      //  } catch (Exception $e2) {
+      }
+       } catch (Exception $e2) {
         // display our Global Exception Handler page
              return view("error");
          }

@@ -3,6 +3,9 @@ namespace App\Models;
 
 class ValidationModel
 {
+    /**
+     * @return array
+     */
     public function validateEditProfile(){
         $rules = [
             'firstname' => 'Required | Between:4,20',
@@ -12,6 +15,9 @@ class ValidationModel
         ];
         return $rules;
     }
+    /**
+     * @return array
+     */
     public function validateEducation(){
         $rules = [
             'school' => 'Required | Between:4,25',
@@ -19,6 +25,9 @@ class ValidationModel
         ];
         return $rules;
     }
+    /**
+     * @return array
+     */
     public function validateExperience(){
         $rules = [
             'company' => 'Required | Between:4,25',
@@ -30,12 +39,18 @@ class ValidationModel
         ];
         return $rules;
     }
+    /**
+     * @return array
+     */
     public function validateSkill(){
         $rules = [
             'description' => 'Required | Between:4,50'
         ];
         return $rules;
     }
+    /**
+     * @return array
+     */
     public function validateLoginForm(){
         $rules = [
             'email' => 'Required | Between:4,30',
@@ -43,6 +58,9 @@ class ValidationModel
         ];
         return $rules;
     }
+    /**
+     * @return array
+     */
     public function validateRegisterForm(){
         $rules = [
             'firstname' => 'Required | Between:4,20',
@@ -53,6 +71,9 @@ class ValidationModel
         ];
         return $rules;
     }
+    /**
+     * @return array
+     */
     public function validateGroup(){
         $rules = [
             'name' => 'Required | Between:4,30',
@@ -60,12 +81,18 @@ class ValidationModel
         ];
         return $rules;
     }
+    /**
+     * @return array
+     */
     public function validateSearchJob(){
         $rules = [
             'search' => 'Required',
         ];
         return $rules;
     }
+    /**
+     * @return array
+     */
     public function validateJob(){
         $rules = [
             'name' => 'Required | Between:4,25',

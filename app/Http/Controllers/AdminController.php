@@ -15,8 +15,9 @@ use App\Services\Utility\MyLogger2;
 use App\Models\ValidationModel;
 class AdminController extends Controller
 {
+    //logger variable
     protected $logger;
-    
+    //controller constructor with ILoggerService param
     public function __construct(ILoggerService $logger){
         $this->logger = $logger;
     }

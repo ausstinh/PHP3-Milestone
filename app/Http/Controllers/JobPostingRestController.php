@@ -25,13 +25,15 @@ class JobPostingRestController extends Controller
     {
         $this->logger->info("Entering JobPostingRestController.index()");
         try{
+            //new instance of business service
             $service = new JobPostingBusinessService();
+            //attempts to retrieve all jobs
             $jobs = $service->retrieveAllJobs();
-            
+            //create a new DTO from found jobs
             $dto = new DTO(0, "OK", $jobs);
-            
+            //places dto in json list
             $json = json_encode($dto);
-            
+            //return json list
             return $json;
         } catch (Exception $e1){
             $this->logger->error("Exception: ", array("message" => $e1->getMessage()));
@@ -51,17 +53,21 @@ class JobPostingRestController extends Controller
     {
         $this->logger->info("Entering UserRestController.show()");
         try{
+            //new instance of business service
             $service = new JobPostingBusinessService();
+            //attempts to retrieve all jobs
             $job = $service->retrieveJob($id);
-          
+          //checks if job is null
             if ($job == null){
+                //create a new DTO for error
                 $dto = new DTO(-1, "Job Not Found", "");
+              //return as json list
                 return json_encode($dto);
             }
             else{
-               
+                //create a new DTO from found job
                 $dto = new DTO(0, "OK",  $job);
- 
+                ///places dto in json list
                     return json_encode($dto);
                 }
                 

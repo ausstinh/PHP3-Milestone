@@ -15,8 +15,9 @@ use App\Models\ValidationModel;
 
 class JobPostingController extends Controller
 {
+    //logger variable
     protected $logger;
-    
+    //controller constructor with ILoggerService param
     public function __construct(ILoggerService $logger){
         $this->logger = $logger;
     }
@@ -132,10 +133,11 @@ class JobPostingController extends Controller
             // attempt to readAll jobs
             $jobs = $jobBS->retrieveAllJobs();
             // store jobs information into variable
-            // display jobs table page
+           
             $data = [
                 'model' => $jobs
             ];
+            // display jobs table page
             return view("jobs.jobTable")->with($data);
             
         }
@@ -332,18 +334,21 @@ class JobPostingController extends Controller
             $jobs = $jobBS->searchJob($search);
             if($jobs){
             $this->logger->info("Exiting JobPostingController.searchJobs() with jobs");
+           
             // store jobs information into variable
-            // display jobs table page
-          
+           
             $data = [
                 'model' => $jobs
             ];
+            // display jobs table page
             return view("jobs.jobSearchResults")->with($data);
             }
             else{
+                //returns to jobSearch view
                 return view('jobs.jobSearch');
             }
       }
+      //catch validation exception
       catch (ValidationException $e1) {
          throw  $e1;
       } 

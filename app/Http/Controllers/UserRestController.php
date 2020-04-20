@@ -26,13 +26,15 @@ class UserRestController extends Controller
     {
         $this->logger->info("Entering UserRestController.index()");
         try{
+            //new instance of business service
             $service = new UserBusinessService();
+            //attempts to retrieve all users
             $users = $service->retrieveAllUsers();
-            
+            //create a new DTO from found users
             $dto = new DTO(0, "OK", $users);
-            
+            //places DTO in a json list
             $json = json_encode($dto);
-            
+            //returns json list
             return $json;
         } catch (Exception $e1){
             $this->logger->error("Exception: ", array("message" => $e1->getMessage()));
@@ -52,15 +54,21 @@ class UserRestController extends Controller
     {
         $this->logger->info("Entering UserRestController.show()");
         try{
+            //new instance of business service
             $service = new UserBusinessService();
+            //attempts to retrieve one user by id
             $user = $service->findById($id);
+            //checks if no found user
             if ($user == null){
+                //create a new DTO from no users
                 $dto = new DTO(-1, "User Not Found", "");
+               //return dto as json list
                 return json_encode($dto);
             }
                 else{
+                    //create a new DTO from found user
                     $dto = new DTO(0, "OK", $user);
- 
+                    //return dto as json list
                     return json_encode($dto);
                 }
                 

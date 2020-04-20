@@ -18,15 +18,16 @@ use App\Models\ValidationModel;
 
 class AffinityGroupsController extends Controller
 {
+    //logger variable
     protected $logger;
-    
+    //controller constructor with ILoggerService param
     public function __construct(ILoggerService $logger){
         $this->logger = $logger;
     }
     public function Group($id)
     {
         $this->logger->info("Entering AffinityGroupsController.Group()");
-      //  try {
+        try {
             // create new instance of AffinityGroupBusinessService and UserGroupBusinessSerivce
             $groupBS = new AffinityGroupBusinessService();
            
@@ -52,11 +53,11 @@ class AffinityGroupsController extends Controller
                 ];
                 return view("groups.groupView")->with($data);
             } 
-      // } catch (Exception $e2) {
+      } catch (Exception $e2) {
             // display our Global Exception Handler page
            $this->logger->error("Exiting AffinityGroupsController.Group() with group failed ");
           return view("error");
-       //}
+       }
     }
     /**
      * Takes in a group ID
@@ -117,7 +118,6 @@ class AffinityGroupsController extends Controller
         
         // create new instance of AffinityGroupBusinessService and UserGroupBusinessService
        $groupBS = new AffinityGroupBusinessService();
-       $userGroupBS = new UserGroupBusinessService();
         
         // create new group using new variables
         $groupEdit = new GroupModel($id, $n, $desc);

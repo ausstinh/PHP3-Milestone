@@ -3,14 +3,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Exception;
 use App\Services\Business\UserBusinessService;
 use App\Services\Business\EducationBusinessService;
 use App\Services\Business\ExperienceBusinessService;
 use App\Services\Business\SkillBusinessService;
 use App\Services\Utility\ILoggerService;
-use App\Services\Utility\MyLogger2;
 use App\Models\UserModel;
 use App\Models\EducationModel;
 use App\Models\ExperienceModel;
@@ -20,8 +18,9 @@ use App\Models\ValidationModel;
 
 class ProfileController extends Controller
 {
+    //logger variable
     protected $logger;
-    
+    //controller constructor with ILoggerService param
     public function __construct(ILoggerService $logger){
         $this->logger = $logger;
     }
