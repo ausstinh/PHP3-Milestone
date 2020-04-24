@@ -6,7 +6,6 @@
   		<div class="table-responsive bg-light">
   		<h3 style="display:contents">Jobs</h3>
   		<a class="btn btn-primary bold" href="{{ route('jobCreate') }}">Insert Job</a>
-  		<a class="btn btn-primary bold" href="{{ route('profile', Session::get('users_id')) }}">Profile</a>
   		<table class="table" style="color: black">
   				<tr>
   					<th style="width: 1%;">Name</th>

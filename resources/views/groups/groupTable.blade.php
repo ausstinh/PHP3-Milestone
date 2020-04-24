@@ -9,8 +9,8 @@
   		<a class="btn btn-primary bold" href="{{ route('groupCreate') }}">Create Group</a>
   	    	<table class="table" style="color: black">
   				<tr>
-  					<th style="width: 1%;">Name</th>
-  					<th style="width: 1%;">Description</th>
+  					<th style="width: 3%;">Name</th>
+  					<th>Description</th>
   				</tr>
   			</table>
   		@foreach ($model as $group)  	
